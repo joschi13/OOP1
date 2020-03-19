@@ -16,7 +16,7 @@ Insgesamt gibt es 100 Punkte zu erreichen (+ 15 Bonuspunkte)
   - Die Hälfte der Punkte ergibt sich aus der Anzahl der bestandenen Test Cases (Kategorie Funktionalität)
   - Die zweite Hälfte der Punkte ergibt sich zu gleichen Teilen aus den anderen vier [Beurteilungskategorien](https://tc.tugraz.at/main/mod/page/view.php?id=82566).
 - **ACHTUNG!** Als Abgabe gilt der letzte Commit vor Abgabefrist auf dem Git-Branch mit dem Namen `submission`.
-  - Eine Missachtung dieser Spezifikation (indem z.B. kein `submission`-Branch erstellt wird) wird mit einem 25%igen Abzug auf die erreichten Punkte geahndet.
+  - Eine Missachtung dieser Spezifikation (indem z.B. kein `submission`-Branch erstellt wird) wird mit einem 50%igen Abzug auf die erreichten Punkte geahndet.
   - Abgaben über einen anderen Kanal als GitLab (z.B. Mail) werden **ausnahmslos** nicht akzeptiert!
 
 

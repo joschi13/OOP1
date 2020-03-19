@@ -207,7 +207,7 @@ namespace Oop
       // Must only be used before ending the game with an error
       // @param msg the error message to be printed
       //
-      static void error(const std::string msg);
+      void error(const std::string msg);
   };
 }
 

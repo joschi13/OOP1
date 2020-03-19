@@ -36,7 +36,7 @@ Wurde die maximale Anzahl an Handkarten (7) erreicht, kann man keine weitere Kar
 [INFO] Rebirth unsuccessful\n
 ```
 
-Die beschworene Kreatur landet auf deiner Spielfeldhälfte auf der Position mit der niedrigsten Nummer und hat wieder dieselben Eigenschaften, als wäre die Karte frisch von der Hand gespielt worden (volle Lebenspunkte, Angriffspunkte, speedy, ...). Die wiederbelebte Kreatur darf in dieser Runde noch nicht angreifen und nicht angegriffen werden ([Beschwörungszeit](../README.md)), außer die Kreatur hat die speedy-Eigenschaft (nur Bonus).
+Die beschworene Kreatur landet auf deiner Spielfeldhälfte auf der Position mit der niedrigsten Nummer und hat wieder dieselben Eigenschaften, als wäre die Karte frisch von der Hand gespielt worden (volle Lebenspunkte, Angriffspunkte, ...). Die wiederbelebte Kreatur darf in dieser Runde noch nicht angreifen und nicht angegriffen werden ([Beschwörungszeit](../README.md)), außer die Kreatur hat die speedy-Eigenschaft (speedy-Eigenschaft ist ein Bonustask).
 
 
 
