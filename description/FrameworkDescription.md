@@ -7,7 +7,7 @@
 Achtung: **reponame** muss durch den Namens eures Repository ersetzt werden!
 
 ```
-git clone git@gitlab.tugraz.at:oop1-2020/<repo-name>.git
+git clone git@gitlab.tugraz.at:oop1-2020/assignment.git
 ```
 
 
