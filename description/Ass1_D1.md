@@ -37,7 +37,7 @@ Die Klasse `Game` lädt das Config-File, startet, verwaltet und beendet das Spie
     - Wird das Config-File nicht gefunden oder ist das Config-File ungültig, soll folgende Fehlermeldung innerhalb der Funktion (über das Interface) ausgegeben werden
 
         ```
-        [ERROR] Invalid configfile!\n
+        [ERROR] Invalid config file!\n
         ```
 
 - `run()`

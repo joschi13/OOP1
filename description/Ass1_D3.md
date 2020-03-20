@@ -228,7 +228,7 @@ Ist der Parameter innerhalb des vorgegebenen Wertebereichs und kann der Befehl n
  soll folgende Fehlermeldung ausgegeben werden:
 
 ```
-[INFO] execution not possible!\n
+[INFO] Execution not possible!\n
 ```
 
 

@@ -19,7 +19,7 @@ Usage: ./game <config-file>
 Ist das [Config-File](Ass1_D2.md) ungültig, soll das Programm mit  **-3** beenden (Oop::RETURN_ERROR_BAD_CONFIG) und folgende Fehlermeldung ausgeben:
 
 ```
-[ERROR] Invalid Config File!\n
+[ERROR] Invalid config file!\n
 ```
 
 ##### Out of Memory

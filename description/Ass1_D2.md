@@ -419,7 +419,7 @@ Die Commands werden im [Deliverable 3](Ass1_D3.md) implementiert
 [INFO] Please enter the name of player 1: christian
 [INFO] Please enter the name of player 2: DaViD
 [INFO] Round: 0
-[INFO] current player is christian
+[INFO] Current player is christian
 
 ==================================================================================
 
@@ -462,7 +462,7 @@ christian >
 christian > 
 christian > 
 christian > finish
-[INFO] current player is DaViD
+[INFO] Current player is DaViD
 
 ==================================================================================
 
@@ -506,7 +506,7 @@ DaViD >
 DaViD > 
 DaViD > finish
 [INFO] Round: 1
-[INFO] current player is christian
+[INFO] Current player is christian
 
 ==================================================================================
 

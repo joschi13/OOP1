@@ -99,7 +99,6 @@ namespace Oop
       const static std::string SET_TRAITOR_SPELL;
 
       // command types
-      const static std::string UNKNOWN_COMMAND;
       const static std::string COMMAND_HELP;
       const static std::string COMMAND_ATTACK;
       const static std::string COMMAND_SET;

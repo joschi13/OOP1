@@ -71,7 +71,6 @@ const std::string Interface::TARGET_TRAITOR_SPELL =
 const std::string Interface::SET_TRAITOR_SPELL = 
   "Please enter where you would like to set the creature: ";
 
-const std::string Interface::UNKNOWN_COMMAND = "unknown command!";
 const std::string Interface::COMMAND_HELP = "help";
 const std::string Interface::COMMAND_ATTACK = "attack";
 const std::string Interface::COMMAND_SET = "set";
