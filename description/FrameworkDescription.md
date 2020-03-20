@@ -4,10 +4,10 @@
 
 ### Git Repository clonen
 
-**TODO: - name einfügen**
+Achtung: **reponame** muss durch den Namens eures Repository ersetzt werden!
 
 ```
-git clone https://gitlab.tugraz.at/XXXXXXX
+git clone https://gitlab.tugraz.at/<reponame>
 ```
 
 
@@ -17,13 +17,10 @@ git clone https://gitlab.tugraz.at/XXXXXXX
 Sollten nachträglich kleine Änderungen in der Angabe oder im Framework vorgenommen werden, werden diese im allgemeinen Upstream Repository durchgeführt. Um immer den aktuellen Stand zu erhalten, muss daher das Upstream Repository einmalig hinzugefügt werden.
 
 
-
-**TODO: - Upstream repo name einfügen**
-
 Füge das Upstream Repository einmalig hinzu:
 
 ```
-git remote add upstream https://gitlab.tugraz.at/XXXXXXX
+git remote add upstream https://gitlab.tugraz.at/oop1-2020/assignment
 ```
 
 
