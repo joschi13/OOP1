@@ -4,7 +4,15 @@ Im Deliverable 1 werden die notwendigen Klassen erstellt, um das Spiel spielen z
 
 Die allgemeine Spielbeschreibung ist unter [README.md](../README.md) nachzulesen.
 
-**ACHTUNG: Die zur Verfügung gestellte Printfunktion erfordert, dass zumindest alle Getter-Methoden das Objekt nicht verändern (const) !**
+
+
+<mark>**! Es MUSS jede Klasse im Oop-Namespace enthalten sein !**</mark>
+
+
+
+**! Die zur Verfügung gestellte Printfunktion erfordert, dass zumindest alle Getter-Methoden das Objekt nicht verändern (const) !**
+
+
 
 ## Klasse Game
 
@@ -303,3 +311,20 @@ Nähere Beschreibungen zu den Zauberkarten sind unter [SpellCardDescription](Spe
     - überprüft den `spell_type_` des Zauberspruchs und führt den Zauberspruch aus.
     - Die Implementierung der Zaubersprüche erfolgt in Assignment 1 Deliverable 3. 
     Bis dahin ist es ausreichend, den Rückgabewert auf FALSE zu setzen.
+
+
+
+
+
+#  Spezifikation
+
+-  nur geforderte Ausgaben
+-  Es **MUSS** jede Klasse im Oop-Namespace enthalten sein.
+
+##  Erlaubte Bibliotheken
+
+-  alle Bibliotheken der C++ Standard Library
+
+## Abgabe
+
+- siehe [Assignment Description](Assignments.md)

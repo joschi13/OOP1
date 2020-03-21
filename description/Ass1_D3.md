@@ -302,3 +302,19 @@ Wobei **`X`** für den Namen des Spielers steht. Das Programm beendet mit Rückg
 Kreaturen können die Eigenschaft `speedy` haben, welche im [Config-File](Ass1_D2.md) mitgegeben wird (einfach ein zusätzliches Attribut das akzeptiert wird. Dieses Attribut muss dann bei allen Kreaturen im Config-File vorhanden sein). Wenn Kreaturen diese Eigenschaft besitzen, kann die Kreatur sofort nach dem Ausspielen angreifen (und angegriffen werden). Das bedeutet die [Beschwörungszeit](../README.md) fällt weg. 
 
 Siehe [Bonus Config-File](../config/config08_bonus.json)
+
+
+
+# Spezifikation
+
+-  nur geforderte Ausgaben
+-  Es **MUSS** jede Klasse im Oop-Namespace enthalten sein.
+
+##  Erlaubte Bibliotheken
+
+-  alle Bibliotheken der C++ Standard Library
+
+## Abgabe
+
+- siehe  [Assignment Description](Assignments.md)
+
