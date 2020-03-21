@@ -95,14 +95,14 @@ Wichtig ist, dass `game_field_`, `pick_up_stack_`, `hand_` und `graveyard_` gena
 - `Player(std::string name)`
     - setzt Attribute
         - `name_` auf `name`
-        - `live_points_` auf `30`
+        - `life_points_` auf `30`
         - `mana_points_` auf `0`
     - führt etwaige notwendige Schritte für die Datenstrukturen `game_field_`, `pick_up_stack_`, `hand_` und `graveyard_` durch (abhängig von der Datenstruktur)
 
 - Player()
     - setzt Attribute
         - `name_` auf `""`
-        - `live_points_` auf `30`
+        - `life_points_` auf `30`
         - `mana_points_` auf `0`
     - führt etwaige notwendige Schritte für die Datenstrukturen `game_field_`, `pick_up_stack_`, `hand_` und `graveyard_` durch (abhängig von der Datenstruktur)
 
