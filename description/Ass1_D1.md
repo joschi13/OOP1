@@ -129,7 +129,7 @@ Wichtig ist, dass `game_field_`, `pick_up_stack_`, `hand_` und `graveyard_` gena
     - gibt die Länge des Vectors `hand_` zurück
 - `getGameField()`
     - Rückgabewert: const CreatureCard**
-    - gibt das Attribut `game_field_` als const CreatureCard** zurück
+    - gibt das Attribut `game_field_` als const CreatureCard* const* zurück
 
 
 ## Klasse Card
