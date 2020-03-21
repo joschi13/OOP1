@@ -550,3 +550,18 @@ christian >
 
 ```
 
+
+
+#  Spezifikation
+
+-  nur geforderte Ausgaben
+-  Es **MUSS** jede Klasse im Oop-Namespace enthalten sein.
+
+##  Erlaubte Bibliotheken
+
+-  alle Bibliotheken der C++ Standard Library
+
+## Abgabe
+
+- siehe  [Assignment Description](Assignments.md)
+
