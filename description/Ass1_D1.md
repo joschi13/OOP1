@@ -136,10 +136,8 @@ Wichtig ist, dass `game_field_`, `pick_up_stack_`, `hand_` und `graveyard_` gena
     - Rückgabewert: int
     - gibt die Länge des Vectors `hand_` zurück
 - `getGameField()`
- ```diff
-+   - Rückgabewert: const CreatureCard* const*
-+   - gibt das Attribut `game_field_` als const CreatureCard* const* zurück
- ```
+	- <mark>Rückgabewert: const CreatureCard* const*</mark>
+	- <mark>gibt das Attribut `game_field_` als const CreatureCard* const* zurück</mark>
 
 
 ## Klasse Card
@@ -157,12 +155,18 @@ enum CardType {CREATURE, SPELL};
 ### Attribute
 
 - `name_`
+    
     - Name der Karte aus dem Configfile als String mit max. 8 Zeichen
 - `mana_cost_`
     - Manakosten der Karte als Integer
+
     - Wertebereich von 1 bis einschließlich 15
-    - Dieses Attribut soll nach Initialisierung nicht mehr geändert werden können
+
+    - <mark>Dieses Attribut kann nach der Initialisierung geändert werden </mark> 
+
+      ​		<mark>Änderung: 22.03. David K</mark>
 - `type_`
+    
     - Der Typ der Karte als CardType
 
 ### Konstruktoren
