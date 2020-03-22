@@ -9,6 +9,8 @@
 #include "Interface.hpp"
 #include "Player.hpp"
 #include "Card.hpp"
+#include "CreatureCard.hpp"
+#include "SpellCard.hpp"
 
 #include <iostream>
 #include <algorithm>
