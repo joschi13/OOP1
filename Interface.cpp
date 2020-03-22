@@ -199,14 +199,14 @@ void Interface::printHandCards(const Oop::Player* player, bool show_hand_cards)
       bool shield = false;
       bool speedy = false;
       int mana_costs = card->getManaCost(); // 1..15
-      int live_points = 0; // 0..9
+      int life_points = 0; // 0..9
       int damage_points = 0; // 0..9
       if (card->getType() == Card::CardType::CREATURE)
       {
         mana_drain = static_cast<CreatureCard*>(card)->getManaDrain();
         shield = static_cast<CreatureCard*>(card)->getShield();
         speedy = static_cast<CreatureCard*>(card)->getSpeedy();
-        live_points = static_cast<CreatureCard*>(card)->getCurrentLifePoints();
+        life_points = static_cast<CreatureCard*>(card)->getCurrentLifePoints();
         damage_points = static_cast<CreatureCard*>(card)->getDamagePoints();
       }
 
@@ -238,7 +238,7 @@ void Interface::printHandCards(const Oop::Player* player, bool show_hand_cards)
                      + (card->getType() == Card::CardType::CREATURE ? 
                      getAsStringWithPad(damage_points) : "x_") + "____"
                      + (card->getType() == Card::CardType::CREATURE ? 
-                     getAsStringWithPad(live_points) : "_x");
+                     getAsStringWithPad(life_points) : "_x");
     }
     else
     {
@@ -269,11 +269,11 @@ void Interface::printHandCards(const Oop::Player* player, bool show_hand_cards)
 //------------------------------------------------------------------------------
 void Interface::printPlayerInfo(const Oop::Player* player)
 {
-  int live_points = player->getLifePoints();
+  int life_points = player->getLifePoints();
   int mana_points = player->getManaPoints();
 
   std::cout << std::endl << PLAYER_PADDING << " LP : " << std::setw(2) 
-            << live_points << " | MANA : " << std::setw(2) << mana_points 
+            << life_points << " | MANA : " << std::setw(2) << mana_points
             << "/15 " << PLAYER_PADDING << std::endl << std::endl;
 }
 
@@ -296,7 +296,7 @@ void Interface::printGamefieldCards(const Oop::Player* player)
     if (card != nullptr)
     {
       int damage_points = card->getDamagePoints(); // 0..9
-      int live_points = card->getCurrentLifePoints(); // 0..9
+      int life_points = card->getCurrentLifePoints(); // 0..9
       bool shield = card->getShield();
       bool mana_drain = card->getManaDrain();
 
@@ -329,7 +329,7 @@ void Interface::printGamefieldCards(const Oop::Player* player)
       board.at(3) += CARD_SEPERATOR + "|  " + ready_string + "  |";
       board.at(4) += CARD_SEPERATOR + "|      |";
       board.at(5) += CARD_SEPERATOR + getAsStringWithPad(damage_points) 
-                     + "____" + getAsStringWithPad(live_points);
+                     + "____" + getAsStringWithPad(life_points);
     }
     else
     {
