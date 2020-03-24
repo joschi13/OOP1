@@ -185,6 +185,15 @@ namespace Oop
       std::string askPlayer(const std::string msg);
 
       //------------------------------------------------------------------------
+      // The ask Player function
+      // Prints the message with output type on the screen without \n at the end
+      // and returns the input
+      //
+      // @return string containing the answer
+      //
+      std::string askPlayer(const OutputType type, const std::string msg);
+
+      //------------------------------------------------------------------------
       // The print command prompt function
       // Prints the name of the current player as command prompt
       //

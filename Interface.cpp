@@ -376,8 +376,8 @@ std::string Interface::readPlayerName(bool player)
   std::string player_name;
   while(1)
   {
-    std::cout << ((player) ? (PLAYER_2_NAME) : (PLAYER_1_NAME));
-    player_name = in();
+    player_name = askPlayer(INFO, 
+      ((player) ? (PLAYER_2_NAME) : (PLAYER_1_NAME)));
     if(player_name.length() >= MIN_LETTERS_NAME 
        && player_name.length() <= MAX_LETTERS_NAME)
     {
@@ -392,6 +392,15 @@ std::string Interface::askPlayer(const std::string msg)
 {
   std::string answer;
   std::cout << msg;
+  answer = in();
+  return answer;
+}
+
+//------------------------------------------------------------------------------
+std::string Interface::askPlayer(const OutputType type, const std::string msg) 
+{
+  std::string answer;
+  std::cout << PROTOCOL.at(type) + " " + msg;
   answer = in();
   return answer;
 }
