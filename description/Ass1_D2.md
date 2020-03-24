@@ -34,7 +34,8 @@ Ein valides Config-File wird unter [`config/`](../config/config01.json) bereitge
   - Schadenswert (`damage_points`) ist eine Ganzzahl im Bereich 0-9
   - Lebenspunkte (`life_points`) ist eine Ganzzahl im Bereich 1-9.
   - Kreaturen haben einen eindeutigen Namen mit einer maximalen Länge von 8 Zeichen.
-  - `mana_cost` ist eine positive Ganzzahl
+  - <mark>`mana_cost` ist eine Ganzzahl im Bereich 1-15.</mark>
+
   - `shield` und `mana_drain` sind Wahrheitswerte
   - Es müssen alle 6 Attribute vorhanden sein (die Reihenfolge ist dabei egal): 
     - `name`
@@ -357,7 +358,7 @@ Beide Spieler erhalten das selbe [Config-File](#ConfigFile) und somit auch diese
 
 
 
-Bei Spielstart sollen zunächst die beiden Spielernamen eingegeben werden können. Das Framework stellt dafür die Funktion `Oop::Interface::in()` zur Verfügung. 
+<mark>Danach</mark> sollen die beiden Spielernamen eingegeben werden können. Das Framework stellt dafür die Funktion `Oop::Interface::in()` zur Verfügung. 
 
 **Nach dem Doppelpunkt folgt ein Leerzeichen**, danach soll der Name eingegeben werden können.
 
