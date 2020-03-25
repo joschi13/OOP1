@@ -51,9 +51,9 @@ int Player::getHandSize() const
 	return hand_.size();
 }
 
-const CreatureCard** Player::getGameField() 
+const CreatureCard* const* Player::getGameField()
 {
-	return &(game_field_[0]);
+	return game_field_;
 
 }
 
