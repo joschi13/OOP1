@@ -16,7 +16,7 @@ namespace Oop
   {
   private:
 
-    Interface& io_;
+    Oop::Interface& io_;
     
   public:
     //------------------------------------------------------------------------
