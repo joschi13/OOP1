@@ -41,7 +41,7 @@ void Player::reduceMana(int mana)
 	}
 }
 
-std::vector<Card*> Player::getHandCards() const
+const std::vector<Card*> Player::getHandCards() const
 {
 	return hand_;
 }
@@ -51,8 +51,9 @@ int Player::getHandSize() const
 	return hand_.size();
 }
 
-CreatureCard** Player::getGameField() const
+const CreatureCard** Player::getGameField() 
 {
-	return game_field_;
+	return &(game_field_[0]);
+
 }
 

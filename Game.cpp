@@ -11,6 +11,7 @@
 
 
 using Oop::Game;
+using Oop::Interface;
 
 Game::Game(Oop::Interface &io) : io_(io){}
 

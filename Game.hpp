@@ -16,13 +16,13 @@ namespace Oop
   {
   private:
 
-    Oop::Interface& io_;
+    Interface& io_;
     
   public:
     //------------------------------------------------------------------------
     // Constructor
     //
-    Game(Oop::Interface &io);
+    Game(Interface &io);
     
     //------------------------------------------------------------------------
     // Destructor
