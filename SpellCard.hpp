@@ -10,7 +10,7 @@
 #define SPELLCARD_HPP
 
 #include <string>
-#include "Game.h"
+#include "Game.hpp"
 #include "Card.hpp"
 
 //------------------------------------------------------------------------------

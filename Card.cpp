@@ -12,7 +12,7 @@ int Card::getManaCost() const
   return mana_cost_;
 }
 
-Oop::CardType Card::getType() const
+Card::CardType Card::getType() const
 {
   return type_;
 }

@@ -21,17 +21,15 @@ namespace Oop
   // for name, mana cost and type of card
   //
 
-  enum CardType {CREATURE, SPELL};
+  
 
   class Card
   {
-    private:
-
-      std::string name_;
-      int mana_cost_;
-      CardType type_;
+    
 
     public:
+
+      enum CardType {CREATURE, SPELL};
 
       Card(std::string name, int mana_cost, CardType type)
       {
@@ -44,7 +42,13 @@ namespace Oop
 
       int getManaCost() const;
 
-      CardType getType() const;  
+      CardType getType() const;
+
+    private:
+
+      std::string name_;
+      int mana_cost_;
+      CardType type_;  
   };
 }
 
