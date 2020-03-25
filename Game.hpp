@@ -9,9 +9,12 @@
 #ifndef INCLUDE_GAME_H
 #define INCLUDE_GAME_H
 
+#include "Interface.hpp"
 
 namespace Oop
 {
+  class Interface;
+
   class Game
   {
   private:

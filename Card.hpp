@@ -21,12 +21,8 @@ namespace Oop
   // for name, mana cost and type of card
   //
 
-  
-
   class Card
   {
-    
-
     public:
 
       enum CardType {CREATURE, SPELL};
