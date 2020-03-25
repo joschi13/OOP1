@@ -2,17 +2,17 @@
 
 using Oop::Card;
 
-std::string getName() const
+std::string Card::getName() const
 {
   return name_;
 }
 
-int getManaCost() const
+int Card::getManaCost() const
 {
   return mana_cost_;
 }
 
-CardType getType() const
+Oop::CardType Card::getType() const
 {
   return type_;
-}    
+}

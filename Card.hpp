@@ -9,8 +9,6 @@
 #ifndef CARD_HPP
 #define CARD_HPP
 
-enum CardType {CREATURE, SPELL};
-
 #include <string>
 
 //------------------------------------------------------------------------------
@@ -22,6 +20,8 @@ namespace Oop
   // This class defines a game card and provides setter and getter methodes
   // for name, mana cost and type of card
   //
+
+  enum CardType {CREATURE, SPELL};
 
   class Card
   {
@@ -35,14 +35,7 @@ namespace Oop
 
       Card(std::string name, int mana_cost, CardType type)
       {
-        if(name.size > 8)
-        {
-          name_ = name.substr(0,8);
-        }else
-        {
-          name_ = name;
-        }
-        
+        name_ = name;
         mana_cost_ = mana_cost;
         type_ = type;
       }
