@@ -21,11 +21,12 @@ using std::string;//*
 
 using namespace rapidjson;
 using Oop::Game;
+using Oop::Interface;
 
 Game::Game(Oop::Interface &io) : io_(io){}
 
 
-bool loadConfig(std::string config_file)
+bool Game::loadConfig(std::string config_file)
 {
   string json;
   ifstream infile(config_file);
@@ -39,7 +40,7 @@ bool loadConfig(std::string config_file)
   //TO-DO
 }
 
-void run()
+void Game::run()
 {
   //TO-DO
 }

@@ -24,10 +24,10 @@ namespace Oop
 			std::string name_;
 			int life_points_;
 			int mana_points_;
-			const CreatureCard *game_field_[7];
-			const std::vector<Card*> pick_up_stack_;
-			const std::vector<Card*> hand_;				//max size is missing! TODO
-			const std::vector<CreatureCard> graveyard_;
+			CreatureCard* game_field_ [7];
+			std::vector<Card*> pick_up_stack_;
+			std::vector<Card*> hand_;				//max size is missing! TODO
+			std::vector<CreatureCard> graveyard_;
 
 
 		public:
@@ -57,7 +57,7 @@ namespace Oop
 			
 			int getLifePoints() const;
 			
-			void addLifePoints(int points) ;
+			void addLifePoints(int points);
 			
 			int getManaPoints() const;
 			
@@ -65,11 +65,11 @@ namespace Oop
 			
 			void reduceMana(int mana);
 			
-			std::vector<Card*> getHandCards() const;
+			const std::vector<Card*> getHandCards() const;
 
 			int getHandSize() const;
 
-			const CreatureCard** getGameField();
+			const CreatureCard* const* getGameField() const;
 
 	};
 	

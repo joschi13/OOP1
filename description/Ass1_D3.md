@@ -20,7 +20,7 @@ Siehe [Deliverable 2](Ass1_D2.md) unter Spielstart.
 
 **Allgemein gilt:**
 
-- Hat man für einen Befehl nicht genügend Mana, soll folgende Fehlermeldung ausgegeben werden:
+- Hat man für einen Befehl <mark>(set oder cast)</mark> nicht genügend Mana, soll folgende Fehlermeldung ausgegeben werden:
 
   ```
   [INFO] Not enough mana for this move!\n
