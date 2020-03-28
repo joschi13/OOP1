@@ -6,6 +6,7 @@
 //------------------------------------------------------------------------------
 //
 #include <iostream>
+#include "Interface.hpp"
 #include "Game.hpp"
 
 
@@ -15,7 +16,7 @@ using Oop::Interface;
 Game::Game(Oop::Interface &io) : io_(io){}
 
 
-bool Game::loadConfig(std::string config_file)
+bool loadConfig(std::string config_file)
 {
   if(/*invalid config file*/true)
   {
@@ -25,7 +26,7 @@ bool Game::loadConfig(std::string config_file)
   //TO-DO
 }
 
-void Game::run()
+void run()
 {
   //TO-DO
 }
