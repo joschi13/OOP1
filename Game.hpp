@@ -11,6 +11,7 @@
 
 #include "Interface.hpp"
 
+
 namespace Oop
 {
   class Interface;
@@ -30,12 +31,12 @@ namespace Oop
     //------------------------------------------------------------------------
     // Destructor
     //
-    virtual ~Game() noexcept;
+    //virtual ~Game() noexcept;
 
     //------------------------------------------------------------------------
     // Deleted copy constructor
     //
-    Game(const Game& original) = delete;
+    //Game(const Game& original) = delete;
 
     bool loadConfig(std::string config_file);
 
