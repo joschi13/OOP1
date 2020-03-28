@@ -85,7 +85,6 @@ namespace Oop
       const static std::string WARNING_INVALID_NAME;
       const static std::string WARNING_UNKNOWN_COMMAND;
       const static std::string WARNING_WRONG_PARAMETER;
-      const static std::string WARNING_WRONG_PARAM_COUNT;
       const static std::string WARNING_NOT_ENOUGH_MANA;
       const static std::string WARNING_EXECUTION_NOT_POSSIBLE;
       const static std::string WARNING_SHIELD_MONSTER;

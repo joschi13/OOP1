@@ -31,8 +31,6 @@ const std::string Interface::WARNING_INVALID_NAME =
 const std::string Interface::WARNING_UNKNOWN_COMMAND = "Unknown command!";
 const std::string Interface::WARNING_WRONG_PARAMETER = 
   "Invalid command parameter!";
-const std::string Interface::WARNING_WRONG_PARAM_COUNT =
-	"Wrong parameter count!";
 const std::string Interface::WARNING_NOT_ENOUGH_MANA = 
   "Not enough mana for this move!";
 const std::string Interface::WARNING_EXECUTION_NOT_POSSIBLE = 
