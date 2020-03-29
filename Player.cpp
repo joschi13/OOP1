@@ -1,3 +1,10 @@
+//------------------------------------------------------------------------------
+// Player.hpp
+//
+// Authors: Martin Schachl 11907003
+//
+//------------------------------------------------------------------------------
+//
 #include "Player.hpp"
 #include "Card.hpp"
 #include "CreatureCard.hpp"
@@ -24,6 +31,7 @@ int Player::getManaPoints() const
 {
 	return mana_points_;
 }
+
 void Player::addMana(int mana)
 {
 	mana_points_ = mana_points_ + mana;
@@ -32,6 +40,7 @@ void Player::addMana(int mana)
 		mana_points_ = 15;
 	}
 }
+
 void Player::reduceMana(int mana)
 {
 	mana_points_ = mana_points_ - mana;
@@ -54,6 +63,5 @@ int Player::getHandSize() const
 const CreatureCard* const* Player::getGameField() const
 {
 	return game_field_;
-
 }
 
