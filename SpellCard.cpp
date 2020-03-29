@@ -13,7 +13,8 @@ using Oop::Card;
 using Oop::SpellCard;
 
 //------------------------------------------------------------------------------
-SpellCard::SpellCard(SpellType type) : Card(determineName(type), determineManaCosts(type), CardType::SPELL)
+SpellCard::SpellCard(SpellType type) : Card(determineName(type), \
+determineManaCosts(type), CardType::SPELL)
 {
   spell_type_ = type;
 }
