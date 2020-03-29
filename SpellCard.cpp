@@ -1,8 +1,29 @@
+//------------------------------------------------------------------------------
+// SpellCard.cpp
+//
+// Group: Group 9, study assistant David Kerschbaumer 
+//
+// Authors: Johannes Aigner 11907005
+//------------------------------------------------------------------------------
+//
+
 #include "SpellCard.hpp"
 
 using Oop::Card;
 using Oop::SpellCard;
 
+//------------------------------------------------------------------------------
+SpellCard::SpellCard(SpellType type) : Card(determineName(type), determineManaCosts(type), CardType::SPELL)
+{
+  spell_type_ = type;
+}
+
+//------------------------------------------------------------------------------
+SpellCard::~SpellCard() noexcept
+{
+}
+
+//------------------------------------------------------------------------------
 std::string SpellCard::determineName(SpellType type)
 {
   switch(type){
@@ -20,6 +41,7 @@ std::string SpellCard::determineName(SpellType type)
   }
 }
 
+//------------------------------------------------------------------------------
 int SpellCard::determineManaCosts(SpellType type)
 {
   switch(type){
@@ -37,6 +59,7 @@ int SpellCard::determineManaCosts(SpellType type)
   }
 }
 
+//------------------------------------------------------------------------------
 bool SpellCard::action(Game& game)
 {
   //TODO

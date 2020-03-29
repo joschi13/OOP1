@@ -1,8 +1,9 @@
 //------------------------------------------------------------------------------
 // CreatureCard.hpp
 //
-// Authors: Johannes Aigner
+// Group: Group 9, study assistant David Kerschbaumer 
 //
+// Authors: Johannes Aigner 11907005
 //------------------------------------------------------------------------------
 //
 
@@ -15,13 +16,12 @@
 //------------------------------------------------------------------------------
 namespace Oop
 {
+  class Card;
+
   //----------------------------------------------------------------------------
   // CreatureCard Class
   // This class defines a creature card and provides setter and getter methodes
   // 
-
-  class Card;
-  
   class CreatureCard : public Card
   {
     private:
@@ -37,18 +37,20 @@ namespace Oop
 
     public:
 
-      CreatureCard(std::string name, int mana_cost, int damage_points, int life_points, bool shield, bool mana_drain, bool speedy) : \
-      Card(name, mana_cost, CardType::CREATURE), damage_points_(damage_points), life_points_(life_points), shield_(shield)
-      {
-        mana_drain_ = mana_drain;
-        ready_to_fight_ = false;
-        already_attacked_ = false;
-        speedy_ = false;
-        
-        //current_life_points_ = life_points;   /TODO
-        //speedy_ = speedy; for bonus task (Deliverable 3)
-      }
+      //------------------------------------------------------------------------
+      // Constructor
+      //
+      CreatureCard(std::string name, int mana_cost, int damage_points, \
+      int life_points, bool shield, bool mana_drain, bool speedy);
 
+      //--------------------------------------------------------------------------
+      // Destructor
+      //
+      virtual ~CreatureCard() noexcept;
+
+      //------------------------------------------------------------------------
+      // Getter Methods
+      //
       int getLifePoints() const;
 
       int getDamagePoints() const;
