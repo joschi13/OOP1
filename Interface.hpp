@@ -92,8 +92,6 @@ namespace Oop
 			const static std::string WARNING_REBIRTH_UNSUCCESSFUL;
 
       // OutputType: INFO
-      const static std::string INFO_CONNECTION;
-      const static std::string INFO_QUIT_MSG;
       const static std::string PLAYER_1_NAME;
       const static std::string PLAYER_2_NAME;
       const static std::vector<std::string> INFO_HELP_MSGS;
@@ -138,7 +136,7 @@ namespace Oop
 
       const static int MAX_HAND_CARDS;
       const static int NUM_OF_BOARD_LINES;
-      const static int NUM_OF_GAMEFIELD_CARDS;
+      const static int NUM_OF_GAMEFIELD_CARDS = 7;
 
       //------------------------------------------------------------------------
       // The in funciton

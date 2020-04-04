@@ -145,7 +145,6 @@ const int Interface::MAX_MANA_GAIN = 8;
 
 const int Interface::MAX_HAND_CARDS = 7;
 const int Interface::NUM_OF_BOARD_LINES = 6;
-const int Interface::NUM_OF_GAMEFIELD_CARDS = 7;
 
 //------------------------------------------------------------------------------
 Interface::Interface()
