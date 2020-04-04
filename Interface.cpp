@@ -39,6 +39,8 @@ const std::string Interface::WARNING_EXECUTION_NOT_POSSIBLE =
   "Execution not possible!";
 const std::string Interface::WARNING_SHIELD_MONSTER = 
   "Destroy all shields first!";
+const std::string Interface::WARNING_REBIRTH_UNSUCCESSFUL =
+	"Rebirth unsuccessful!";
 
 const std::vector<std::string> Interface::INFO_HELP_MSGS =
 {

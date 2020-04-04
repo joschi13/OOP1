@@ -89,6 +89,7 @@ namespace Oop
       const static std::string WARNING_NOT_ENOUGH_MANA;
       const static std::string WARNING_EXECUTION_NOT_POSSIBLE;
       const static std::string WARNING_SHIELD_MONSTER;
+			const static std::string WARNING_REBIRTH_UNSUCCESSFUL;
 
       // OutputType: INFO
       const static std::string INFO_CONNECTION;
