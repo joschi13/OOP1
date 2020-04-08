@@ -243,7 +243,7 @@
   ],
   "Spells" : [
     {
-      "name": "Healer"
+      "nam": "Healer"
     },
     {
       "name": "Relief"

@@ -10,6 +10,7 @@
 #ifndef INCLUDE_GAME_H
 #define INCLUDE_GAME_H
 
+
 //------------------------------------------------------------------------------
 namespace Oop
 {
@@ -57,6 +58,8 @@ namespace Oop
       // Starts the game and quits when the game is finished or the user quits
       //
       void run();
+
+      
   };
 }
 
