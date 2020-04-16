@@ -9,9 +9,12 @@
 
 #include "Interface.hpp"
 #include "Game.hpp"
+#include "Card.hpp"
+#include "CreatureCard.hpp"
+#include "SpellCard.hpp"
 #include "rapidjson/document.h"
  
-#include <iostream>
+//#include <iostream>
 
 
 using Oop::Interface;
@@ -33,11 +36,20 @@ bool Game::loadConfig(std::string config_file)
 {
   Document doc;
   SizeType index;
-
+  
+  std::string name;
+  int stack_size, mana_costs, damage_points, life_points;
+  bool shield, mana_drain;
+  const char * spell_name;
+/*
+  Oop::CreatureCard creature_card;
+  Oop::SpellCard spell_card;
+*/
+  //read file
   std::FILE* fptr = std::fopen(config_file.c_str(), "r");
 
   if (!fptr) {
-    std::cout << Oop::Interface::ERROR_INVALID_CONFIG  << std::endl;
+    io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
     return false;
   }
 
@@ -49,15 +61,16 @@ bool Game::loadConfig(std::string config_file)
   fclose(fptr);
 
   doc.Parse(content.c_str());
-
-  if((doc.IsObject()) && (doc.HasMember("Creatures")) && \
-     (doc.HasMember("Spells"))){
+  
+  //check json structure
+  if((doc.IsObject()) && (doc.MemberCount() == 2) && \
+     (doc.HasMember("Creatures")) && (doc.HasMember("Spells"))){
     Value& creatures = doc["Creatures"];
     Value& spells = doc["Spells"];
 
     if((creatures.IsArray()) && (spells.IsArray()) && \
-       (creatures.Size() + spells.Size() >= 10))
-    {
+       (stack_size = creatures.Size() + spells.Size() >= 10))
+    {//check creatures
       for(index = 0; index < creatures.Size(); index++)
       {
         Value& temp = creatures[index];
@@ -65,11 +78,32 @@ bool Game::loadConfig(std::string config_file)
            temp.HasMember("damage_points") && temp.HasMember("life_points") &&  \
            temp.HasMember("shield") && temp.HasMember("mana_drain"))
           {
-            if((1 < temp["mana_cost"].GetInt() < 15) && (0 < temp["damage_points"].GetInt() < 9) && \
-               (1 < temp["life_points"].GetInt() < 9) && temp["shield"].IsBool() && \
-                temp["mana_drain"].IsBool())
+
+            if((temp["mana_cost"].IsInt()) && (temp["damage_points"].IsInt()) && \
+               (temp["life_points"].IsInt()) && temp["shield"].IsBool() && \
+                temp["mana_drain"].IsBool() && temp["name"].IsString() && \
+               (temp.MemberCount() == 6))
             {
-              //TODO
+              name = temp["name"].GetString();
+              mana_costs = temp["mana_cost"].GetInt();
+              damage_points = temp["damage_points"].GetInt();
+              life_points = temp["life_points"].GetInt();
+              shield = temp["shield"].GetBool();
+              mana_drain = temp["mana_drain"].GetBool();
+              
+              if(inBetween(mana_costs, 1, 15) && inBetween(damage_points, 0, 9) && \
+                 inBetween(life_points, 1, 9))
+              {
+                //new Oop::CreatureCard(name, mana_costs, damage_points, life_points, \
+                                      shield, mana_drain, false);
+
+                //TODO Add and check for same attribues if same name
+              }else
+              {
+                break;
+              }
+              
+                            
             }else
             {
               break;
@@ -81,23 +115,33 @@ bool Game::loadConfig(std::string config_file)
           }
       }
 
-      if(index == creatures.Size()){
+      if(index == creatures.Size())
+      {//check spells
         for(index = 0; index < spells.Size(); index++)
         {
           Value& temp = spells[index];
-          if(temp.HasMember("name") && temp.MemberCount() == 1)
+          if(temp.HasMember("name") && temp["name"].IsString() && \
+            (temp.MemberCount() == 1))
           {
+            name = temp["name"].GetString();
+            spell_name = name.c_str();
+            if(!(std::strcmp(spell_name, "Healer") && std::strcmp(spell_name, "Relief") && \
+                std::strcmp(spell_name, "Rebirth") && std::strcmp(spell_name, "Dracula")))
+            {
+              //pick_up_stack.push_back(new SpellCard())
+            }else
+            {
+              break;
+            }
             
           }else
           {
             break;
           }
-          
         }
 
         if(index == spells.Size())
         {
-          //TODO
           return true;
         }
       }
@@ -107,6 +151,13 @@ bool Game::loadConfig(std::string config_file)
   io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
   return false;
 }
+
+//------------------------------------------------------------------------------
+bool Game::inBetween(int x, int low, int high)
+{
+  return ((x >= low) && (x <= high));
+}
+
 
 //------------------------------------------------------------------------------
 void Game::run()

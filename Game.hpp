@@ -10,11 +10,14 @@
 #ifndef INCLUDE_GAME_H
 #define INCLUDE_GAME_H
 
+#include <vector>
+
 
 //------------------------------------------------------------------------------
 namespace Oop
 {
   class Interface;
+  class Card;
 
   //----------------------------------------------------------------------------
   // Game Class
@@ -26,6 +29,10 @@ namespace Oop
     private:
 
       Oop::Interface& io_;
+
+      bool inBetween(int x, int low, int high);
+
+      static std::vector<Card*> pick_up_stack;
     
     public:
 
