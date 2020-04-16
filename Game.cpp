@@ -3,7 +3,8 @@
 //
 // Group: Group 9, study assistant David Kerschbaumer
 //
-// Authors: Michael Zweimüller 11916150
+// Authors: Michael Zweimüller  11916150
+//          Johannes Aigner     11907005  
 //------------------------------------------------------------------------------
 //
 
@@ -13,8 +14,6 @@
 #include "CreatureCard.hpp"
 #include "SpellCard.hpp"
 #include "rapidjson/document.h"
- 
-//#include <iostream>
 
 
 using Oop::Interface;
@@ -41,10 +40,10 @@ bool Game::loadConfig(std::string config_file)
   int stack_size, mana_costs, damage_points, life_points;
   bool shield, mana_drain;
   const char * spell_name;
-/*
-  Oop::CreatureCard creature_card;
-  Oop::SpellCard spell_card;
-*/
+  SpellType type;
+
+  Oop::Card* cur_card;
+
   //read file
   std::FILE* fptr = std::fopen(config_file.c_str(), "r");
 
@@ -94,8 +93,8 @@ bool Game::loadConfig(std::string config_file)
               if(inBetween(mana_costs, 1, 15) && inBetween(damage_points, 0, 9) && \
                  inBetween(life_points, 1, 9))
               {
-                //new Oop::CreatureCard(name, mana_costs, damage_points, life_points, \
-                                      shield, mana_drain, false);
+                //cur_card = new Oop::CreatureCard(name, mana_costs, damage_points, life_points, \
+                                                 shield, mana_drain, false);
 
                 //TODO Add and check for same attribues if same name
               }else
@@ -125,14 +124,34 @@ bool Game::loadConfig(std::string config_file)
           {
             name = temp["name"].GetString();
             spell_name = name.c_str();
-            if(!(std::strcmp(spell_name, "Healer") && std::strcmp(spell_name, "Relief") && \
-                std::strcmp(spell_name, "Rebirth") && std::strcmp(spell_name, "Dracula")))
+
+            if(std::strcmp(spell_name, "Healer"))
             {
-              //pick_up_stack.push_back(new SpellCard())
+              if(std::strcmp(spell_name, "Relief"))
+              {
+                if(std::strcmp(spell_name, "Rebirth"))
+                {
+                  if(std::strcmp(spell_name, "Dracula"))
+                  {
+                    break;
+                  }else
+                  {
+                    type = Oop::DRACULA;
+                  }
+                }else
+                {
+                  type = Oop::REBIRTH;
+                }
+              }else
+              {
+                type = Oop::RELIEF;
+              }
             }else
             {
-              break;
+              type = Oop::HEALER;
             }
+            
+            //cur_card = new Oop::SpellCard(type);  TODO
             
           }else
           {
