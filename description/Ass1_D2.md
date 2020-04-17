@@ -358,7 +358,7 @@ Beide Spieler erhalten das selbe [Config-File](#ConfigFile) und somit auch diese
 
 
 
-<mark>Danach</mark> sollen die beiden Spielernamen eingegeben werden können. Das Framework stellt dafür die Funktion `Oop::Interface::in()` zur Verfügung. 
+<mark>Danach</mark> sollen die beiden Spielernamen eingegeben werden können. Das Framework stellt dafür die Funktion `Oop::Interface::readPlayerName()` zur Verfügung. 
 
 **Nach dem Doppelpunkt folgt ein Leerzeichen**, danach soll der Name eingegeben werden können.
 
