@@ -32,7 +32,7 @@ namespace Oop
 
       bool inBetween(int x, int low, int high);
 
-      static std::vector<Card*> pick_up_stack;
+      std::vector<Card*> pick_up_stack;
     
     public:
 
@@ -65,6 +65,8 @@ namespace Oop
       // Starts the game and quits when the game is finished or the user quits
       //
       void run();
+
+      bool checkForCardEquality(Card* card);
 
       
   };

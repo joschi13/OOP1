@@ -8,6 +8,7 @@
 //
 
 #include "SpellCard.hpp"
+#include "Interface.hpp"
 
 using Oop::Card;
 using Oop::SpellCard;
@@ -29,16 +30,16 @@ std::string SpellCard::determineName(SpellType type)
 {
   switch(type){
     case Oop::HEALER:
-      return "Healer";
+      return Interface::STRING_HEALER;
 
     case Oop::RELIEF:
-      return "Relief";
+      return Interface::STRING_RELIEF;
 
     case Oop::REBIRTH:
-      return "Rebirth";
+      return Interface::STRING_REBIRTH;
 
     case Oop::DRACULA:
-      return "Dracula";
+      return Interface::STRING_DRACULA;
   }
 }
 
