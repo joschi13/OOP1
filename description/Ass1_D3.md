@@ -30,6 +30,8 @@ Siehe [Deliverable 2](Ass1_D2.md) unter Spielstart.
 
 - Alle Befehle sind case-insensitive, das heißt Groß- und Kleinschreibung wird nicht beachtet.
 
+- <mark>Es können mehrfach Leerzeichen vor, zwischen und nach den Befehlen vorkommen. Der Befehl bleibt dadurch gültig. z.B. "    set      3               to    1      "   (Hinzugefügt David K. 4.4.)</mark> 
+
 - In eckige Klammern geschriebene Buchstaben [X] [Y] sind die Parameter dieser zu implementierenden Funktion.
 
 - Das Spielfeld soll nicht nach jedem Befehl ausgegeben werden, sondern nur zu Beginn des Spielzuges und nach Eingabe des Befehls [`state`](#state)
