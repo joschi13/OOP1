@@ -39,6 +39,8 @@ const std::string Interface::WARNING_EXECUTION_NOT_POSSIBLE =
   "Execution not possible!";
 const std::string Interface::WARNING_SHIELD_MONSTER = 
   "Destroy all shields first!";
+const std::string Interface::WARNING_REBIRTH_UNSUCCESSFUL =
+	"Rebirth unsuccessful!";
 
 const std::vector<std::string> Interface::INFO_HELP_MSGS =
 {
@@ -143,7 +145,6 @@ const int Interface::MAX_MANA_GAIN = 8;
 
 const int Interface::MAX_HAND_CARDS = 7;
 const int Interface::NUM_OF_BOARD_LINES = 6;
-const int Interface::NUM_OF_GAMEFIELD_CARDS = 7;
 
 //------------------------------------------------------------------------------
 Interface::Interface()

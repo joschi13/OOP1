@@ -18,18 +18,13 @@ namespace Oop
 //------------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
-  if (argc < 2 || argc > 2)
-  {
-    std::cout << Oop::Interface::ERROR_WRONG_ARGUMENTS << std::endl;
-    return Oop::RETURN_ERROR_ARGUMENT;
-  }
-
   // check if argument count is valid
   if (argc != 2)
   {
+		std::cout << Oop::Interface::ERROR_WRONG_ARGUMENTS << std::endl;
     return Oop::RETURN_ERROR_ARGUMENT;
   }
-  
+
   // create game and interface and start the game
   try
   {
