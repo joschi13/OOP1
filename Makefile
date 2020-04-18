@@ -12,8 +12,8 @@ ERRORS 	   = -Werror=old-style-cast -Werror=non-virtual-dtor \
   -Werror=array-bounds -Werror=uninitialized \
   -Werror=format -Werror=format-nonliteral -Werror=float-equal \
   -Werror=delete-non-virtual-dtor -Werror=return-type
-CXXFLAGS   = $(WARNINGS) $(ERRORS) $(ASANFLAGS) -g -c -std=c++17 -fsanitize=address -o
-LDFLAGS    = $(ASANFLAGS)
+CXXFLAGS   = $(WARNINGS) $(ERRORS)  -g -c -std=c++14  -o
+LDFLAGS    = 
 LDLIBS     =
 #-------------------------------------------------------------------------------
 
