@@ -11,9 +11,12 @@
 #include "Interface.hpp"
 #include "Game.hpp"
 #include "Card.hpp"
+#include "Player.hpp"
 #include "CreatureCard.hpp"
 #include "SpellCard.hpp"
 #include "rapidjson/document.h"
+
+#include <iostream> //LÖSCHEN
 
 
 using Oop::Interface;
@@ -218,9 +221,33 @@ bool Game::checkForCardEquality(Card* card)
 }
 
 
+bool Game::setupPlayer()
+{
+	Player *Player1 = new Player();
+	
+	Player *Player2 = new Player();
+
+	Player1->setCreatureCard(pick_up_stack);
+	
+	Player2->setCreatureCard(pick_up_stack);
+	
+	Player1->shufflePickupstackCall();
+	
+	Player2->shufflePickupstackCall();
+		
+	delete Player1;
+	
+	delete Player2;
+	
+	return false;
+}
+
+
 //------------------------------------------------------------------------------
 void Game::run()
 { 
   
+  setupPlayer();
+
   //TO-DO (D2)
 }

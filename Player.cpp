@@ -8,6 +8,7 @@
 #include "Player.hpp"
 #include "Card.hpp"
 #include "CreatureCard.hpp"
+#include "Random.hpp"
 
 using Oop::Player;
 using Oop::Card;
@@ -65,3 +66,13 @@ const CreatureCard* const* Player::getGameField() const
 	return game_field_;
 }
 
+void Player::setCreatureCard(std::vector<Card*> pick_up_stack)
+{
+	pick_up_stack_ = pick_up_stack;
+}
+
+void Player::shufflePickupstackCall()
+{
+	Random &rand = Random::getInstance();
+	rand.shufflePickupstack(&pick_up_stack_);
+}

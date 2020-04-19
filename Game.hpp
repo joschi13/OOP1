@@ -18,6 +18,7 @@ namespace Oop
 {
   class Interface;
   class Card;
+  class Player;
 
   //----------------------------------------------------------------------------
   // Game Class
@@ -33,6 +34,10 @@ namespace Oop
       bool inBetween(int x, int low, int high);
 
       std::vector<Card*> pick_up_stack;
+      
+      Player *Player1;
+      
+      Player *Player2;
     
     public:
 
@@ -67,6 +72,8 @@ namespace Oop
       void run();
 
       bool checkForCardEquality(Card* card);
+      
+      bool setupPlayer();
 
       
   };

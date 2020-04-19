@@ -134,6 +134,11 @@ namespace Oop
 			// @return CreatureCard* containing the gamefield
 			//
 			const CreatureCard* const* getGameField() const;
+			
+			
+			void setCreatureCard(std::vector<Card*> pick_up_stack);
+			
+			void shufflePickupstackCall();
 
 	};
 	
