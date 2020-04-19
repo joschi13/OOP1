@@ -17,13 +17,13 @@ LDFLAGS    = $(ASANFLAGS)
 LDLIBS     =
 #-------------------------------------------------------------------------------
 
+all: builddir $(EXECUTABLE)
 #make executable
 noasan: CXXFLAGS = $(WARNINGS) $(ERRORS) -g -c -std=c++17 -o
 noasan: LDFLAGS = 
 
 noasan: clean all
 
-all: builddir $(EXECUTABLE)
 
 builddir:
 	mkdir -p $(BUILDDIR)
