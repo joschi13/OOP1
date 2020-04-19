@@ -24,6 +24,8 @@ noasan: LDFLAGS =
 
 noasan: clean all
 
+release : CXXFLAGS := -D RELEASE $(CXXFLAGS)
+release : all
 
 builddir:
 	mkdir -p $(BUILDDIR)
