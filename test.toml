@@ -17,6 +17,7 @@
 [project_data]
 project_name = "game"
 makefile_path = "."
+maketarget = "noasan"
 
 [[testcases]]
 name = "valid_basic"
