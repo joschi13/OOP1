@@ -21,7 +21,7 @@ Insgesamt gibt es 100 Punkte zu erreichen (+ 15 Bonuspunkte)
 
 
 
-Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der Tutoren, um am Ende nicht in Zeitstress zu geraten. Getestet und bewertet werden alle 3 Deliverables am Ende der Abgabefrist von Deliverable 3 (3.Mai 2020).
+Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der Tutoren, um am Ende nicht in Zeitstress zu geraten. Getestet und bewertet werden alle 3 Deliverables am Ende der Abgabefrist von Deliverable 3.
 
 
 
