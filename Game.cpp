@@ -35,6 +35,10 @@ Game::~Game() noexcept
   {
     delete card;
   }
+  
+  	delete Player1;
+	
+	delete Player2;
 }
 
 //------------------------------------------------------------------------------
@@ -60,7 +64,7 @@ bool Game::loadConfig(std::string config_file)
   }
 
   std::fseek(fptr, 0, SEEK_END);
-  size_t len = std::ftell(fptr);
+  size_t len = size_t (std::ftell(fptr));
   std::fseek(fptr, 0, SEEK_SET);
   std::string content(len + 1, '\0');
   std::fread(&content[0], 1, len, fptr);
@@ -77,7 +81,6 @@ bool Game::loadConfig(std::string config_file)
     if((creatures.IsArray()) && (spells.IsArray()) && \
        (stack_size = creatures.Size() + spells.Size() >= 10))
 
-      pick_up_stack.reserve(stack_size);
     {//check creatures
       for(index = 0; index < creatures.Size(); index++)
       {
@@ -223,9 +226,9 @@ bool Game::checkForCardEquality(Card* card)
 
 bool Game::setupPlayer()
 {
-	Player *Player1 = new Player();
+	Player1 = new Player();
 	
-	Player *Player2 = new Player();
+	Player2 = new Player();
 
 	Player1->setCreatureCard(pick_up_stack);
 	
@@ -234,10 +237,7 @@ bool Game::setupPlayer()
 	Player1->shufflePickupstackCall();
 	
 	Player2->shufflePickupstackCall();
-		
-	delete Player1;
-	
-	delete Player2;
+
 	
 	return false;
 }
@@ -247,7 +247,10 @@ bool Game::setupPlayer()
 void Game::run()
 { 
   
-  //setupPlayer();
+  setupPlayer();
+  
+  
+  
 
   //TO-DO (D2)
 }
