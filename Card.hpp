@@ -46,6 +46,16 @@ namespace Oop
       int getManaCost() const;
 
       CardType getType() const;
+      
+      //------------------------------------------------------------------------
+      // Setter Methods
+      //
+      void setName(std::string name);
+      
+      void setManaCost(int mana_cost);
+      
+      void setType(CardType type);
+      
 
     private:
 

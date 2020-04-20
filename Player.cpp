@@ -7,6 +7,7 @@
 //
 #include "Player.hpp"
 #include "Card.hpp"
+#include "SpellCard.hpp"
 #include "CreatureCard.hpp"
 #include "Random.hpp"
 
@@ -68,11 +69,30 @@ const CreatureCard* const* Player::getGameField() const
 
 void Player::setCreatureCard(std::vector<Card*> pick_up_stack)
 {
-	pick_up_stack_ = pick_up_stack;
+	//pick_up_stack_ = pick_up_stack;
+	
+	SpellCard *s_card = NULL;
+	CreatureCard *c_card = NULL;
+	
+	for(Card* cur : pick_up_stack_)
+	{
+		s_card = dynamic_cast <SpellCard*>(cur);
+		c_card = dynamic_cast <CreatureCard*>(cur);
+		if(s_card != NULL)
+		{
+			pick_up_stack_.push_back(new SpellCard(*s_card));
+			s_card = NULL;
+		}
+		if(c_card != NULL)
+		{
+			pick_up_stack_.push_back(new CreatureCard(*c_card));
+			c_card = NULL;
+		}
+	}
 }
 
 void Player::shufflePickupstackCall()
 {
-	Random &rand = Random::getInstance();
-	rand.shufflePickupstack(&pick_up_stack_);
+	//Random &rand = Random::getInstance();
+	//rand.shufflePickupstack(&pick_up_stack_);
 }

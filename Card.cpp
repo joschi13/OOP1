@@ -41,3 +41,18 @@ Card::CardType Card::getType() const
 {
   return type_;
 }
+
+void Card::setName(std::string name)
+{
+	name_ = name;
+}
+
+void Card::setManaCost(int mana_cost)
+{
+	mana_cost_ = mana_cost;
+}
+      
+void Card::setType(CardType type)
+{
+	type_ = type;
+}

@@ -28,6 +28,23 @@ life_points_(life_points), shield_(shield)
   //speedy_ = speedy; for bonus task (Deliverable 3)
 }
 
+CreatureCard::CreatureCard(const CreatureCard &temp) : Card(temp), \
+damage_points_(temp.getDamagePoints()), life_points_(temp.getLifePoints()), \
+shield_(temp.getShield())
+{
+	
+	this->setName(temp.getName());
+	this->setManaCost(temp.getManaCost());
+	this->setType(temp.getType());
+	
+	this->current_life_points_ = temp.getCurrentLifePoints();
+	this->mana_drain_ = temp.getManaDrain();
+	this->ready_to_fight_ = temp.getReadyToFight();
+	this->already_attacked_ = temp.getAlreadyAttacked();
+	this->speedy_ = temp.getSpeedy();
+	
+}
+
 //------------------------------------------------------------------------------
 CreatureCard::~CreatureCard() noexcept
 {

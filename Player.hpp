@@ -19,6 +19,7 @@
 namespace Oop
 {
 	class CreatureCard;
+	class SpellCard;
 	class Card;
 	
 	//--------------------------------------------------------------------------

@@ -247,7 +247,7 @@ bool Game::setupPlayer()
 void Game::run()
 { 
   
-  setupPlayer();
+  //setupPlayer();
 
   //TO-DO (D2)
 }

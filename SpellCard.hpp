@@ -49,6 +49,9 @@ namespace Oop
       // Constructor
       //
       SpellCard(SpellType type);
+      
+      
+      SpellCard(const SpellCard &temp);
 
       //--------------------------------------------------------------------------
       // Destructor
@@ -64,6 +67,7 @@ namespace Oop
       // @return bool true: performed false: not performed
       //
       bool action(Game& game);
+      
   };
 }
 
