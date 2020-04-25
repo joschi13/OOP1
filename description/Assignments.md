@@ -21,7 +21,7 @@ Insgesamt gibt es 100 Punkte zu erreichen (+ 15 Bonuspunkte)
 
 
 
-Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der Tutoren, um am Ende nicht in Zeitstress zu geraten. Getestet und bewertet werden alle 3 Deliverables am Ende der Abgabefrist von Deliverable 3 (3.Mai 2020).
+Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der Tutoren, um am Ende nicht in Zeitstress zu geraten. Getestet und bewertet werden alle 3 Deliverables am Ende der Abgabefrist von Deliverable 3.
 
 
 
@@ -49,8 +49,8 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
 
 ### [Deliverable 3](Ass1_D3.md)
 
-- Abgabe: 3. Mai
-- Zeit: 6 Wochen
+- Abgabe: <del>3. Mai</del> <mark>10. Mai um 23:59 Uhr (in Österreich gültige Zeit)</mark>
+- Zeit: <del>6</del> <mark>7</mark> Wochen
 - Was ist zu tun:
   - Spiellogik implementieren
     - attack-Command
@@ -73,8 +73,8 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
 
 ## Assignment 2
 
-- Ausgabe: 14. Mai
-- Abgabe: 7. Juni
+- Ausgabe: <del>14.</del> <mark>21.</mark> Mai
+- Abgabe: <del>7.</del> <mark>14.</mark>Juni
 - 34 Punkte
 
 
