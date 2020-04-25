@@ -1,0 +1,65 @@
+a
+b
+set 1 to 1
+finish
+set 2 to 4
+finish
+set 2 to 2
+state
+attack 4 with 8
+attack 0 wit 1
+attack 0 witg 1
+attack a b c
+attack 4 1
+attack 1 with 1
+attack 4 with 1
+attack 0 with 1
+attack 0 with 2
+finish
+attack 2 with 4
+attack 1 with 4
+state
+attack 2 with 4
+attack 1 with 4
+attack 0 with 4
+finish
+attack 4 with 2
+attack 4 with 1
+set 1 to 3
+state
+finish
+attack 0 with 4
+finish
+attack 4 with 3
+state
+attack 0 with 1
+state
+attack 0 with 2
+finish
+set 2 to 3
+state
+attack 0 with 3
+finish
+attack 0 with 3
+attack 3 with 1
+state
+attack 0 with 3
+attack 3 with 1
+state
+attack 0 with 0
+attack 0 with 3
+attack 3 with 3
+attack 0 with 2
+finish
+set 1 to 1
+finish
+attack 0 with 1
+state
+attack 0 with 3
+state
+attack 0 with 2
+state
+finish
+finish
+attack 0 with 3
+

@@ -1,0 +1,19 @@
+a
+b
+help
+state
+finish
+finish
+set 4 to 3
+state
+finish
+sacrifice 3
+state
+finish
+attack 0 with 3
+state
+finish
+cast 5
+state
+quit
+

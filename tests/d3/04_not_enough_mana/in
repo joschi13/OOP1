@@ -1,0 +1,11 @@
+a
+b
+set 4 to 1
+set 1 to 1
+set 1 to 2
+finish
+set 2 to 3
+set 1 to 1
+finish
+quit
+

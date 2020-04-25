@@ -1,0 +1,37 @@
+a
+b
+set 1 to 1
+finish
+set 2 to 1
+finish
+finish
+finish
+cast 4
+state
+attack 1 with 1
+finish
+cast 5
+state
+finish
+attack 1 with 1
+finish
+sacrifice 5
+state
+set 2 to 1
+state
+cast 3
+state
+finish
+finish
+finish
+finish
+finish
+sacrifice 1
+finish
+cast 5
+state
+cast 7
+state
+finish
+quit
+

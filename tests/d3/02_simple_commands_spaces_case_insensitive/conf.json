@@ -1,0 +1,98 @@
+{
+  "Creatures" : [
+    {
+      "name": "Big Wall",
+      "mana_cost": 1,
+      "damage_points": 2,
+      "life_points": 9,
+      "shield": true,
+      "mana_drain": false
+    },
+    {
+      "name": "Bigfoot",
+      "mana_cost": 2,
+      "damage_points": 9,
+      "life_points": 3,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Goblin",
+      "mana_cost": 2,
+      "damage_points": 3,
+      "life_points": 2,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Cristian",
+      "mana_cost": 3,
+      "damage_points": 9,
+      "life_points": 9,
+      "shield": false,
+      "mana_drain": true
+    },
+    {
+      "name": "Aleks",
+      "mana_cost": 2,
+      "damage_points": 3,
+      "life_points": 9,
+      "shield": true,
+      "mana_drain": false
+    },
+    {
+      "name": "Simone",
+      "mana_cost": 2,
+      "damage_points": 1,
+      "life_points": 2,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Katrin",
+      "mana_cost": 1,
+      "damage_points": 5,
+      "life_points": 6,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Matthias",
+      "mana_cost": 3,
+      "damage_points": 4,
+      "life_points": 4,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Kevin",
+      "mana_cost": 2,
+      "damage_points": 4,
+      "life_points": 1,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Florian",
+      "mana_cost": 6,
+      "damage_points": 1,
+      "life_points": 8,
+      "shield": true,
+      "mana_drain": false
+    }
+  ],
+  "Spells" : [
+    {
+      "name": "Healer"
+    },
+    {
+      "name": "Relief"
+    },
+    {
+      "name": "Rebirth"
+    },
+    {
+      "name": "Dracula"
+    }
+  ]
+}
