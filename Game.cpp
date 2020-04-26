@@ -246,11 +246,22 @@ bool Game::setupPlayer()
 //------------------------------------------------------------------------------
 void Game::run()
 { 
-  
+  std::string p1;
+  std::string p2;
   setupPlayer();
+  io_.out(Oop::Interface::OutputType::INFO, "Please enter the name of player 1: ");
   
-  
-  
-
+  //[INFO] Round: X
+  //[INFO] Current player is X
+  //Player1->out()
+  p1 = io_.in();
+  Player1->setName(p1);
+  io_.out(Oop::Interface::OutputType::INFO, "Please enter the name of player 2: ");
+  p2 = io_.in();
+  Player2->setName(p2);
+  //io_.out(Oop::Interface::OutputType::INFO, Player1->getName());
+  //io_.out(Oop::Interface::OutputType::INFO, Player2->getName());
+  io_.out(Oop::Interface::OutputType::INFO, "Round: ");
+  io_.out(Oop::Interface::OutputType::INFO, "Current player is ");
   //TO-DO (D2)
 }

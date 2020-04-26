@@ -90,6 +90,10 @@ void Player::setCreatureCard(std::vector<Card*> pick_up_stack)
 		}
 	}
 }
+void Player::setName(std::string name) 
+{
+	name_ =name;
+}
 
 void Player::shufflePickupstackCall()
 {

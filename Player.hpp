@@ -138,6 +138,8 @@ namespace Oop
 			
 			
 			void setCreatureCard(std::vector<Card*> pick_up_stack);
+
+			void setName(std::string name);
 			
 			void shufflePickupstackCall();
 
