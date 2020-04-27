@@ -246,22 +246,52 @@ bool Game::setupPlayer()
 //------------------------------------------------------------------------------
 void Game::run()
 { 
-  std::string p1;
-  std::string p2;
+  int round_counter = 0;
+  Player** cur_Player = &Player1;
+  Player** opp_Player = &Player2;
   setupPlayer();
-  io_.out(Oop::Interface::OutputType::INFO, "Please enter the name of player 1: ");
+
+  Player1->setName(io_.readPlayerName(0));
+  Player2->setName(io_.readPlayerName(1));
+
   
-  //[INFO] Round: X
-  //[INFO] Current player is X
-  //Player1->out()
-  p1 = io_.in();
-  Player1->setName(p1);
-  io_.out(Oop::Interface::OutputType::INFO, "Please enter the name of player 2: ");
-  p2 = io_.in();
-  Player2->setName(p2);
   //io_.out(Oop::Interface::OutputType::INFO, Player1->getName());
   //io_.out(Oop::Interface::OutputType::INFO, Player2->getName());
-  io_.out(Oop::Interface::OutputType::INFO, "Round: ");
-  io_.out(Oop::Interface::OutputType::INFO, "Current player is ");
+  
+  
+  for (round_counter = 0; true ; round_counter++)
+  {
+    /*if(cur_Player == &Player1)
+    {
+      cur_Player = &Player2;
+      opp_Player = &Player1;
+    }*/
+
+    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_ROUND + std::to_string(round_counter));
+    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_CURRENT_PLAYER + (*cur_Player)->getName());
+
+    io_.out(Player1, Player2);
+
+    if(!std::strcmp(io_.askPlayer((*cur_Player)->getName()).c_str(), Oop::Interface::COMMAND_QUIT.c_str())) //case-sensitive - should be changed
+    {
+      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
+      (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
+    
+      break;
+    }
+    
+    
+    
+    /*io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
+    (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
+    */
+  }
+  
+  
+  
+  
   //TO-DO (D2)
 }
+
+//void Game::endGame()
+

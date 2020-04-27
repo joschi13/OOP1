@@ -71,6 +71,8 @@ namespace Oop
       //
       void run();
 
+      //void endGame();
+
       bool checkForCardEquality(Card* card);
       
       bool setupPlayer();
