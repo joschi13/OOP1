@@ -8,16 +8,6 @@
 //------------------------------------------------------------------------------
 //
 
-<<<<<<< HEAD
-//* from 2_05.cpp
-
-#include <iostream>//*
-#include <fstream>//*
-#include "Interface.hpp"
-#include "Game.hpp"
-#include "rapidjson/document.h"
-
-=======
 #include "Interface.hpp"
 #include "Game.hpp"
 #include "Card.hpp"
@@ -27,17 +17,11 @@
 #include "rapidjson/document.h"
 
 #include <iostream> //LÖSCHEN
->>>>>>> 53966bf46b0a3f114faf574c5fbabbd03ec13708
 
 using std::ofstream;//*
 using std::ifstream;//*
 using std::string;//*
 
-<<<<<<< HEAD
-using namespace rapidjson;
-using Oop::Game;
-=======
->>>>>>> 53966bf46b0a3f114faf574c5fbabbd03ec13708
 using Oop::Interface;
 using Oop::Game;
 using namespace rapidjson;
