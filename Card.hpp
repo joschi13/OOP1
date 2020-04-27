@@ -1,8 +1,9 @@
 //------------------------------------------------------------------------------
 // Card.hpp
 //
-// Authors: Johannes Aigner
+// Group: Group 9, study assistant David Kerschbaumer 
 //
+// Authors: Johannes Aigner 11907005
 //------------------------------------------------------------------------------
 //
 
@@ -14,31 +15,47 @@
 //------------------------------------------------------------------------------
 namespace Oop
 {
-
   //----------------------------------------------------------------------------
   // Card Class
-  // This class defines a game card and provides setter and getter methodes
-  // for name, mana cost and type of card
+  // This class defines a game card and provides setter and getter methodes.
   //
-
   class Card
   {
     public:
 
+      //------------------------------------------------------------------------
+      // Enum for type of card
+      //
       enum CardType {CREATURE, SPELL};
 
-      Card(std::string name, int mana_cost, CardType type)
-      {
-        name_ = name;
-        mana_cost_ = mana_cost;
-        type_ = type;
-      }
+      //------------------------------------------------------------------------
+      // Constructor
+      //
+      Card(std::string name, int mana_cost, CardType type);
 
+      //------------------------------------------------------------------------
+      // Destructor
+      //
+      virtual ~Card() noexcept;
+
+      //------------------------------------------------------------------------
+      // Getter Methods
+      //
       std::string getName() const;
 
       int getManaCost() const;
 
       CardType getType() const;
+      
+      //------------------------------------------------------------------------
+      // Setter Methods
+      //
+      void setName(std::string name);
+      
+      void setManaCost(int mana_cost);
+      
+      void setType(CardType type);
+      
 
     private:
 

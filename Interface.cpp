@@ -31,12 +31,16 @@ const std::string Interface::WARNING_INVALID_NAME =
 const std::string Interface::WARNING_UNKNOWN_COMMAND = "Unknown command!";
 const std::string Interface::WARNING_WRONG_PARAMETER = 
   "Invalid command parameter!";
+const std::string Interface::WARNING_WRONG_PARAM_COUNT =
+	"Wrong parameter count!";
 const std::string Interface::WARNING_NOT_ENOUGH_MANA = 
   "Not enough mana for this move!";
 const std::string Interface::WARNING_EXECUTION_NOT_POSSIBLE = 
   "Execution not possible!";
 const std::string Interface::WARNING_SHIELD_MONSTER = 
   "Destroy all shields first!";
+const std::string Interface::WARNING_REBIRTH_UNSUCCESSFUL =
+	"Rebirth unsuccessful!";
 
 const std::vector<std::string> Interface::INFO_HELP_MSGS =
 {
@@ -141,7 +145,6 @@ const int Interface::MAX_MANA_GAIN = 8;
 
 const int Interface::MAX_HAND_CARDS = 7;
 const int Interface::NUM_OF_BOARD_LINES = 6;
-const int Interface::NUM_OF_GAMEFIELD_CARDS = 7;
 
 //------------------------------------------------------------------------------
 Interface::Interface()

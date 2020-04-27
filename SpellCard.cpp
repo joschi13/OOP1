@@ -1,25 +1,59 @@
+//------------------------------------------------------------------------------
+// SpellCard.cpp
+//
+// Group: Group 9, study assistant David Kerschbaumer 
+//
+// Authors: Johannes Aigner 11907005
+//------------------------------------------------------------------------------
+//
+
 #include "SpellCard.hpp"
+#include "Interface.hpp"
 
 using Oop::Card;
 using Oop::SpellCard;
 
+//------------------------------------------------------------------------------
+SpellCard::SpellCard(SpellType type) : Card(determineName(type), \
+determineManaCosts(type), CardType::SPELL)
+{
+  spell_type_ = type;
+}
+
+SpellCard::SpellCard(const SpellCard &temp) : Card(temp), \
+spell_type_(temp.spell_type_)
+{
+	
+	this->setName(temp.getName());
+	this->setManaCost(temp.getManaCost());
+	this->setType(temp.getType());
+	
+}
+
+//------------------------------------------------------------------------------
+SpellCard::~SpellCard() noexcept
+{
+}
+
+//------------------------------------------------------------------------------
 std::string SpellCard::determineName(SpellType type)
 {
   switch(type){
     case Oop::HEALER:
-      return "Healer";
+      return Interface::STRING_HEALER;
 
     case Oop::RELIEF:
-      return "Relief";
+      return Interface::STRING_RELIEF;
 
     case Oop::REBIRTH:
-      return "Rebirth";
+      return Interface::STRING_REBIRTH;
 
     case Oop::DRACULA:
-      return "Dracula";
+      return Interface::STRING_DRACULA;
   }
 }
 
+//------------------------------------------------------------------------------
 int SpellCard::determineManaCosts(SpellType type)
 {
   switch(type){
@@ -37,6 +71,7 @@ int SpellCard::determineManaCosts(SpellType type)
   }
 }
 
+//------------------------------------------------------------------------------
 bool SpellCard::action(Game& game)
 {
   //TODO

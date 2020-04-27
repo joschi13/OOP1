@@ -1,0 +1,130 @@
+{
+  "Creatures" : [
+    {
+      "name": "Troll",
+      "mana_cost": 8,
+      "damage_points": 8,
+      "life_points": 1,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Einhorn",
+      "mana_cost": 2,
+      "damage_points": 2,
+      "life_points": 2,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Bluthund",
+      "mana_cost": 6,
+      "damage_points": 4,
+      "life_points": 8,
+      "shield": true,
+      "mana_drain": false
+    },
+    {
+      "name": "Kankra",
+      "mana_cost": 4,
+      "damage_points": 4,
+      "life_points": 3,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Smaug",
+      "mana_cost": 13,
+      "damage_points": 8,
+      "life_points": 8,
+      "shield": false,
+      "mana_drain": true
+    },
+    {
+      "name": "Golem",
+      "mana_cost": 8,
+      "damage_points": 7,
+      "life_points": 8,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Fee",
+      "mana_cost": 1,
+      "damage_points": 1,
+      "life_points": 1,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Mini Ork",
+      "mana_cost": 2,
+      "damage_points": 2,
+      "life_points": 1,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Miniwall",
+      "mana_cost": 1,
+      "damage_points": 0,
+      "life_points": 4,
+      "shield": true,
+      "mana_drain": false
+    },
+    {
+      "name": "Elf",
+      "mana_cost": 4,
+      "damage_points": 3,
+      "life_points": 4,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Geist",
+      "mana_cost": 5,
+      "damage_points": 2,
+      "life_points": 6,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Kobold",
+      "mana_cost": 6,
+      "damage_points": 8,
+      "life_points": 1,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Greif",
+      "mana_cost": 5,
+      "damage_points": 5,
+      "life_points": 6,
+      "shield": false,
+      "mana_drain": false
+    },
+    {
+      "name": "Werwolf",
+      "mana_cost": 13,
+      "damage_points": 9,
+      "life_points": 6,
+      "shield": false,
+      "mana_drain": false
+    }
+  ],
+  "Spells" : [
+    {
+      "name": "Corona"
+    },
+    {
+      "name": "Relief"
+    },
+    {
+      "name": "Rebirth"
+    },
+    {
+      "name": "Dracula"
+    }
+  ]
+}

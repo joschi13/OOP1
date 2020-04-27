@@ -1,8 +1,9 @@
 //------------------------------------------------------------------------------
 // SpellCard.hpp
 //
-// Authors: Johannes Aigner
+// Group: Group 9, study assistant David Kerschbaumer 
 //
+// Authors: Johannes Aigner 11907005
 //------------------------------------------------------------------------------
 //
 
@@ -11,39 +12,62 @@
 
 #include <string>
 #include "Game.hpp"
-//#include "Interface.hpp"
 #include "Card.hpp"
 
 //------------------------------------------------------------------------------
 namespace Oop
 {
+  class Card;
+  class Game;
+
+  enum SpellType {HEALER, RELIEF, REBIRTH, DRACULA};
+
   //----------------------------------------------------------------------------
   // SpellCard Class
   // This class defines a creature card and provides setter and getter methodes
   // 
-
-  enum SpellType {HEALER, RELIEF, REBIRTH, DRACULA};
-
-  class Card;
-  class Game;
-  
   class SpellCard : public Card
   {
     private:
 
       SpellType spell_type_;
 
+      //--------------------------------------------------------------------------
+      // The Card constructor functions
+      // determines Name/Mana Cost for a card with fixed values
+      // 
+      // @param spell type
+      //
+      // @return string/int name or mana cost of specific spell card
+      //
       std::string determineName(SpellType type);
       int determineManaCosts(SpellType type);
 
     public:
 
-      SpellCard(SpellType type) : Card(determineName(type), determineManaCosts(type), CardType::SPELL)
-      {
-        spell_type_ = type;
-      }
+      //--------------------------------------------------------------------------
+      // Constructor
+      //
+      SpellCard(SpellType type);
+      
+      
+      SpellCard(const SpellCard &temp);
 
+      //--------------------------------------------------------------------------
+      // Destructor
+      //
+      virtual ~SpellCard() noexcept;
+
+      //--------------------------------------------------------------------------
+      // The action function
+      // Checks on the spell type and performs the spell
+      // 
+      // @param refernce of game
+      //
+      // @return bool true: performed false: not performed
+      //
       bool action(Game& game);
+      
   };
 }
 

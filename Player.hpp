@@ -1,22 +1,31 @@
-
-
-
-
+//------------------------------------------------------------------------------
+// Player.hpp
+//
+// Authors: Martin Schachl 11907003
+//
+//------------------------------------------------------------------------------
+//
 #ifndef INCLUDE_PLAYER_H
 #define INCLUDE_PLAYER_H
+
+#pragma once
 
 #include <string>
 #include <vector>
 #include <map>
 #include <functional>
 
-
+//------------------------------------------------------------------------------
 namespace Oop
 {
-
 	class CreatureCard;
+	class SpellCard;
 	class Card;
-
+	
+	//--------------------------------------------------------------------------
+	// Player Class
+	// This class provides an obj for storing all necessary player data.
+	//
 	class Player
 	{
 		private:
@@ -29,11 +38,11 @@ namespace Oop
 			std::vector<Card*> hand_;				//max size is missing! TODO
 			std::vector<CreatureCard> graveyard_;
 
-
 		public:
 
-			//standard constr
-
+			//------------------------------------------------------------------
+			//standard constructor
+			//
 			Player()
 			{
 				name_ = "";
@@ -42,8 +51,9 @@ namespace Oop
 				//TODO stuff for the other attributs, depends on data struc 
 			}
 
-			//name constr
-
+			//------------------------------------------------------------------
+			//name constructor
+			//
 			Player(std::string name)
 			{
 				name_ = name;
@@ -51,25 +61,87 @@ namespace Oop
 				mana_points_ = 0;
 				//TODO stuff for the other attributs, depends on data struc
 			}
-
-
+			
+			//------------------------------------------------------------------
+			// The getName function
+			// Returns the name of the player
+			//
+			// @return string containing the name of the player
+			//
 			std::string getName() const;
 			
+			//------------------------------------------------------------------
+			// The getLifePoints function
+			// Returns the lifepoints of the player
+			//
+			// @return int containing the lifepoints of the player
+			//
 			int getLifePoints() const;
 			
+			//------------------------------------------------------------------
+			// The addLifePoints function
+			// Adding lifepoits to the players health
+			//
+			// @param int the lifepoits to add
+			//
 			void addLifePoints(int points);
 			
+			//------------------------------------------------------------------
+			// The getManaPoints function
+			// Returns the manapoints of the player
+			//
+			// @return int containing the manapoints of the player
+			//
 			int getManaPoints() const;
 			
+			//------------------------------------------------------------------
+			// The addMana function
+			// Adding manapoints to the players manapool
+			// Max mana points = 15 so shoot over gets ignored
+			//
+			// @param int the mana to add
+			//
 			void addMana(int mana);
 			
+			//------------------------------------------------------------------
+			// The reduceMana function
+			// Reducing manapoints from the players manapool
+			// Min mana points = 0 so shoot over gets ignored
+			//
+			// @param int the mana to reduce
+			//
 			void reduceMana(int mana);
 			
+			//------------------------------------------------------------------
+			// The getHandCards function
+			// Returning the cards of the player
+			//
+			// @return vector<Card*> containing the cards of the player
+			//
 			const std::vector<Card*> getHandCards() const;
 
+			//------------------------------------------------------------------
+			// The getHandSize function
+			// Returning the number of cards from the player
+			//
+			// @return int containing the number of cards form the player
+			//
 			int getHandSize() const;
 
+			//------------------------------------------------------------------
+			// The getGameField function
+			// Returning the gamefield
+			//
+			// @return CreatureCard* containing the gamefield
+			//
 			const CreatureCard* const* getGameField() const;
+			
+			
+			void setCreatureCard(std::vector<Card*> pick_up_stack);
+
+			void setName(std::string name);
+			
+			void shufflePickupstackCall();
 
 	};
 	

@@ -1,0 +1,123 @@
+# Testcase Structure:
+#    name: String, // The name of the testcase
+#    subname: Option<String>, // used for unittests later
+#    testcase_type: String, //Only IO supported now
+#    description: Option<String>, // optional description
+#    args: Option<String>, // command line arguments 
+#    cflags: Option<String>, // compile flags
+#    tags: Option<Tags>, // tags for unit tests
+#    in_file: Option<String>, // stdin file 
+#    exp_file: Option<String>, // stdout file
+#    in_string: Option<String>, // stdin string (in_file has higher priority)
+#    exp_string: Option<String>, // stdout string (out_file has higher priority)
+#    exp_retvar: Option<i32>, // optional expected status code
+#    timeout: Option<i32>, // timeout in seconds .. default is 5 sec
+#    env_vars:Option<String>, // optional environment parameters RAND_SEED=123,foo=bar
+
+[project_data]
+project_name = "game"
+makefile_path = "."
+maketarget = "noasan"
+
+[[testcases]]
+name = "valid_basic"
+testcase_type = "IO"
+description = "Basic test with valid file"
+exp_file = "tests/d2/00_valid_basic/valid_basic_out"
+in_file = "tests/d2/00_valid_basic/in"
+args = "tests/d2/00_valid_basic/valid_basic.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "inv_json"
+testcase_type = "IO"
+description = "Invalid json"
+exp_file = "tests/d2/01_inv_json/inv_json_out"
+args = "tests/d2/01_inv_json/inv_json.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
+[[testcases]]
+name = "inv_no_spell_sec"
+testcase_type = "IO"
+description = "Invalid json, no spell"
+exp_file = "tests/d2/02_inv_no_spell_sec/inv_no_spell_sec_out"
+args = "tests/d2/02_inv_no_spell_sec/inv_no_spell_sec.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
+[[testcases]]
+name = "inv_creat_in_spell_sec"
+testcase_type = "IO"
+description = "Invalid Json creature in spell"
+exp_file = "tests/d2/03_inv_creat_in_spell_sec/inv_creat_in_spell_sec_out"
+args = "tests/d2/03_inv_creat_in_spell_sec/inv_creat_in_spell_sec.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
+[[testcases]]
+name = "valid_dupl_creat_same_attr"
+testcase_type = "IO"
+description = "Valid duplicate creature same attribute"
+exp_file = "tests/d2/06_valid_dupl_creat_same_attr/valid_dupl_creat_same_attr_out"
+in_file = "tests/d2/06_valid_dupl_creat_same_attr/in"
+args = "tests/d2/06_valid_dupl_creat_same_attr/valid_dupl_creat_same_attr.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "inv_less_than_10_cards"
+testcase_type = "IO"
+description = ""
+exp_file = "tests/d2/08_inv_less_than_10_cards/inv_less_than_10_cards_out"
+args = "tests/d2/08_inv_less_than_10_cards/inv_less_than_10_cards.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
+[[testcases]]
+name = "inv_creat_name_to_long"
+testcase_type = "IO"
+description = "Too long creature name"
+exp_file = "tests/d2/11_inv_creat_name_to_long/inv_creat_name_to_long_out"
+args = "tests/d2/11_inv_creat_name_to_long/inv_creat_name_to_long.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
+[[testcases]]
+name = "inv_spell_extra_attr"
+testcase_type = "IO"
+description = "invalid spell extra attribute"
+exp_file = "tests/d2/14_inv_spell_extra_attr/inv_spell_extra_attr_out"
+args = "tests/d2/14_inv_spell_extra_attr/inv_spell_extra_attr.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
+[[testcases]]
+name = "inv_spell_name_to_long"
+testcase_type = "IO"
+description = "spell name too long"
+exp_file = "tests/d2/15_inv_spell_name_to_long/inv_spell_name_to_long_out"
+args = "tests/d2/15_inv_spell_name_to_long/inv_spell_name_to_long.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
+[[testcases]]
+name = "inv_spell_wrong_type"
+testcase_type = "IO"
+description = ""
+exp_file = "tests/d2/16_inv_spell_wrong_type/inv_spell_wrong_type_out"
+args = "tests/d2/16_inv_spell_wrong_type/inv_spell_wrong_type.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
+[[testcases]]
+name = "bonus_config"
+testcase_type = "IO"
+description = ""
+exp_file = "tests/d2/18_bonus_config/out"
+in_file = "tests/d2/18_bonus_config/in"
+args = "tests/d2/18_bonus_config/bonus_config.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = -3
+
