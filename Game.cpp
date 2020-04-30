@@ -227,25 +227,26 @@ bool Game::checkForCardEquality(Card* card)
 bool Game::setupPlayer()
 {
 	Player1 = new Player();
-	
 	Player2 = new Player();
 
-	Player1->setCreatureCard(pick_up_stack);
+	Player1->copyPickUpStack(pick_up_stack);
+	Player2->copyPickUpStack(pick_up_stack);
 	
-	Player2->setCreatureCard(pick_up_stack);
-	
-	Player1->shufflePickupstackCall();
-	
-	Player2->shufflePickupstackCall();
+	Player1->shufflePickUpStack();
+	Player2->shufflePickUpStack();
 
+  Player1->setName(io_.readPlayerName(0));
+  Player2->setName(io_.readPlayerName(1));
 	
-	return false;
+	return true;
 }
 
 
 //------------------------------------------------------------------------------
 void Game::run()
 { 
+  setupPlayer();
+#if 0
   int round_counter = 0;
   Player** cur_Player = &Player1;
   Player** opp_Player = &Player2;
@@ -255,10 +256,10 @@ void Game::run()
   Player2->setName(io_.readPlayerName(1));
 
   
-  //io_.out(Oop::Interface::OutputType::INFO, Player1->getName());
-  //io_.out(Oop::Interface::OutputType::INFO, Player2->getName());
+  io_.out(Oop::Interface::OutputType::INFO, Player1->getName());
+  io_.out(Oop::Interface::OutputType::INFO, Player2->getName());
   
-  
+
   for (round_counter = 0; true ; round_counter++)
   {
     /*if(cur_Player == &Player1)
@@ -285,12 +286,9 @@ void Game::run()
     /*io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
     (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
     */
+   
   }
-  
-  
-  
-  
-  //TO-DO (D2)
+  #endif
 }
 
 //void Game::endGame()

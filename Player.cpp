@@ -15,6 +15,40 @@ using Oop::Player;
 using Oop::Card;
 using Oop::CreatureCard;
 
+Player::Player()
+{
+	name_ = "";
+	life_points_ = 30;
+	mana_points_ = 0;
+
+	for(auto card : game_field_)
+	{
+		card = nullptr;
+	}
+	//TODO stuff for the other attributs, depends on data struc 
+}
+
+Player::Player(std::string name)
+{
+	name_ = name;
+	life_points_ = 30;
+	mana_points_ = 0;
+
+	for(auto card : game_field_)
+	{
+		card = nullptr;
+	}
+	//TODO stuff for the other attributs, depends on data struc
+}
+
+Player::~Player()
+{
+	for(auto card : pick_up_stack_)
+	{
+		delete card;
+	}
+}
+
 std::string Player::getName() const
 {
 	return Player::name_;
@@ -67,26 +101,23 @@ const CreatureCard* const* Player::getGameField() const
 	return game_field_;
 }
 
-void Player::setCreatureCard(std::vector<Card*> pick_up_stack)
+void Player::copyPickUpStack(std::vector<Card*> &pick_up_stack)
 {
-	//pick_up_stack_ = pick_up_stack;
-	
 	SpellCard *s_card = NULL;
 	CreatureCard *c_card = NULL;
 	
-	for(Card* cur : pick_up_stack_)
+	for(Card* cur_card : pick_up_stack)
 	{
-		s_card = dynamic_cast <SpellCard*>(cur);
-		c_card = dynamic_cast <CreatureCard*>(cur);
-		if(s_card != NULL)
+		if(cur_card->getType() == Card::CardType::SPELL)
 		{
+			s_card = dynamic_cast <SpellCard*>(cur_card);
 			pick_up_stack_.push_back(new SpellCard(*s_card));
-			s_card = NULL;
 		}
-		if(c_card != NULL)
+
+		if(cur_card->getType() == Card::CardType::CREATURE)
 		{
+			c_card = dynamic_cast <CreatureCard*>(cur_card);
 			pick_up_stack_.push_back(new CreatureCard(*c_card));
-			c_card = NULL;
 		}
 	}
 }
@@ -95,8 +126,8 @@ void Player::setName(std::string name)
 	name_ =name;
 }
 
-void Player::shufflePickupstackCall()
+void Player::shufflePickUpStack()
 {
-	//Random &rand = Random::getInstance();
-	//rand.shufflePickupstack(&pick_up_stack_);
+	Random &rand = Random::getInstance();
+	rand.shufflePickupstack(pick_up_stack_);
 }

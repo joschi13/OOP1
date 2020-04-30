@@ -34,7 +34,7 @@ namespace Oop
       Card(std::string name, int mana_cost, CardType type);
 
       //------------------------------------------------------------------------
-      // Destructor
+      // Virtual destructor
       //
       virtual ~Card() noexcept;
 
