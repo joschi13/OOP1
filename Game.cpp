@@ -36,9 +36,8 @@ Game::~Game() noexcept
     delete card;
   }
   
-  	delete Player1;
-	
-	delete Player2;
+  delete players[0];
+  delete players[1];
 }
 
 //------------------------------------------------------------------------------
@@ -223,29 +222,55 @@ bool Game::checkForCardEquality(Card* card)
   return true;
 }
 
-
+//------------------------------------------------------------------------------
 bool Game::setupPlayer()
 {
-	Player1 = new Player();
-	Player2 = new Player();
+	players[0] = new Player();
+	players[1] = new Player();
 
-	Player1->copyPickUpStack(pick_up_stack);
-	Player2->copyPickUpStack(pick_up_stack);
+	players[0]->copyPickUpStack(pick_up_stack);
+	players[1]->copyPickUpStack(pick_up_stack);
 	
-	Player1->shufflePickUpStack();
-	Player2->shufflePickUpStack();
+	players[0]->shufflePickUpStack();
+	players[1]->shufflePickUpStack();
 
-  Player1->setName(io_.readPlayerName(0));
-  Player2->setName(io_.readPlayerName(1));
+  players[0]->setName(io_.readPlayerName(0));
+  players[1]->setName(io_.readPlayerName(1));
+  
+  players[0]->takeOffCards(3);
+  players[1]->takeOffCards(3);
+
 	
 	return true;
 }
 
-
+#include <iostream>
 //------------------------------------------------------------------------------
 void Game::run()
 { 
+  int round_counter = -1;
+  int cur_player = 1;
   setupPlayer();
+int i = 0;
+  while(i < 3)
+  {
+    cur_player = cur_player ^ 1;
+    
+    if(cur_player == 0){
+      round_counter++;
+      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_ROUND + std::to_string(round_counter));
+    }
+
+    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_CURRENT_PLAYER + players[cur_player]->getName());
+
+    players[cur_player]->takeOffCards(1);
+    //io_.out(players[cur_player], players[cur_player ^ 1]);
+
+
+i++;
+  }
+  
+
 #if 0
   int round_counter = 0;
   Player** cur_Player = &Player1;

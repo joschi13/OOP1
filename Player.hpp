@@ -35,7 +35,7 @@ namespace Oop
 			int mana_points_;
 			CreatureCard* game_field_ [7];
 			std::vector<Card*> pick_up_stack_;
-			std::vector<Card*> hand_;				//max size is missing! TODO
+			std::vector<Card*> hand_;
 			std::vector<CreatureCard> graveyard_;
 
 		public:
@@ -146,6 +146,14 @@ namespace Oop
 			// shuffles the pick up stack with function of class Random
 			//
 			void shufflePickUpStack();
+
+			//------------------------------------------------------------------
+			// The takeOffCards function
+			// Taking off number of cards and adding to hand cards
+			//
+			// @param amount of taken cards
+			//
+			void takeOffCards(int amount);
 	};
 	
 }

@@ -16,7 +16,7 @@ using Oop::CreatureCard;
 CreatureCard::CreatureCard(std::string name, int mana_cost, int damage_points, \
 int life_points, bool shield, bool mana_drain, bool speedy) : \
 Card(name, mana_cost, CardType::CREATURE), damage_points_(damage_points), \
-life_points_(life_points), shield_(shield)
+life_points_(life_points), current_life_points_(life_points), shield_(shield)
 {
   mana_drain_ = mana_drain;
   ready_to_fight_ = false;
@@ -24,10 +24,10 @@ life_points_(life_points), shield_(shield)
   speedy_ = false;
 
   //TODO
-  //current_life_points_ = life_points;
   //speedy_ = speedy; for bonus task (Deliverable 3)
 }
 
+//------------------------------------------------------------------------------
 CreatureCard::CreatureCard(const CreatureCard &temp) : Card(temp), \
 damage_points_(temp.getDamagePoints()), life_points_(temp.getLifePoints()), \
 shield_(temp.getShield())

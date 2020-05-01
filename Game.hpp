@@ -35,9 +35,7 @@ namespace Oop
 
       std::vector<Card*> pick_up_stack;
       
-      Player *Player1;
-      
-      Player *Player2;
+      Player* players[2];
     
     public:
 

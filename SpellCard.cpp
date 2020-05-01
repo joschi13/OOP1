@@ -20,6 +20,7 @@ determineManaCosts(type), CardType::SPELL)
   spell_type_ = type;
 }
 
+//------------------------------------------------------------------------------
 SpellCard::SpellCard(const SpellCard &temp) : Card(temp), \
 spell_type_(temp.spell_type_)
 {

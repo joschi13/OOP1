@@ -25,9 +25,11 @@ Player::Player()
 	{
 		card = nullptr;
 	}
+	
 	//TODO stuff for the other attributs, depends on data struc 
 }
 
+//------------------------------------------------------------------------------
 Player::Player(std::string name)
 {
 	name_ = name;
@@ -41,33 +43,45 @@ Player::Player(std::string name)
 	//TODO stuff for the other attributs, depends on data struc
 }
 
+//------------------------------------------------------------------------------
 Player::~Player()
 {
 	for(auto card : pick_up_stack_)
 	{
 		delete card;
 	}
+
+	for(auto card : hand_)
+	{
+		delete card;
+	}
 }
 
+//------------------------------------------------------------------------------
 std::string Player::getName() const
 {
 	return Player::name_;
 }
 
+//------------------------------------------------------------------------------
 int Player::getLifePoints() const
 {
 	return life_points_;
 }
+
+//------------------------------------------------------------------------------
 void Player::addLifePoints(int points)
 {
 	life_points_ = life_points_ + points;
 }
 
+//------------------------------------------------------------------------------
 int Player::getManaPoints() const
 {
 	return mana_points_;
 }
 
+//------------------------------------------------------------------------------
 void Player::addMana(int mana)
 {
 	mana_points_ = mana_points_ + mana;
@@ -77,6 +91,7 @@ void Player::addMana(int mana)
 	}
 }
 
+//------------------------------------------------------------------------------
 void Player::reduceMana(int mana)
 {
 	mana_points_ = mana_points_ - mana;
@@ -86,21 +101,25 @@ void Player::reduceMana(int mana)
 	}
 }
 
+//------------------------------------------------------------------------------
 const std::vector<Card*> Player::getHandCards() const
 {
 	return hand_;
 }
 
+//------------------------------------------------------------------------------
 int Player::getHandSize() const
 {
 	return hand_.size();
 }
 
+//------------------------------------------------------------------------------
 const CreatureCard* const* Player::getGameField() const
 {
 	return game_field_;
 }
 
+//------------------------------------------------------------------------------
 void Player::copyPickUpStack(std::vector<Card*> &pick_up_stack)
 {
 	SpellCard *s_card = NULL;
@@ -121,13 +140,26 @@ void Player::copyPickUpStack(std::vector<Card*> &pick_up_stack)
 		}
 	}
 }
+
+//------------------------------------------------------------------------------
 void Player::setName(std::string name) 
 {
 	name_ =name;
 }
 
+//------------------------------------------------------------------------------
 void Player::shufflePickUpStack()
 {
 	Random &rand = Random::getInstance();
 	rand.shufflePickupstack(pick_up_stack_);
+}
+
+//------------------------------------------------------------------------------
+void Player::takeOffCards(int amount)
+{
+	while((amount > 0) && (pick_up_stack_.size() > 0))
+	{
+		hand_.push_back(pick_up_stack_.back());
+		pick_up_stack_.pop_back();
+	}
 }
