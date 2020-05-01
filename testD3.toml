@@ -1,0 +1,110 @@
+# Testcase Structure:
+#    name: String, // The name of the testcase
+#    subname: Option<String>, // used for unittests later
+#    testcase_type: String, //Only IO supported now
+#    description: Option<String>, // optional description
+#    args: Option<String>, // command line arguments
+#    cflags: Option<String>, // compile flags
+#    tags: Option<Tags>, // tags for unit tests
+#    in_file: Option<String>, // stdin file
+#    exp_file: Option<String>, // stdout file
+#    in_string: Option<String>, // stdin string (in_file has higher priority)
+#    exp_string: Option<String>, // stdout string (out_file has higher priority)
+#    exp_retvar: Option<i32>, // optional expected status code
+#    timeout: Option<i32>, // timeout in seconds .. default is 5 sec
+#    env_vars:Option<String>, // optional environment parameters RAND_SEED=123,foo=bar
+
+[project_data]
+project_name = "game"
+makefile_path = "."
+maketarget = "noasan"
+
+[[testcases]]
+name = "simple_commands"
+testcase_type = "IO"
+description = "Simple commands"
+exp_file = "tests/d3/01_simple_commands/out"
+in_file = "tests/d3/01_simple_commands/in"
+args = "tests/d3/01_simple_commands/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "simple_commands_spaces_case_insensitive"
+testcase_type = "IO"
+description = "Simple commands spaces and case insensitive"
+exp_file = "tests/d3/02_simple_commands_spaces_case_insensitive/out"
+in_file = "tests/d3/02_simple_commands_spaces_case_insensitive/in"
+args = "tests/d3/02_simple_commands_spaces_case_insensitive/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "invalid_command_errors"
+testcase_type = "IO"
+description = "Invalid command errors"
+exp_file = "tests/d3/03_invalid_command_errors/out"
+in_file = "tests/d3/03_invalid_command_errors/in"
+args = "tests/d3/03_invalid_command_errors/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "not_enough_mana"
+testcase_type = "IO"
+description = "Not enough mana"
+exp_file = "tests/d3/04_not_enough_mana/out"
+in_file = "tests/d3/04_not_enough_mana/in"
+args = "tests/d3/04_not_enough_mana/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "player_dies"
+testcase_type = "IO"
+description = "Player dies"
+exp_file = "tests/d3/05_player_dies/out"
+in_file = "tests/d3/05_player_dies/in"
+args = "tests/d3/05_player_dies/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "attack_command"
+testcase_type = "IO"
+description = "Attack command"
+exp_file = "tests/d3/06_attack_command/out"
+in_file = "tests/d3/06_attack_command/in"
+args = "tests/d3/06_attack_command/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "spells"
+testcase_type = "IO"
+description = "Spells"
+exp_file = "tests/d3/07_spells/out"
+in_file = "tests/d3/07_spells/in"
+args = "tests/d3/07_spells/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "bonus_speedy"
+testcase_type = "IO"
+description = "Bonus speedy"
+exp_file = "tests/d3/08_bonus_speedy/out"
+in_file = "tests/d3/08_bonus_speedy/in"
+args = "tests/d3/08_bonus_speedy/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
+
+[[testcases]]
+name = "bonus_traitor"
+testcase_type = "IO"
+description = "Bonus traitor"
+exp_file = "tests/d3/09_bonus_traitor/out"
+in_file = "tests/d3/09_bonus_traitor/in"
+args = "tests/d3/09_bonus_traitor/conf.json"
+env_vars = "RAND_SEED=3236717796"
+exp_retvar = 0
