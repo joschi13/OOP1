@@ -8,12 +8,8 @@
 #ifndef INCLUDE_PLAYER_H
 #define INCLUDE_PLAYER_H
 
-#pragma once
-
 #include <string>
 #include <vector>
-#include <map>
-#include <functional>
 
 //------------------------------------------------------------------------------
 namespace Oop

@@ -41,6 +41,7 @@ namespace Oop
       // @return string/int name or mana cost of specific spell card
       //
       std::string determineName(SpellType type);
+      
       int determineManaCosts(SpellType type);
 
     public:

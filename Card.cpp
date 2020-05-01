@@ -12,8 +12,14 @@
 using Oop::Card;
 
 //------------------------------------------------------------------------------
-Card::Card(std::string name, int mana_cost, CardType type) : \
+Card::Card(std::string name, int mana_cost, CardType type) : 
 name_(name), mana_cost_(mana_cost), type_(type)
+{
+}
+
+//------------------------------------------------------------------------------
+Card::Card(const Card& other) :
+name_(other.getName()), mana_cost_(other.getManaCost()), type_(other.getType())
 {
 }
 

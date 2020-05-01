@@ -169,9 +169,9 @@ void Interface::out(const Oop::Player* current_player,
   std::cout << MAP_SEPERATOR << std::endl;
 
   // Enemy Hand and Gamefield
-  printHandCards(opponent_player, false);
-  printPlayerInfo(opponent_player);
-  printGamefieldCards(opponent_player);
+  //printHandCards(opponent_player, false);
+  //printPlayerInfo(opponent_player);
+  //printGamefieldCards(opponent_player);
 
   std::cout << MIDFIELD_SEPERATOR << std::endl;
 
@@ -295,6 +295,7 @@ void Interface::printGamefieldCards(const Oop::Player* player)
 
   // collect all data
   auto game_field = player->getGameField();
+
   for (size_t index = 0; index < NUM_OF_GAMEFIELD_CARDS; index++)
   {
     const Oop::CreatureCard* card = game_field[index];

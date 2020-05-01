@@ -245,15 +245,15 @@ bool Game::setupPlayer()
 	return true;
 }
 
-
+//#include <iostream>
 //------------------------------------------------------------------------------
 void Game::run()
 { 
   int round_counter = -1;
   int cur_player = 1;
   setupPlayer();
-int i = 0;
-  while(i < 3)
+
+  while(true)
   {
     cur_player = cur_player ^ 1;
     
@@ -265,10 +265,30 @@ int i = 0;
     io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_CURRENT_PLAYER + players[cur_player]->getName());
 
     players[cur_player]->takeOffCards(1);
+#if 0    
+    const CreatureCard* c = players[0]->getGameField()[0];
+    if(c == nullptr){
+      round_counter++;
+      std::cout << "mimimi" << std::endl;
+    }
+#endif
     //io_.out(players[cur_player], players[cur_player ^ 1]);
+    /*
+    if(!std::strcmp(io_.askPlayer((*cur_Player)->getName()).c_str(), Oop::Interface::COMMAND_QUIT.c_str())) //case-sensitive - should be changed
+    {
+      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
+      (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
+    
+      break;
+    }
+    */
+    
+    
+    /*io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
+    (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
+    */
 
-
-i++;
+    io_.in();
   }
 
   
@@ -300,19 +320,7 @@ i++;
 
     io_.out(Player1, Player2);
 
-    if(!std::strcmp(io_.askPlayer((*cur_Player)->getName()).c_str(), Oop::Interface::COMMAND_QUIT.c_str())) //case-sensitive - should be changed
-    {
-      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
-      (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
     
-      break;
-    }
-    
-    
-    
-    /*io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
-    (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
-    */
    
   }
   #endif

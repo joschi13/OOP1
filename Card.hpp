@@ -39,9 +39,9 @@ namespace Oop
       virtual ~Card() noexcept;
 
       //------------------------------------------------------------------------
-      // Default copy constructor
+      // Copy constructor
       //
-      Card(const Card& original) = default;
+      Card(const Card& original);
 
       //------------------------------------------------------------------------
       // Deleted assignment operator

@@ -1,7 +1,8 @@
 //------------------------------------------------------------------------------
 // Player.hpp
 //
-// Authors: Martin Schachl 11907003
+// Authors: Martin Schachl 	11907003
+//					Johannes Aigner 11907005
 //
 //------------------------------------------------------------------------------
 //
@@ -17,16 +18,7 @@ using Oop::CreatureCard;
 
 Player::Player()
 {
-	name_ = "";
-	life_points_ = 30;
-	mana_points_ = 0;
-
-	for(auto card : game_field_)
-	{
-		card = nullptr;
-	}
-	
-	//TODO stuff for the other attributs, depends on data struc 
+	Player("");
 }
 
 //------------------------------------------------------------------------------
@@ -36,7 +28,7 @@ Player::Player(std::string name)
 	life_points_ = 30;
 	mana_points_ = 0;
 
-	for(auto card : game_field_)
+	for(CreatureCard* card : game_field_)
 	{
 		card = nullptr;
 	}
@@ -161,5 +153,7 @@ void Player::takeOffCards(int amount)
 	{
 		hand_.push_back(pick_up_stack_.back());
 		pick_up_stack_.pop_back();
+		
+		amount--;
 	}
 }

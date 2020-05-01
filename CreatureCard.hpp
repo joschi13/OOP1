@@ -40,7 +40,7 @@ namespace Oop
       //------------------------------------------------------------------------
       // Constructor
       //
-      CreatureCard(std::string name, int mana_cost, int damage_points, \
+      CreatureCard(std::string name, int mana_cost, int damage_points,
       int life_points, bool shield, bool mana_drain, bool speedy);
 
       //--------------------------------------------------------------------------
