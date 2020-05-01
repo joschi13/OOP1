@@ -25,14 +25,14 @@ SpellCard::SpellCard(const SpellCard &temp) : Card(temp), \
 spell_type_(temp.spell_type_)
 {
 	
-	this->setName(temp.getName());
-	this->setManaCost(temp.getManaCost());
-	this->setType(temp.getType());
+	//this->setName(temp.getName());
+	//this->setManaCost(temp.getManaCost());
+	//this->setType(temp.getType());
 	
 }
 
 //------------------------------------------------------------------------------
-SpellCard::~SpellCard() noexcept
+SpellCard::~SpellCard()
 {
 }
 

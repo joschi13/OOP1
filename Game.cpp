@@ -240,11 +240,12 @@ bool Game::setupPlayer()
   players[0]->takeOffCards(3);
   players[1]->takeOffCards(3);
 
+  
 	
 	return true;
 }
 
-#include <iostream>
+
 //------------------------------------------------------------------------------
 void Game::run()
 { 
@@ -269,6 +270,7 @@ int i = 0;
 
 i++;
   }
+
   
 
 #if 0

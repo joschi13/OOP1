@@ -42,16 +42,21 @@ namespace Oop
       //
       CreatureCard(std::string name, int mana_cost, int damage_points, \
       int life_points, bool shield, bool mana_drain, bool speedy);
+
+      //--------------------------------------------------------------------------
+      // Destructor
+      //
+      ~CreatureCard();
       
       //------------------------------------------------------------------------
       // Copy constructor
       //      
       CreatureCard(const CreatureCard &temp);
 
-      //--------------------------------------------------------------------------
-      // Destructor
+      //------------------------------------------------------------------------
+      // Deleted assignment operator
       //
-      virtual ~CreatureCard() noexcept;
+      CreatureCard& operator=(const CreatureCard& original) = delete;
 
       //------------------------------------------------------------------------
       // Getter Methods

@@ -12,11 +12,9 @@
 using Oop::Card;
 
 //------------------------------------------------------------------------------
-Card::Card(std::string name, int mana_cost, CardType type) : mana_cost_(mana_cost)
+Card::Card(std::string name, int mana_cost, CardType type) : \
+name_(name), mana_cost_(mana_cost), type_(type)
 {
-  name_ = name;
-  //mana_cost_ = mana_cost;
-  type_ = type;
 }
 
 //------------------------------------------------------------------------------

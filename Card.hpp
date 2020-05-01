@@ -39,6 +39,16 @@ namespace Oop
       virtual ~Card() noexcept;
 
       //------------------------------------------------------------------------
+      // Default copy constructor
+      //
+      Card(const Card& original) = default;
+
+      //------------------------------------------------------------------------
+      // Deleted assignment operator
+      //
+      Card& operator=(const Card& original) = delete;
+
+      //------------------------------------------------------------------------
       // Getter Methods
       //
       std::string getName() const;

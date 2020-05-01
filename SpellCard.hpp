@@ -44,21 +44,26 @@ namespace Oop
       int determineManaCosts(SpellType type);
 
     public:
-
+      
       //--------------------------------------------------------------------------
       // Constructor
       //
       SpellCard(SpellType type);
+
+      //--------------------------------------------------------------------------
+      // Destructor
+      //
+      ~SpellCard();
       
       //------------------------------------------------------------------------
       // Copy constructor
       //  
       SpellCard(const SpellCard &temp);
 
-      //--------------------------------------------------------------------------
-      // Destructor
+      //------------------------------------------------------------------------
+      // Deleted assignment operator
       //
-      virtual ~SpellCard() noexcept;
+      SpellCard& operator=(const SpellCard& original) = delete;
 
       //--------------------------------------------------------------------------
       // The action function
