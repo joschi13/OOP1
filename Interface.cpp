@@ -169,9 +169,9 @@ void Interface::out(const Oop::Player* current_player,
   std::cout << MAP_SEPERATOR << std::endl;
 
   // Enemy Hand and Gamefield
-  //printHandCards(opponent_player, false);
-  //printPlayerInfo(opponent_player);
-  //printGamefieldCards(opponent_player);
+  printHandCards(opponent_player, false);
+  printPlayerInfo(opponent_player);
+  printGamefieldCards(opponent_player);
 
   std::cout << MIDFIELD_SEPERATOR << std::endl;
 

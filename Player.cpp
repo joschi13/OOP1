@@ -16,9 +16,8 @@ using Oop::Player;
 using Oop::Card;
 using Oop::CreatureCard;
 
-Player::Player()
+Player::Player() : Player("")
 {
-	Player("");
 }
 
 //------------------------------------------------------------------------------
@@ -28,11 +27,11 @@ Player::Player(std::string name)
 	life_points_ = 30;
 	mana_points_ = 0;
 
-	for(CreatureCard* card : game_field_)
-	{
-		card = nullptr;
-	}
-	//TODO stuff for the other attributs, depends on data struc
+	for(size_t i = 0; i < (sizeof(game_field_)/ sizeof(game_field_[0])); i++)
+  {
+    game_field_[i] = nullptr;
+  }
+
 }
 
 //------------------------------------------------------------------------------
@@ -149,7 +148,7 @@ void Player::shufflePickUpStack()
 //------------------------------------------------------------------------------
 void Player::takeOffCards(int amount)
 {
-	while((amount > 0) && (pick_up_stack_.size() > 0))
+	while((amount > 0) && (pick_up_stack_.size() > 0) && (getHandSize() < 7))
 	{
 		hand_.push_back(pick_up_stack_.back());
 		pick_up_stack_.pop_back();

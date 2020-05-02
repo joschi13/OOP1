@@ -17,6 +17,7 @@
 #include "rapidjson/document.h"
 
 #include <iostream> //LÖSCHEN
+#include <math.h>
 
 
 using Oop::Interface;
@@ -107,7 +108,7 @@ bool Game::loadConfig(std::string config_file)
                 cur_card = new CreatureCard(name, mana_costs, damage_points, life_points, \
                                                  shield, mana_drain, false);
 
-                if(!checkForCardEquality(cur_card))
+                if(!checkOnCreatureEquality(cur_card))
                 {
                   delete cur_card;
                   break;
@@ -196,7 +197,7 @@ bool Game::inBetween(int x, int low, int high)
 }
 
 //------------------------------------------------------------------------------
-bool Game::checkForCardEquality(Card* card)
+bool Game::checkOnCreatureEquality(Card* card)
 {
   CreatureCard* cur_creature;
   CreatureCard* new_creature = dynamic_cast <CreatureCard*>(card);
@@ -245,86 +246,107 @@ bool Game::setupPlayer()
 	return true;
 }
 
-//#include <iostream>
 //------------------------------------------------------------------------------
 void Game::run()
 { 
   int round_counter = -1;
-  int cur_player = 1;
+  cur_player = 1;
+
   setupPlayer();
 
   while(true)
   {
     cur_player = cur_player ^ 1;
-    
+
     if(cur_player == 0){
       round_counter++;
       io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_ROUND + std::to_string(round_counter));
     }
 
+    (round_counter < 3) ? (players[cur_player]->addMana(pow(2, round_counter))) : (players[cur_player]->addMana(8));
+
     io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_CURRENT_PLAYER + players[cur_player]->getName());
 
     players[cur_player]->takeOffCards(1);
-#if 0    
-    const CreatureCard* c = players[0]->getGameField()[0];
-    if(c == nullptr){
-      round_counter++;
-      std::cout << "mimimi" << std::endl;
-    }
-#endif
-    //io_.out(players[cur_player], players[cur_player ^ 1]);
-    /*
-    if(!std::strcmp(io_.askPlayer((*cur_Player)->getName()).c_str(), Oop::Interface::COMMAND_QUIT.c_str())) //case-sensitive - should be changed
-    {
-      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
-      (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
-    
-      break;
-    }
-    */
-    
-    
-    /*io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
-    (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
-    */
-
-    io_.in();
-  }
-
-  
-
-#if 0
-  int round_counter = 0;
-  Player** cur_Player = &Player1;
-  Player** opp_Player = &Player2;
-  setupPlayer();
-
-  Player1->setName(io_.readPlayerName(0));
-  Player2->setName(io_.readPlayerName(1));
-
-  
-  io_.out(Oop::Interface::OutputType::INFO, Player1->getName());
-  io_.out(Oop::Interface::OutputType::INFO, Player2->getName());
-  
-
-  for (round_counter = 0; true ; round_counter++)
-  {
-    /*if(cur_Player == &Player1)
-    {
-      cur_Player = &Player2;
-      opp_Player = &Player1;
-    }*/
-
-    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_ROUND + std::to_string(round_counter));
-    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_CURRENT_PLAYER + (*cur_Player)->getName());
-
-    io_.out(Player1, Player2);
-
-    
    
+    io_.out(players[cur_player], players[cur_player ^ 1]);
+
+
+    
+    if(!playerCommandInput())
+    {
+      return; //TODO
+    }
+    
   }
-  #endif
 }
 
-//void Game::endGame()
+//------------------------------------------------------------------------------
+bool Game::playerCommandInput()
+{
+  std::string input;
+  
+  while(true)
+  {
+    io_.printCommandPrompt(players[cur_player]->getName());
+    input = io_.in();
+    
+    if(compareCommandInput(Oop::Interface::COMMAND_QUIT, input))
+    {
+      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
+      players[cur_player ^ 1]->getName() + Oop::Interface::ENDLINE_PART_TWO);
+      return false;
+    }
+
+    if(compareCommandInput(Oop::Interface::COMMAND_HELP, input))
+    {
+      input = Oop::Interface::INFO_HELP_MSGS.at(0);
+      for(size_t index = 1; index < Oop::Interface::INFO_HELP_MSGS.size(); index++)
+      {
+        input = input + "\n" + Oop::Interface::INFO_HELP_MSGS.at(index);
+      }
+      io_.out(Oop::Interface::OutputType::INFO, input);
+      continue;
+    }
+
+    if(compareCommandInput(Oop::Interface::COMMAND_STATE, input))
+    {
+      io_.out(players[cur_player], players[cur_player ^ 1]);
+      continue;
+    }
+
+    if(compareCommandInput(Oop::Interface::COMMAND_FINISH, input))
+    {
+      return true;
+    }   
+  }
+
+  return false;;
+}
+/*
+const std::string Interface::COMMAND_HELP = "help";
+const std::string Interface::COMMAND_ATTACK = "attack";
+const std::string Interface::COMMAND_SET = "set";
+const std::string Interface::COMMAND_CAST = "cast";
+const std::string Interface::COMMAND_SACRIFICE = "sacrifice";
+const std::string Interface::COMMAND_STATE = "state";
+const std::string Interface::COMMAND_FINISH = "finish";
+const std::string Interface::COMMAND_QUIT = "quit";
+*/
+
+//------------------------------------------------------------------------------
+bool Game::compareCommandInput(std::string cmd, std::string input)
+{
+  if(cmd.size() == input.size())
+  {
+    return !std::strcmp(cmd.c_str(), input.c_str());
+  }
+  return false;
+}
+
+//------------------------------------------------------------------------------
+int Game::getCurPlayer() const
+{
+  return cur_player;
+}
 
