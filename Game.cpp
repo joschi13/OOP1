@@ -19,6 +19,9 @@
 #include <iostream> //LÖSCHEN
 #include <math.h>
 
+using std::ofstream;//*
+using std::ifstream;//*
+using std::string;//*
 
 using Oop::Interface;
 using Oop::Game;
