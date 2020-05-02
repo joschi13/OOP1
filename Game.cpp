@@ -19,6 +19,12 @@
 #include <iostream> //LÖSCHEN
 #include <math.h>
 
+#include <string>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
+//#include <boost/algorithm/string.hpp>
+
 
 using Oop::Interface;
 using Oop::Game;
@@ -319,6 +325,23 @@ bool Game::playerCommandInput()
     {
       return true;
     }   
+
+    //strncasecmp: compares two strings caseinsensitive for n characters
+    if(!strncasecmp(Oop::Interface::COMMAND_ATTACK.c_str(), input.c_str(), 6))
+    {
+      //io_.out(Oop::Interface::OutputType::INFO, "test");
+      //if()
+      std::vector<std::string> arguments = tokenizeStr(input);
+
+      
+      //-for testing
+      for (size_t i = 0; i < arguments.size(); i++)
+      {
+        std::cout << arguments[i] << std::endl;
+      }
+    }
+
+
   }
 
   return false;;
@@ -339,7 +362,7 @@ bool Game::compareCommandInput(std::string cmd, std::string input)
 {
   if(cmd.size() == input.size())
   {
-    return !std::strcmp(cmd.c_str(), input.c_str());
+    return !strcasecmp(cmd.c_str(), input.c_str());
   }
   return false;
 }
@@ -350,3 +373,14 @@ int Game::getCurPlayer() const
   return cur_player;
 }
 
+//------------------------------------------------------------------------------
+std::vector<std::string> Game::tokenizeStr(std::string input)
+{
+  std::istringstream iss(input);
+  std::vector<std::string> tokens{std::istream_iterator<std::string>{iss}, std::istream_iterator<std::string>{}};
+  
+  return tokens;
+
+  
+  
+}

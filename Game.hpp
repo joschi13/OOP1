@@ -111,6 +111,8 @@ namespace Oop
       // @return true if valid input - false if not
       //
       bool compareCommandInput(std::string cmd, std::string input);      
+
+      std::vector<std::string> tokenizeStr(std::string input);
   };
 }
 
