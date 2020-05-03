@@ -307,14 +307,14 @@ bool Game::playerCommandInput()
     }
     
 
-    if (compareCommandInput(Oop::Interface::COMMAND_QUIT, input))
+    if (!strcasecmp(Oop::Interface::COMMAND_QUIT.c_str(), input.c_str()))
     {
       io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE +
                                                     players[cur_player ^ 1]->getName() + Oop::Interface::ENDLINE_PART_TWO);
       return false;
     }
 
-    if (compareCommandInput(Oop::Interface::COMMAND_HELP, input))
+    if (!strcasecmp(Oop::Interface::COMMAND_HELP.c_str(), input.c_str()))
     {
       input = Oop::Interface::INFO_HELP_MSGS.at(0);
       for (size_t index = 1; index < Oop::Interface::INFO_HELP_MSGS.size(); index++)
@@ -325,13 +325,13 @@ bool Game::playerCommandInput()
       continue;
     }
 
-    if (compareCommandInput(Oop::Interface::COMMAND_STATE, input))
+    if (!strcasecmp(Oop::Interface::COMMAND_STATE.c_str(), input.c_str()))
     {
       io_.out(players[cur_player], players[cur_player ^ 1]);
       continue;
     }
 
-    if (compareCommandInput(Oop::Interface::COMMAND_FINISH, input))
+    if (!strcasecmp(Oop::Interface::COMMAND_FINISH.c_str(), input.c_str()))
     {
       return true;
     }
@@ -392,10 +392,7 @@ const std::string Interface::COMMAND_QUIT = "quit";
 //------------------------------------------------------------------------------
 bool Game::compareCommandInput(std::string cmd, std::string input)
 {
-  if (cmd.size() == input.size())
-  {
-    return !strcasecmp(cmd.c_str(), input.c_str());
-  }
+  
   return false;
 }
 
