@@ -31,13 +31,11 @@ namespace Oop
 
       Oop::Interface& io_;
 
-      bool inBetween(int x, int low, int high);
-
       std::vector<Card*> pick_up_stack;
       
-      Player *Player1;
-      
-      Player *Player2;
+      Player* players[2];
+
+      int cur_player;
     
     public:
 
@@ -54,7 +52,12 @@ namespace Oop
       //--------------------------------------------------------------------------
       // Deleted copy constructor
       //
-      //Game(const Game& original) = delete;
+      Game(const Game& original) = delete;
+
+      //------------------------------------------------------------------------
+      // Deleted assignment operator
+      //
+      Game& operator=(const Game& original) = delete;
 
       //------------------------------------------------------------------------
       // The loadConfig function
@@ -71,13 +74,45 @@ namespace Oop
       //
       void run();
 
-      //void endGame();
-
-      bool checkForCardEquality(Card* card);
+      //------------------------------------------------------------------------
+      // The playerCommandInput funciton
+      // asking player for command and excecuting provided functions
+      // @return true if command accepted, false if player enters quit
+      bool playerCommandInput();
       
+      //------------------------------------------------------------------------
+      // The setupPlayer funciton
+      // creating player, asking for names, shuffling pick up stacks
+      //
       bool setupPlayer();
 
-      
+      //------------------------------------------------------------------------
+      // The checkOnCreatureEquality funciton
+      // checking for CREATURE card equality
+      //
+      bool checkOnCreatureEquality(Card* card);
+
+      //------------------------------------------------------------------------
+      // The inBetween funciton
+      // @params x: searched value, lower and higher limit
+      // @return true if in between - false if not     
+      //
+      bool inBetween(int x, int low, int high);
+
+      //------------------------------------------------------------------------
+      // The getCurPlayer funciton
+      // @return index of current player   
+      //
+      int getCurPlayer() const;
+
+      //------------------------------------------------------------------------
+      // The compareCommandInput funciton
+      // comparing the cmd with input (case insensitive)
+      // @return true if valid input - false if not
+      //
+      bool compareCommandInput(std::string cmd, std::string input);      
+
+      std::vector<std::string> tokenizeStr(std::string input);
   };
 }
 

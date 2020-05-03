@@ -17,6 +17,13 @@
 #include "rapidjson/document.h"
 
 #include <iostream> //LÖSCHEN
+#include <math.h>
+
+#include <string>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
+//#include <boost/algorithm/string.hpp>
 
 using std::ofstream;//*
 using std::ifstream;//*
@@ -39,9 +46,8 @@ Game::~Game() noexcept
     delete card;
   }
   
-  	delete Player1;
-	
-	delete Player2;
+  delete players[0];
+  delete players[1];
 }
 
 //------------------------------------------------------------------------------
@@ -111,7 +117,7 @@ bool Game::loadConfig(std::string config_file)
                 cur_card = new CreatureCard(name, mana_costs, damage_points, life_points, \
                                                  shield, mana_drain, false);
 
-                if(!checkForCardEquality(cur_card))
+                if(!checkOnCreatureEquality(cur_card))
                 {
                   delete cur_card;
                   break;
@@ -200,7 +206,7 @@ bool Game::inBetween(int x, int low, int high)
 }
 
 //------------------------------------------------------------------------------
-bool Game::checkForCardEquality(Card* card)
+bool Game::checkOnCreatureEquality(Card* card)
 {
   CreatureCard* cur_creature;
   CreatureCard* new_creature = dynamic_cast <CreatureCard*>(card);
@@ -226,75 +232,158 @@ bool Game::checkForCardEquality(Card* card)
   return true;
 }
 
-
+//------------------------------------------------------------------------------
 bool Game::setupPlayer()
 {
-	Player1 = new Player();
-	
-	Player2 = new Player();
+	players[0] = new Player();
+	players[1] = new Player();
 
-	Player1->setCreatureCard(pick_up_stack);
+	players[0]->copyPickUpStack(pick_up_stack);
+	players[1]->copyPickUpStack(pick_up_stack);
 	
-	Player2->setCreatureCard(pick_up_stack);
-	
-	Player1->shufflePickupstackCall();
-	
-	Player2->shufflePickupstackCall();
+	players[0]->shufflePickUpStack();
+	players[1]->shufflePickUpStack();
 
+  players[0]->setName(io_.readPlayerName(0));
+  players[1]->setName(io_.readPlayerName(1));
+  
+  players[0]->takeOffCards(3);
+  players[1]->takeOffCards(3);
+
+  
 	
-	return false;
+	return true;
 }
-
 
 //------------------------------------------------------------------------------
 void Game::run()
 { 
-  int round_counter = 0;
-  Player** cur_Player = &Player1;
-  Player** opp_Player = &Player2;
+  int round_counter = -1;
+  cur_player = 1;
+
   setupPlayer();
 
-  Player1->setName(io_.readPlayerName(0));
-  Player2->setName(io_.readPlayerName(1));
-
-  
-  //io_.out(Oop::Interface::OutputType::INFO, Player1->getName());
-  //io_.out(Oop::Interface::OutputType::INFO, Player2->getName());
-  
-  
-  for (round_counter = 0; true ; round_counter++)
+  while(true)
   {
-    /*if(cur_Player == &Player1)
-    {
-      cur_Player = &Player2;
-      opp_Player = &Player1;
-    }*/
+    cur_player = cur_player ^ 1;
 
-    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_ROUND + std::to_string(round_counter));
-    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_CURRENT_PLAYER + (*cur_Player)->getName());
+    if(cur_player == 0){
+      round_counter++;
+      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_ROUND + std::to_string(round_counter));
+    }
 
-    io_.out(Player1, Player2);
+    (round_counter < 3) ? (players[cur_player]->addMana(pow(2, round_counter))) : (players[cur_player]->addMana(8));
 
-    if(!std::strcmp(io_.askPlayer((*cur_Player)->getName()).c_str(), Oop::Interface::COMMAND_QUIT.c_str())) //case-sensitive - should be changed
-    {
-      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
-      (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
+    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_CURRENT_PLAYER + players[cur_player]->getName());
+
+    players[cur_player]->takeOffCards(1);
+   
+    io_.out(players[cur_player], players[cur_player ^ 1]);
+
+
     
-      break;
+    if(!playerCommandInput())
+    {
+      return; //TODO
     }
     
-    
-    
-    /*io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
-    (*cur_Player)->getName() + Oop::Interface::ENDLINE_PART_TWO);
-    */
   }
-  
-  
-  
-  
-  //TO-DO (D2)
 }
 
-//void Game::endGame()
+//------------------------------------------------------------------------------
+bool Game::playerCommandInput()
+{
+  std::string input;
+  
+  while(true)
+  {
+    io_.printCommandPrompt(players[cur_player]->getName());
+    input = io_.in();
+    
+    if(compareCommandInput(Oop::Interface::COMMAND_QUIT, input))
+    {
+      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE + \
+      players[cur_player ^ 1]->getName() + Oop::Interface::ENDLINE_PART_TWO);
+      return false;
+    }
 
+    if(compareCommandInput(Oop::Interface::COMMAND_HELP, input))
+    {
+      input = Oop::Interface::INFO_HELP_MSGS.at(0);
+      for(size_t index = 1; index < Oop::Interface::INFO_HELP_MSGS.size(); index++)
+      {
+        input = input + "\n" + Oop::Interface::INFO_HELP_MSGS.at(index);
+      }
+      io_.out(Oop::Interface::OutputType::INFO, input);
+      continue;
+    }
+
+    if(compareCommandInput(Oop::Interface::COMMAND_STATE, input))
+    {
+      io_.out(players[cur_player], players[cur_player ^ 1]);
+      continue;
+    }
+
+    if(compareCommandInput(Oop::Interface::COMMAND_FINISH, input))
+    {
+      return true;
+    }   
+
+    //strncasecmp: compares two strings caseinsensitive for n characters
+    if(!strncasecmp(Oop::Interface::COMMAND_ATTACK.c_str(), input.c_str(), 6))
+    {
+      //io_.out(Oop::Interface::OutputType::INFO, "test");
+      //if()
+      std::vector<std::string> arguments = tokenizeStr(input);
+
+      
+      //-for testing
+      for (size_t i = 0; i < arguments.size(); i++)
+      {
+        std::cout << arguments[i] << std::endl;
+      }
+    }
+
+
+  }
+
+  return false;;
+}
+/*
+const std::string Interface::COMMAND_HELP = "help";
+const std::string Interface::COMMAND_ATTACK = "attack";
+const std::string Interface::COMMAND_SET = "set";
+const std::string Interface::COMMAND_CAST = "cast";
+const std::string Interface::COMMAND_SACRIFICE = "sacrifice";
+const std::string Interface::COMMAND_STATE = "state";
+const std::string Interface::COMMAND_FINISH = "finish";
+const std::string Interface::COMMAND_QUIT = "quit";
+*/
+
+//------------------------------------------------------------------------------
+bool Game::compareCommandInput(std::string cmd, std::string input)
+{
+  if(cmd.size() == input.size())
+  {
+    return !strcasecmp(cmd.c_str(), input.c_str());
+  }
+  return false;
+}
+
+//------------------------------------------------------------------------------
+int Game::getCurPlayer() const
+{
+  return cur_player;
+}
+
+//------------------------------------------------------------------------------
+std::vector<std::string> Game::tokenizeStr(std::string input)
+{
+  std::istringstream iss(input);
+  std::vector<std::string> tokens{std::istream_iterator<std::string>{iss}, std::istream_iterator<std::string>{}};
+  
+  return tokens;
+
+  
+  
+}

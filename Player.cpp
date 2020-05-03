@@ -1,7 +1,8 @@
 //------------------------------------------------------------------------------
 // Player.hpp
 //
-// Authors: Martin Schachl 11907003
+// Authors: Martin Schachl 	11907003
+//					Johannes Aigner 11907005
 //
 //------------------------------------------------------------------------------
 //
@@ -15,25 +16,63 @@ using Oop::Player;
 using Oop::Card;
 using Oop::CreatureCard;
 
+Player::Player() : Player("")
+{
+}
+
+//------------------------------------------------------------------------------
+Player::Player(std::string name)
+{
+	name_ = name;
+	life_points_ = 30;
+	mana_points_ = 0;
+
+	for(size_t i = 0; i < (sizeof(game_field_)/ sizeof(game_field_[0])); i++)
+  {
+    game_field_[i] = nullptr;
+  }
+
+}
+
+//------------------------------------------------------------------------------
+Player::~Player()
+{
+	for(auto card : pick_up_stack_)
+	{
+		delete card;
+	}
+
+	for(auto card : hand_)
+	{
+		delete card;
+	}
+}
+
+//------------------------------------------------------------------------------
 std::string Player::getName() const
 {
 	return Player::name_;
 }
 
+//------------------------------------------------------------------------------
 int Player::getLifePoints() const
 {
 	return life_points_;
 }
+
+//------------------------------------------------------------------------------
 void Player::addLifePoints(int points)
 {
 	life_points_ = life_points_ + points;
 }
 
+//------------------------------------------------------------------------------
 int Player::getManaPoints() const
 {
 	return mana_points_;
 }
 
+//------------------------------------------------------------------------------
 void Player::addMana(int mana)
 {
 	mana_points_ = mana_points_ + mana;
@@ -43,6 +82,7 @@ void Player::addMana(int mana)
 	}
 }
 
+//------------------------------------------------------------------------------
 void Player::reduceMana(int mana)
 {
 	mana_points_ = mana_points_ - mana;
@@ -52,51 +92,67 @@ void Player::reduceMana(int mana)
 	}
 }
 
+//------------------------------------------------------------------------------
 const std::vector<Card*> Player::getHandCards() const
 {
 	return hand_;
 }
 
+//------------------------------------------------------------------------------
 int Player::getHandSize() const
 {
 	return hand_.size();
 }
 
+//------------------------------------------------------------------------------
 const CreatureCard* const* Player::getGameField() const
 {
 	return game_field_;
 }
 
-void Player::setCreatureCard(std::vector<Card*> pick_up_stack)
+//------------------------------------------------------------------------------
+void Player::copyPickUpStack(std::vector<Card*> &pick_up_stack)
 {
-	//pick_up_stack_ = pick_up_stack;
-	
 	SpellCard *s_card = NULL;
 	CreatureCard *c_card = NULL;
 	
-	for(Card* cur : pick_up_stack_)
+	for(Card* cur_card : pick_up_stack)
 	{
-		s_card = dynamic_cast <SpellCard*>(cur);
-		c_card = dynamic_cast <CreatureCard*>(cur);
-		if(s_card != NULL)
+		if(cur_card->getType() == Card::CardType::SPELL)
 		{
+			s_card = dynamic_cast <SpellCard*>(cur_card);
 			pick_up_stack_.push_back(new SpellCard(*s_card));
-			s_card = NULL;
 		}
-		if(c_card != NULL)
+
+		if(cur_card->getType() == Card::CardType::CREATURE)
 		{
+			c_card = dynamic_cast <CreatureCard*>(cur_card);
 			pick_up_stack_.push_back(new CreatureCard(*c_card));
-			c_card = NULL;
 		}
 	}
 }
+
+//------------------------------------------------------------------------------
 void Player::setName(std::string name) 
 {
 	name_ =name;
 }
 
-void Player::shufflePickupstackCall()
+//------------------------------------------------------------------------------
+void Player::shufflePickUpStack()
 {
-	//Random &rand = Random::getInstance();
-	//rand.shufflePickupstack(&pick_up_stack_);
+	Random &rand = Random::getInstance();
+	rand.shufflePickupstack(pick_up_stack_);
+}
+
+//------------------------------------------------------------------------------
+void Player::takeOffCards(int amount)
+{
+	while((amount > 0) && (pick_up_stack_.size() > 0) && (getHandSize() < 7))
+	{
+		hand_.push_back(pick_up_stack_.back());
+		pick_up_stack_.pop_back();
+		
+		amount--;
+	}
 }

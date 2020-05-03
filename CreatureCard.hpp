@@ -40,15 +40,23 @@ namespace Oop
       //------------------------------------------------------------------------
       // Constructor
       //
-      CreatureCard(std::string name, int mana_cost, int damage_points, \
+      CreatureCard(std::string name, int mana_cost, int damage_points,
       int life_points, bool shield, bool mana_drain, bool speedy);
-      
-      CreatureCard(const CreatureCard &temp);// : Card(Creature *temp);
 
       //--------------------------------------------------------------------------
       // Destructor
       //
-      virtual ~CreatureCard() noexcept;
+      ~CreatureCard();
+      
+      //------------------------------------------------------------------------
+      // Copy constructor
+      //      
+      CreatureCard(const CreatureCard &temp);
+
+      //------------------------------------------------------------------------
+      // Deleted assignment operator
+      //
+      CreatureCard& operator=(const CreatureCard& original) = delete;
 
       //------------------------------------------------------------------------
       // Getter Methods

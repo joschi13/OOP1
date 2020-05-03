@@ -8,12 +8,8 @@
 #ifndef INCLUDE_PLAYER_H
 #define INCLUDE_PLAYER_H
 
-#pragma once
-
 #include <string>
 #include <vector>
-#include <map>
-#include <functional>
 
 //------------------------------------------------------------------------------
 namespace Oop
@@ -35,32 +31,25 @@ namespace Oop
 			int mana_points_;
 			CreatureCard* game_field_ [7];
 			std::vector<Card*> pick_up_stack_;
-			std::vector<Card*> hand_;				//max size is missing! TODO
+			std::vector<Card*> hand_;
 			std::vector<CreatureCard> graveyard_;
 
 		public:
 
 			//------------------------------------------------------------------
-			//standard constructor
+			// Standard constructor
 			//
-			Player()
-			{
-				name_ = "";
-				life_points_ = 30;
-				mana_points_ = 0;
-				//TODO stuff for the other attributs, depends on data struc 
-			}
+			Player();
 
 			//------------------------------------------------------------------
-			//name constructor
+			// Name constructor
 			//
-			Player(std::string name)
-			{
-				name_ = name;
-				life_points_ = 30;
-				mana_points_ = 0;
-				//TODO stuff for the other attributs, depends on data struc
-			}
+			Player(std::string name);
+
+			//------------------------------------------------------------------
+			// Destructor
+			//
+			~Player();
 			
 			//------------------------------------------------------------------
 			// The getName function
@@ -135,14 +124,32 @@ namespace Oop
 			// @return CreatureCard* containing the gamefield
 			//
 			const CreatureCard* const* getGameField() const;
-			
-			
-			void setCreatureCard(std::vector<Card*> pick_up_stack);
 
+			//------------------------------------------------------------------
+			// The copyPickUpStack function
+			// Makes a deep copy of the original pick up stack
+			//
+			void copyPickUpStack(std::vector<Card*> &pick_up_stack);
+
+			//------------------------------------------------------------------
+			// The setName function
+			// Sets the name of the player
+			//
 			void setName(std::string name);
 			
-			void shufflePickupstackCall();
+			//------------------------------------------------------------------
+			// The shufflePickUpStack function
+			// shuffles the pick up stack with function of class Random
+			//
+			void shufflePickUpStack();
 
+			//------------------------------------------------------------------
+			// The takeOffCards function
+			// Taking off number of cards and adding to hand cards
+			//
+			// @param amount of taken cards
+			//
+			void takeOffCards(int amount);
 	};
 	
 }

@@ -34,9 +34,19 @@ namespace Oop
       Card(std::string name, int mana_cost, CardType type);
 
       //------------------------------------------------------------------------
-      // Destructor
+      // Virtual destructor
       //
       virtual ~Card() noexcept;
+
+      //------------------------------------------------------------------------
+      // Copy constructor
+      //
+      Card(const Card& original);
+
+      //------------------------------------------------------------------------
+      // Deleted assignment operator
+      //
+      Card& operator=(const Card& original) = delete;
 
       //------------------------------------------------------------------------
       // Getter Methods

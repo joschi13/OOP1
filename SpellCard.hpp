@@ -41,22 +41,30 @@ namespace Oop
       // @return string/int name or mana cost of specific spell card
       //
       std::string determineName(SpellType type);
+      
       int determineManaCosts(SpellType type);
 
     public:
-
+      
       //--------------------------------------------------------------------------
       // Constructor
       //
       SpellCard(SpellType type);
-      
-      
-      SpellCard(const SpellCard &temp);
 
       //--------------------------------------------------------------------------
       // Destructor
       //
-      virtual ~SpellCard() noexcept;
+      ~SpellCard();
+      
+      //------------------------------------------------------------------------
+      // Copy constructor
+      //  
+      SpellCard(const SpellCard &temp);
+
+      //------------------------------------------------------------------------
+      // Deleted assignment operator
+      //
+      SpellCard& operator=(const SpellCard& original) = delete;
 
       //--------------------------------------------------------------------------
       // The action function
