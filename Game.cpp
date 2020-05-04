@@ -33,6 +33,8 @@ using namespace rapidjson;
 //------------------------------------------------------------------------------
 Game::Game(Oop::Interface &io) : io_(io)
 {
+	players[0] = NULL;
+	players[1] = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -43,8 +45,12 @@ Game::~Game() noexcept
     delete card;
   }
   
-  delete players[0];
-  delete players[1];
+  if(players[0] != NULL or players[1] != NULL)
+  {
+	delete players[0];
+	delete players[1];
+  }
+
 }
 
 //------------------------------------------------------------------------------
