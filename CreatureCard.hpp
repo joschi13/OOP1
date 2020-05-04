@@ -76,6 +76,8 @@ namespace Oop
       bool getAlreadyAttacked() const;
 
       bool getSpeedy() const;
+
+      void setAlreadyAttacked();
   };
 }
 

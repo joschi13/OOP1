@@ -111,6 +111,8 @@ public:
   bool checkRanges(std::vector<std::string> arguments, std::string prep, int x_min, int x_max, int y_min, int y_max);
 
   bool executeAtt(std::vector<std::string> arguments);
+
+  bool executeSet(std::vector<std::string> arguments);
 };
 } // namespace Oop
 

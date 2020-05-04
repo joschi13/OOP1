@@ -95,3 +95,17 @@ bool CreatureCard::getSpeedy() const
 {
   return speedy_;
 }
+
+void CreatureCard::setAlreadyAttacked()
+{
+  already_attacked_ = true;
+}
+
+//TODO for attack command
+/*void CreatureCard::reduceLifePoints(int reduce_lifepoints)
+{
+  if(current_life_points - reduce_lifepoints < 1)
+  {
+    current_life_points = 0;
+  }
+}*/
