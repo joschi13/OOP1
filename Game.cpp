@@ -43,7 +43,7 @@ const int SET_X_MAX = 7;
 const int SET_Y_MIN = 1;
 const int SET_Y_MAX = 7;
 
-const int AST_X_MIN = 1;
+const int CAST_X_MIN = 1;
 const int CAST_X_MAX = 7;
 
 const int SACRIFICE_X_MIN = 1;
@@ -315,47 +315,57 @@ void Game::run()
 //------------------------------------------------------------------------------
 bool Game::playerCommandInput()
 {
-  std::string input;
+  std::string helpstr;
+  std::vector<std::string> arguments;
 
   while (true)
   {
     io_.printCommandPrompt(players[cur_player]->getName());
-    input = io_.in();
-    if (!input.size())
+    arguments = tokenizeStr(io_.in());
+    if (!arguments.size())
     {
       continue;
     }
 
-    if (!strcasecmp(Oop::Interface::COMMAND_QUIT.c_str(), input.c_str()))
-    {
-      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE +
-                                                    players[cur_player ^ 1]->getName() + Oop::Interface::ENDLINE_PART_TWO);
-      return false;
-    }
+    
 
-    if (!strcasecmp(Oop::Interface::COMMAND_HELP.c_str(), input.c_str()))
+    if (!strcasecmp(Oop::Interface::COMMAND_HELP.c_str(), arguments[0].c_str()))
     {
-      input = Oop::Interface::INFO_HELP_MSGS.at(0);
+      helpstr = Oop::Interface::INFO_HELP_MSGS.at(0);
       for (size_t index = 1; index < Oop::Interface::INFO_HELP_MSGS.size(); index++)
       {
-        input = input + "\n" + Oop::Interface::INFO_HELP_MSGS.at(index);
+        helpstr = helpstr + "\n" + Oop::Interface::INFO_HELP_MSGS.at(index);
       }
-      io_.out(Oop::Interface::OutputType::INFO, input);
+      io_.out(Oop::Interface::OutputType::INFO, helpstr);
       continue;
     }
 
-    if (!strcasecmp(Oop::Interface::COMMAND_STATE.c_str(), input.c_str()))
+    if (!strcasecmp(Oop::Interface::COMMAND_STATE.c_str(), arguments[0].c_str()))
     {
       io_.out(players[cur_player], players[cur_player ^ 1]);
       continue;
     }
 
-    if (!strcasecmp(Oop::Interface::COMMAND_FINISH.c_str(), input.c_str()))
+    
+    //TODO "finish" ends the program and has to return 0
+    if (!strcasecmp(Oop::Interface::COMMAND_QUIT.c_str(), arguments[0].c_str()))
     {
-      return true;
+      if(Game::compareCommandInput(arguments, "nullptr", 0, 0, 0, 0))
+      {
+        io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE +
+                                                    players[cur_player ^ 1]->getName() + Oop::Interface::ENDLINE_PART_TWO);
+      }
+      
+      return false;
     }
 
-    std::vector<std::string> arguments = tokenizeStr(input);
+    //TODO "quit" ends the program and has to return 0
+    //TODO overload compareCommandInput for commands that have less parameters than "attack" and "set"?
+    if (!strcasecmp(Oop::Interface::COMMAND_FINISH.c_str(), arguments[0].c_str()))
+    {
+      Game::compareCommandInput(arguments,"nullptr",0,0,0,0);
+      return true;
+    }
 
     if (!strcasecmp(Oop::Interface::COMMAND_ATTACK.c_str(), arguments[0].c_str()))
     {
@@ -367,9 +377,17 @@ bool Game::playerCommandInput()
     }
     if (!strcasecmp(Oop::Interface::COMMAND_SET.c_str(), arguments[0].c_str()))
     {
-      Game::compareCommandInput(arguments, "to", SET_X_MIN, SET_X_MAX, SET_Y_MIN, SET_Y_MAX);
+      if(Game::compareCommandInput(arguments, "to", SET_X_MIN, SET_X_MAX, SET_Y_MIN, SET_Y_MAX))
+      {
+        Game::executeSet(arguments);
+      }
       continue;
     }
+
+    //TODO
+    //cast command
+    //sacrifce command
+    
     else
     {
       io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_UNKNOWN_COMMAND);
@@ -378,16 +396,6 @@ bool Game::playerCommandInput()
 
   return false;
 }
-/*
-const std::string Interface::COMMAND_HELP = "help";
-const std::string Interface::COMMAND_ATTACK = "attack";
-const std::string Interface::COMMAND_SET = "set";
-const std::string Interface::COMMAND_CAST = "cast";
-const std::string Interface::COMMAND_SACRIFICE = "sacrifice";
-const std::string Interface::COMMAND_STATE = "state";
-const std::string Interface::COMMAND_FINISH = "finish";
-const std::string Interface::COMMAND_QUIT = "quit";
-*/
 
 //------------------------------------------------------------------------------
 bool Game::compareCommandInput(std::vector<std::string> arguments, std::string prep, int x_min, int x_max, int y_min, int y_max)
@@ -405,6 +413,8 @@ bool Game::compareCommandInput(std::vector<std::string> arguments, std::string p
   }
   return true;
 }
+//overloaded function for commands with less than 4 arguments
+//bool Game::compareCommandInput(std::vector<std::string> arguments)
 
 //------------------------------------------------------------------------------
 unsigned long Game::checkParamCount(std::string command)
@@ -452,14 +462,43 @@ bool Game::executeAtt(std::vector<std::string> arguments)
     io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
     return false;
   }
-  else if (true /*validate if shields are up*/)
+  
+  for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
   {
-    io_.out(Oop::Interface::OutputType::INFO, "test");
-    //TODO attack command itself
+    if (players[cur_player ^ 1]->getGameField()[i] && players[cur_player ^ 1]->getGameField()[i]->getShield())
+    {
+      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_SHIELD_MONSTER);
+      return false;
+    }
   }
+  
+  //TODO attack command itself
+  
+  //players[cur_player ^ 1]->getGameField()[x]->reduceLifePoints(players[cur_player]->getGameField()[y]->getDamagePoints);
+  //players[cur_player]->getGameField()[y]->setAlreadyAttacked();
+  
   return false;
 }
 
+bool Game::executeSet(std::vector<std::string> arguments)
+{
+  long x = std::strtol(arguments[1].c_str(), nullptr, 10);
+  long y = std::strtol(arguments[3].c_str(), nullptr, 10);
+
+  //maybe index problems at hand cards with x
+  if (players[cur_player]->getGameField()[y] != nullptr ||  
+  x > (players[cur_player]->getHandSize() - 1) ||
+   players[cur_player]->getHandCards().at(size_t(x))->getType() != Card::CardType::CREATURE)
+  {
+    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+    return false;
+  }
+  //TODO implement execution of set
+  //io_.log("works");
+  return false;
+}
+
+//do we need this function?
 //------------------------------------------------------------------------------
 int Game::getCurPlayer() const
 {
