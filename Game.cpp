@@ -33,9 +33,27 @@ using Oop::Game;
 using Oop::Interface;
 using namespace rapidjson;
 
+const int ATT_X_MIN = 0;
+const int ATT_X_MAX = 7;
+const int ATT_Y_MIN = 0;
+const int ATT_Y_MAX = 7;
+
+const int SET_X_MIN = 1;
+const int SET_X_MAX = 7;
+const int SET_Y_MIN = 1;
+const int SET_Y_MAX = 7;
+
+const int AST_X_MIN = 1;
+const int CAST_X_MAX = 7;
+
+const int SACRIFICE_X_MIN = 1;
+const int SACRIFICE_X_MAX = 7;
+
 //------------------------------------------------------------------------------
 Game::Game(Oop::Interface &io) : io_(io)
 {
+  players[0] = NULL;
+  players[1] = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -45,9 +63,11 @@ Game::~Game() noexcept
   {
     delete card;
   }
-
-  delete players[0];
-  delete players[1];
+  if (players[0] != NULL || players[1] != NULL)
+  {
+    delete players[0];
+    delete players[1];
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -305,7 +325,6 @@ bool Game::playerCommandInput()
     {
       continue;
     }
-    
 
     if (!strcasecmp(Oop::Interface::COMMAND_QUIT.c_str(), input.c_str()))
     {
@@ -336,38 +355,20 @@ bool Game::playerCommandInput()
       return true;
     }
 
-    //attack command
     std::vector<std::string> arguments = tokenizeStr(input);
 
     if (!strcasecmp(Oop::Interface::COMMAND_ATTACK.c_str(), arguments[0].c_str()))
     {
-      long x = 0;
-      long y = 0;
-      if (arguments.size() != 4)
+      if (Game::compareCommandInput(arguments, "with", ATT_X_MIN, ATT_X_MAX, ATT_Y_MIN, ATT_Y_MAX))
       {
-        io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_WRONG_PARAM_COUNT);
-        continue;
+        Game::executeAtt(arguments);
       }
-      if ((x = std::strtol(arguments[1].c_str(), nullptr, 10)) && Game::inBetween(x, 0, 7) &&
-          !strcasecmp("with", arguments[2].c_str()) &&
-          (y = std::strtol(arguments[3].c_str(), nullptr, 10)) && Game::inBetween(y, 1, 7))
-      {
-        if (players[cur_player ^ 1]->getGameField()[x] == nullptr || players[cur_player]->getGameField()[y] == nullptr || !players[cur_player]->getGameField()[y]->getAlreadyAttacked())
-        {
-          io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
-          continue;
-        }
-        else if (true /*validate if shields are up*/)
-        {
-          io_.out(Oop::Interface::OutputType::INFO, "test");
-          //TODO attack command itself
-        }
-      }
-      else
-      {
-        io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_WRONG_PARAMETER);
-        continue;
-      }
+      continue;
+    }
+    if (!strcasecmp(Oop::Interface::COMMAND_SET.c_str(), arguments[0].c_str()))
+    {
+      Game::compareCommandInput(arguments, "to", SET_X_MIN, SET_X_MAX, SET_Y_MIN, SET_Y_MAX);
+      continue;
     }
     else
     {
@@ -376,7 +377,6 @@ bool Game::playerCommandInput()
   }
 
   return false;
-  ;
 }
 /*
 const std::string Interface::COMMAND_HELP = "help";
@@ -390,9 +390,73 @@ const std::string Interface::COMMAND_QUIT = "quit";
 */
 
 //------------------------------------------------------------------------------
-bool Game::compareCommandInput(std::string cmd, std::string input)
+bool Game::compareCommandInput(std::vector<std::string> arguments, std::string prep, int x_min, int x_max, int y_min, int y_max)
 {
-  
+
+  if (arguments.size() != checkParamCount(arguments[0]))
+  {
+    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_WRONG_PARAM_COUNT);
+    return false;
+  }
+  if (arguments.size() > 1 && !checkRanges(arguments, prep, x_min, x_max, y_min, y_max))
+  {
+    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_WRONG_PARAMETER);
+    return false;
+  }
+  return true;
+}
+
+//------------------------------------------------------------------------------
+unsigned long Game::checkParamCount(std::string command)
+{
+  if (!strcasecmp(command.c_str(), Oop::Interface::COMMAND_ATTACK.c_str()) || !strcasecmp(command.c_str(), Oop::Interface::COMMAND_SET.c_str()))
+  {
+    return 4;
+  }
+  if (!strcasecmp(command.c_str(), Oop::Interface::COMMAND_CAST.c_str()) || !strcasecmp(command.c_str(), Oop::Interface::COMMAND_SACRIFICE.c_str()))
+  {
+    return 2;
+  }
+  if (!strcasecmp(command.c_str(), Oop::Interface::COMMAND_FINISH.c_str()) || !strcasecmp(command.c_str(), Oop::Interface::COMMAND_QUIT.c_str()))
+  {
+    return 1;
+  }
+  return 0;
+}
+
+//------------------------------------------------------------------------------
+bool Game::checkRanges(std::vector<std::string> arguments, std::string prep, int x_min, int x_max, int y_min, int y_max)
+{
+  long x = 0;
+  long y = 0;
+  if (arguments.size() > 2)
+  {
+    return ((x = std::strtol(arguments[1].c_str(), nullptr, 10)) && Game::inBetween(x, x_min, x_max) &&
+            !strcasecmp(prep.c_str(), arguments[2].c_str()) &&
+            (y = std::strtol(arguments[3].c_str(), nullptr, 10)) && Game::inBetween(y, y_min, y_max));
+  }
+  else
+  {
+    return ((x = std::strtol(arguments[1].c_str(), nullptr, 10)) && Game::inBetween(x, x_min, x_max));
+  }
+  return false;
+}
+//------------------------------------------------------------------------------
+bool Game::executeAtt(std::vector<std::string> arguments)
+{
+  long x = std::strtol(arguments[1].c_str(), nullptr, 10);
+  long y = std::strtol(arguments[3].c_str(), nullptr, 10);
+
+  if (players[cur_player ^ 1]->getGameField()[x] == nullptr || players[cur_player]->getGameField()[y] == nullptr || !players[cur_player]->getGameField()[y]->getAlreadyAttacked())
+  {
+    io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+    return false;
+  }
+  else if (true /*validate if shields are up*/)
+  {
+    io_.out(Oop::Interface::OutputType::INFO, "test");
+    //TODO attack command itself
+  }
   return false;
 }
 
