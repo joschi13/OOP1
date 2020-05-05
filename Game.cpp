@@ -45,7 +45,7 @@ Game::~Game() noexcept
     delete card;
   }
   
-  if(players[0] != NULL or players[1] != NULL)
+  if(players[0] != NULL || players[1] != NULL)
   {
 	delete players[0];
 	delete players[1];
