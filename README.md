@@ -171,3 +171,7 @@ Details zu den [Fehlermeldungen](description/ErrorDescription.md)
 ## Bonuspunkte
 
 Details unter Bonus im [Deliverable 3](description/Ass1_D3.md)
+
+## Beispielausgabe
+
+Ein spektakulärer Wettkampf unter [Beispielausgabe](description/GameplayExample.md)
