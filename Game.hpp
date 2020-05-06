@@ -3,7 +3,9 @@
 //
 // Group: Group 9, study assistant David Kerschbaumer
 //
-// Authors: Michael Zweimüller 11916150
+// Authors: Michael Zweimüller 		11916150
+//			Martin Schachl 			11907003
+// 			Johannes Aigner			11907005
 //------------------------------------------------------------------------------
 //
 
@@ -54,7 +56,7 @@ public:
   //------------------------------------------------------------------------
   // Deleted assignment operator
   //
-  Game &operator=(const Game &original) = delete;
+  Game &operator = (const Game &original) = delete;
 
   //------------------------------------------------------------------------
   // The loadConfig function
@@ -102,18 +104,23 @@ public:
   //
   int getCurPlayer() const;
 
-  bool compareCommandInput(std::vector<std::string> arguments, std::string prep, int x_min, int x_max, int y_min, int y_max);
+
+
+  // TODO coments d3
+  bool compareCommandInput(std::vector<std::string> arguments, 
+    std::string prep, int x_min, int x_max, int y_min, int y_max);
 
   std::vector<std::string> tokenizeStr(std::string input);
 
   unsigned long checkParamCount(std::string command);
 
-  bool checkRanges(std::vector<std::string> arguments, std::string prep, int x_min, int x_max, int y_min, int y_max);
+  bool checkRanges(std::vector<std::string> arguments, std::string prep, 
+    int x_min, int x_max, int y_min, int y_max);
 
   bool executeAtt(std::vector<std::string> arguments);
 
   bool executeSet(std::vector<std::string> arguments);
 };
-} // namespace Oop
+} 
 
 #endif

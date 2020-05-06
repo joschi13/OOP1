@@ -3,7 +3,9 @@
 //
 // Group: Group 9, study assistant David Kerschbaumer 
 //
-// Authors: Johannes Aigner 11907005
+// Authors: Michael Zweimüller 		11916150
+//			Martin Schachl 			11907003
+// 			Johannes Aigner			11907005
 //------------------------------------------------------------------------------
 //
 
@@ -43,7 +45,7 @@ namespace Oop
       CreatureCard(std::string name, int mana_cost, int damage_points,
       int life_points, bool shield, bool mana_drain, bool speedy);
 
-      //--------------------------------------------------------------------------
+      //------------------------------------------------------------------------
       // Destructor
       //
       ~CreatureCard();
@@ -77,7 +79,11 @@ namespace Oop
 
       bool getSpeedy() const;
 
-      void setAlreadyAttacked();
+      void setAlreadyAttacked(bool rdy);
+      
+      void setReadyToFight(bool rdy);
+      
+      
   };
 }
 
