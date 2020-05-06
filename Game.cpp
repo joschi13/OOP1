@@ -303,6 +303,8 @@ void Game::run()
   {
     cur_player = cur_player ^ 1;
 
+	players[cur_player]->setAllFieldCardsRdy();
+
     if (cur_player == 0)
     {
       round_counter++;
@@ -355,6 +357,9 @@ bool Game::playerCommandInput()
       io_.out(Oop::Interface::OutputType::INFO, helpstr);
       continue;
     }
+    
+    
+    
 
     if (!strcasecmp(Oop::Interface::COMMAND_STATE.c_str(),
       arguments[0].c_str()))
@@ -362,6 +367,8 @@ bool Game::playerCommandInput()
       io_.out(players[cur_player], players[cur_player ^ 1]);
       continue;
     }
+    
+    
 
     
     //TODO "finish" ends the program and has to return 0
@@ -378,6 +385,8 @@ bool Game::playerCommandInput()
       return false;
     }
 
+
+
     //TODO "quit" ends the program and has to return 0
     //TODO overload compareCommandInput for commands that have
     // less parameters than 
@@ -388,6 +397,9 @@ bool Game::playerCommandInput()
       Game::compareCommandInput(arguments,"nullptr",0,0,0,0);
       return true;
     }
+
+
+
 
     if (!strcasecmp(Oop::Interface::COMMAND_ATTACK.c_str(), 
       arguments[0].c_str()))
@@ -496,24 +508,53 @@ bool Game::executeAtt(std::vector<std::string> arguments)
 {
   long x = std::strtol(arguments[1].c_str(), nullptr, 10);
   long y = std::strtol(arguments[3].c_str(), nullptr, 10);
-
-  if (players[cur_player ^ 1]->getGameField()[x] == nullptr ||
-    players[cur_player]->getGameField()[y] == nullptr || 
-    !players[cur_player]->getGameField()[y]->getAlreadyAttacked())
-  {
-    io_.out(Oop::Interface::OutputType::INFO,
-      Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
-    return false;
-  }
   
+  /*bool is_card_on_field = false;
+
   for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
   {
-    if (players[cur_player ^ 1]->getGameField()[i] &&
-      players[cur_player ^ 1]->getGameField()[i]->getShield())
+    if(players[cur_player ^ 1]->getGameField()[i] != nullptr)
+    {
+      is_card_on_field = true;
+    }
+  }
+  
+  if(is_card_on_field != true)
+  {
+    for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
+    {
+      if(players[cur_player]->getGameField()[i] != nullptr)
+      {
+         bool lol = players[cur_player ^ 1]->reduceLifePoints(players[cur_player]->getGameField()[i]->getDamagePoints());
+      }
+    } 
+  }
+
+*/
+
+
+  if(x > 0)
+  {
+    x--;
+    y--;
+    if (players[cur_player ^ 1]->getGameField()[x] == nullptr ||
+      players[cur_player]->getGameField()[y] == nullptr || 
+      players[cur_player]->getGameField()[y]->getAlreadyAttacked())
     {
       io_.out(Oop::Interface::OutputType::INFO,
-      Oop::Interface::WARNING_SHIELD_MONSTER);
+        Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
       return false;
+    }
+    
+    for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
+    {
+      if (players[cur_player ^ 1]->getGameField()[i] != nullptr &&
+        players[cur_player ^ 1]->getGameField()[i]->getShield())
+      {
+        io_.out(Oop::Interface::OutputType::INFO,
+        Oop::Interface::WARNING_SHIELD_MONSTER);
+        return false;
+      }
     }
   }
   
@@ -530,7 +571,8 @@ bool Game::executeSet(std::vector<std::string> arguments)
 {
   long x = std::strtol(arguments[1].c_str(), nullptr, 10);
   long y = std::strtol(arguments[3].c_str(), nullptr, 10);
-
+  x--;
+  y--;
   //maybe index problems at hand cards with x
   if (players[cur_player]->getGameField()[y] != nullptr ||  
   x > (players[cur_player]->getHandSize() - 1) ||
@@ -541,9 +583,11 @@ bool Game::executeSet(std::vector<std::string> arguments)
       Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
     return false;
   }
-  //TODO implement execution of set
+  
+  players[cur_player]->setCardOnGameField(x, y);
+  
   //io_.log("works");
-  return false;
+  return false;	
 }
 
 //do we need this function?

@@ -98,9 +98,14 @@ bool CreatureCard::getSpeedy() const
   return speedy_;
 }
 
-void CreatureCard::setAlreadyAttacked()
+void CreatureCard::setAlreadyAttacked(bool rdy)
 {
-  already_attacked_ = true;
+  already_attacked_ = rdy;
+}
+
+void CreatureCard::setReadyToFight(bool rdy)
+{
+  ready_to_fight_ = rdy;
 }
 
 //TODO for attack command

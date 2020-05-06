@@ -18,6 +18,7 @@ namespace Oop
 	class CreatureCard;
 	class SpellCard;
 	class Card;
+	class Interface;
 	
 	//--------------------------------------------------------------------------
 	// Player Class
@@ -151,6 +152,13 @@ namespace Oop
 			// @param amount of taken cards
 			//
 			void takeOffCards(int amount);
+			
+			/////////////////////////////////////////////////////////////////////////////////////
+			void setCardOnGameField(long x, long y);
+			
+			void setAllFieldCardsRdy();
+			
+			bool reduceLifePoints(int life_points);
 	};
 	
 }

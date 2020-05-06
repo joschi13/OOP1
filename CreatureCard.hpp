@@ -79,7 +79,11 @@ namespace Oop
 
       bool getSpeedy() const;
 
-      void setAlreadyAttacked();
+      void setAlreadyAttacked(bool rdy);
+      
+      void setReadyToFight(bool rdy);
+      
+      
   };
 }
 
