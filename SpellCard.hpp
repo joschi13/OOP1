@@ -3,7 +3,9 @@
 //
 // Group: Group 9, study assistant David Kerschbaumer 
 //
-// Authors: Johannes Aigner 11907005
+// Authors: Michael Zweimüller 		11916150
+//			Martin Schachl 			11907003
+// 			Johannes Aigner			11907005
 //------------------------------------------------------------------------------
 //
 
@@ -32,7 +34,7 @@ namespace Oop
 
       SpellType spell_type_;
 
-      //--------------------------------------------------------------------------
+      //------------------------------------------------------------------------
       // The Card constructor functions
       // determines Name/Mana Cost for a card with fixed values
       // 
@@ -46,12 +48,12 @@ namespace Oop
 
     public:
       
-      //--------------------------------------------------------------------------
+      //------------------------------------------------------------------------
       // Constructor
       //
       SpellCard(SpellType type);
 
-      //--------------------------------------------------------------------------
+      //------------------------------------------------------------------------
       // Destructor
       //
       ~SpellCard();
@@ -66,7 +68,7 @@ namespace Oop
       //
       SpellCard& operator=(const SpellCard& original) = delete;
 
-      //--------------------------------------------------------------------------
+      //------------------------------------------------------------------------
       // The action function
       // Checks on the spell type and performs the spell
       // 

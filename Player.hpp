@@ -1,8 +1,9 @@
 //------------------------------------------------------------------------------
 // Player.hpp
 //
-// Authors: Martin Schachl 11907003
-//
+// Authors: Michael Zweimüller 		11916150
+//			Martin Schachl 			11907003
+// 			Johannes Aigner			11907005
 //------------------------------------------------------------------------------
 //
 #ifndef INCLUDE_PLAYER_H
@@ -17,6 +18,7 @@ namespace Oop
 	class CreatureCard;
 	class SpellCard;
 	class Card;
+	class Interface;
 	
 	//--------------------------------------------------------------------------
 	// Player Class
@@ -150,6 +152,13 @@ namespace Oop
 			// @param amount of taken cards
 			//
 			void takeOffCards(int amount);
+			
+			/////////////////////////////////////////////////////////////////////////////////////
+			void setCardOnGameField(long x, long y);
+			
+			void setAllFieldCardsRdy();
+			
+			bool reduceLifePoints(int life_points);
 	};
 	
 }

@@ -1,8 +1,9 @@
 //------------------------------------------------------------------------------
 // Player.hpp
 //
-// Authors: Martin Schachl 	11907003
-//					Johannes Aigner 11907005
+// Authors: Michael Zweimüller 		11916150
+//			Martin Schachl 			11907003
+// 			Johannes Aigner			11907005
 //
 //------------------------------------------------------------------------------
 //
@@ -11,10 +12,12 @@
 #include "SpellCard.hpp"
 #include "CreatureCard.hpp"
 #include "Random.hpp"
+#include "Interface.hpp"
 
 using Oop::Player;
 using Oop::Card;
 using Oop::CreatureCard;
+using Oop::Interface;
 
 Player::Player() : Player("")
 {
@@ -43,6 +46,11 @@ Player::~Player()
 	}
 
 	for(auto card : hand_)
+	{
+		delete card;
+	}
+	
+	for (auto card : game_field_)
 	{
 		delete card;
 	}
@@ -135,7 +143,7 @@ void Player::copyPickUpStack(std::vector<Card*> &pick_up_stack)
 //------------------------------------------------------------------------------
 void Player::setName(std::string name) 
 {
-	name_ =name;
+	name_ = name;
 }
 
 //------------------------------------------------------------------------------
@@ -156,3 +164,36 @@ void Player::takeOffCards(int amount)
 		amount--;
 	}
 }
+
+
+
+void Player::setCardOnGameField(long x, long y)
+{
+	game_field_[y] = dynamic_cast <CreatureCard *> (hand_.at(size_t(x)));
+	hand_.erase(hand_.begin()+x);
+	game_field_[y]->setReadyToFight(false);
+}
+
+
+void Player::setAllFieldCardsRdy()
+{
+  for(size_t temp = 0; temp < Interface::NUM_OF_GAMEFIELD_CARDS; temp++)
+  {
+    if(game_field_[temp] != nullptr)
+    {
+      game_field_[temp]->setReadyToFight(true);
+      game_field_[temp]->setAlreadyAttacked(false);
+    }
+  }
+}
+  
+bool Player::reduceLifePoints(int life_points)
+{
+  life_points_ = life_points_ - life_points;
+  if(life_points_ <= 0)
+  {
+    return false;
+  }
+  return true;
+}
+

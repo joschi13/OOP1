@@ -3,7 +3,9 @@
 //
 // Group: Group 9, study assistant David Kerschbaumer 
 //
-// Authors: Johannes Aigner 11907005
+// Authors: Michael Zweimüller 		11916150
+//			Martin Schachl 			11907003
+// 			Johannes Aigner			11907005
 //------------------------------------------------------------------------------
 //
 
@@ -95,3 +97,22 @@ bool CreatureCard::getSpeedy() const
 {
   return speedy_;
 }
+
+void CreatureCard::setAlreadyAttacked(bool rdy)
+{
+  already_attacked_ = rdy;
+}
+
+void CreatureCard::setReadyToFight(bool rdy)
+{
+  ready_to_fight_ = rdy;
+}
+
+//TODO for attack command
+/*void CreatureCard::reduceLifePoints(int reduce_lifepoints)
+{
+  if(current_life_points - reduce_lifepoints < 1)
+  {
+    current_life_points = 0;
+  }
+}*/
