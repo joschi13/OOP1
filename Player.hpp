@@ -154,7 +154,7 @@ namespace Oop
 			void takeOffCards(int amount);
 			
 			/////////////////////////////////////////////////////////////////////////////////////
-			void setCardOnGameField(long x, long y);
+			bool setCardOnGameField(long x, long y);
 			
 			void setAllFieldCardsRdy();
 			

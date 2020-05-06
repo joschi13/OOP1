@@ -52,8 +52,8 @@ const int SACRIFICE_X_MAX = 7;
 //------------------------------------------------------------------------------
 Game::Game(Oop::Interface &io) : io_(io)
 {
-  players[0] = NULL;
-  players[1] = NULL;
+	players[0] = NULL;
+	players[1] = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -63,11 +63,13 @@ Game::~Game() noexcept
   {
     delete card;
   }
-  if (players[0] != NULL || players[1] != NULL)
+  
+  if(players[0] != NULL || players[1] != NULL)
   {
-    delete players[0];
-    delete players[1];
+	delete players[0];
+	delete players[1];
   }
+
 }
 
 //------------------------------------------------------------------------------
@@ -584,7 +586,12 @@ bool Game::executeSet(std::vector<std::string> arguments)
     return false;
   }
   
-  players[cur_player]->setCardOnGameField(x, y);
+  if(players[cur_player]->setCardOnGameField(x, y) == false)
+  {
+    io_.out(Oop::Interface::OutputType::INFO, 
+      Oop::Interface::WARNING_NOT_ENOUGH_MANA);
+    return false;
+  }
   
   //io_.log("works");
   return false;	

@@ -167,11 +167,17 @@ void Player::takeOffCards(int amount)
 
 
 
-void Player::setCardOnGameField(long x, long y)
+bool Player::setCardOnGameField(long x, long y)
 {
+  if(mana_points_ < hand_.at(size_t(x))->getManaCost())
+  {
+    return false;
+  }
 	game_field_[y] = dynamic_cast <CreatureCard *> (hand_.at(size_t(x)));
 	hand_.erase(hand_.begin()+x);
+  mana_points_= mana_points_ - hand_.at(size_t(x))->getManaCost();
 	game_field_[y]->setReadyToFight(false);
+  return true;
 }
 
 
