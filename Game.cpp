@@ -25,14 +25,14 @@
 #include <iterator>
 //#include <boost/algorithm/string.hpp>
 
-
-using Oop::Interface;
 using Oop::Game;
 using namespace rapidjson;
 
 //------------------------------------------------------------------------------
 Game::Game(Oop::Interface &io) : io_(io)
 {
+  players[0] = nullptr;
+	players[1] = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -43,8 +43,11 @@ Game::~Game() noexcept
     delete card;
   }
   
-  delete players[0];
-  delete players[1];
+  if(players[0] != nullptr)
+  {
+    delete players[0];
+    delete players[1];
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -68,7 +71,7 @@ bool Game::loadConfig(std::string config_file)
     io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
     return false;
   }
-
+  
   std::fseek(fptr, 0, SEEK_END);
   size_t len = size_t (std::ftell(fptr));
   std::fseek(fptr, 0, SEEK_SET);
@@ -109,7 +112,7 @@ bool Game::loadConfig(std::string config_file)
               mana_drain = temp["mana_drain"].GetBool();
               
               if(inBetween(mana_costs, 1, 15) && inBetween(damage_points, 0, 9) && \
-                 inBetween(life_points, 1, 9))
+                 inBetween(life_points, 1, 9) && (name.length() < 9))
               {
                 cur_card = new CreatureCard(name, mana_costs, damage_points, life_points, \
                                                  shield, mana_drain, false);
@@ -232,8 +235,8 @@ bool Game::checkOnCreatureEquality(Card* card)
 //------------------------------------------------------------------------------
 bool Game::setupPlayer()
 {
-	players[0] = new Player();
-	players[1] = new Player();
+  players[0] = new Player();
+  players[1] = new Player();
 
 	players[0]->copyPickUpStack(pick_up_stack);
 	players[1]->copyPickUpStack(pick_up_stack);
@@ -281,7 +284,7 @@ void Game::run()
     
     if(!playerCommandInput())
     {
-      return; //TODO
+      return;
     }
     
   }

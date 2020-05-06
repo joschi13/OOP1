@@ -19,7 +19,7 @@ namespace Oop
   class Interface;
   class Card;
   class Player;
-
+  
   //----------------------------------------------------------------------------
   // Game Class
   // This class is responsible for loading the config-file, starting, 

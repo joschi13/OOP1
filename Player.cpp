@@ -37,14 +37,20 @@ Player::Player(std::string name)
 //------------------------------------------------------------------------------
 Player::~Player()
 {
-	for(auto card : pick_up_stack_)
+	for(auto& card : pick_up_stack_)
 	{
-		delete card;
+		if(card != nullptr)
+		{
+			delete card;			
+		}
 	}
 
-	for(auto card : hand_)
+	for(auto& card : hand_)
 	{
-		delete card;
+		if(card != nullptr)
+		{
+			delete card;
+		}
 	}
 }
 
