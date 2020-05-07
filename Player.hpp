@@ -159,6 +159,10 @@ namespace Oop
 			void setAllFieldCardsRdy();
 			
 			bool reduceLifePoints(int life_points);
+
+			void healCreatures();
+
+			void eraseHandCard(int index);
 	};
 	
 }

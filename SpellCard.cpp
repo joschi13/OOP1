@@ -69,8 +69,28 @@ int SpellCard::determineManaCosts(SpellType type)
 }
 
 //------------------------------------------------------------------------------
-bool SpellCard::action(Game& game)
+bool SpellCard::action(Player* player, Player* other_player)
 {
-  //TODO
+  if(player->getManaPoints() < determineManaCosts(spell_type_))
+  {
+    return false;
+  }
+
+  switch(spell_type_){
+    case Oop::HEALER:
+      player->healCreatures();
+      player->reduceMana(determineManaCosts(spell_type_));
+      return true;
+
+    case Oop::RELIEF:
+      return 3;
+
+    case Oop::REBIRTH:
+      return 5;
+
+    case Oop::DRACULA:
+      return 2;
+  }
+  
   return false;
 }

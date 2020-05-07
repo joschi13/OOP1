@@ -82,6 +82,8 @@ namespace Oop
       void setAlreadyAttacked(bool rdy);
       
       void setReadyToFight(bool rdy);
+
+      void reduceLifePoints(int amount);
       
       
   };

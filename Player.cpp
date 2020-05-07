@@ -180,7 +180,7 @@ bool Player::setCardOnGameField(long x, long y)
     return false;
   }
 	game_field_[y] = dynamic_cast <CreatureCard *> (hand_.at(size_t(x)));
-	hand_.erase(hand_.begin()+x);
+	eraseHandCard(x);
   mana_points_= mana_points_ - hand_.at(size_t(x))->getManaCost();
 	game_field_[y]->setReadyToFight(false);
   return true;
@@ -207,5 +207,21 @@ bool Player::reduceLifePoints(int life_points)
     return false;
   }
   return true;
+}
+
+void Player::healCreatures()
+{
+	for(CreatureCard*& creature : game_field_)
+	{
+		if(creature != nullptr)
+		{
+			creature->reduceLifePoints(-1);
+		}
+	}
+}
+
+void Player::eraseHandCard(int index)
+{
+	hand_.erase(hand_.begin() + index);
 }
 

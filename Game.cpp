@@ -423,6 +423,26 @@ bool Game::playerCommandInput()
       continue;
     }
 
+    if(!strcasecmp(Oop::Interface::COMMAND_CAST.c_str(), arguments[0].c_str()))
+    {
+      if(checkParamCount(arguments[0]) == arguments.size())
+      {
+        SpellCard* card = dynamic_cast<SpellCard*> (players[cur_player]->getHandCards().at(size_t(atoi(arguments[1].c_str())) - 1));
+
+        if(card != nullptr)
+        {
+          if(card->action(players[cur_player], players[cur_player ^ 1]))
+          {
+            //players[cur_player]->eraseHandCard(atoi(arguments[1].c_str()));
+            //delete card;
+          }
+          continue;
+        }
+        return false; //TODO no spell card
+      }
+      
+    }
+
     //TODO
     //cast command
     //sacrifce command
