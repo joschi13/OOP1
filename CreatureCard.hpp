@@ -85,6 +85,8 @@ namespace Oop
 
       void reduceLifePoints(int amount);
       
+      int returnCurrentLifePoints() const;
+      
       
   };
 }

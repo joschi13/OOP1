@@ -120,6 +120,10 @@ public:
   bool executeAtt(std::vector<std::string> arguments);
 
   bool executeSet(std::vector<std::string> arguments);
+  
+  bool executeSac(std::vector<std::string> arguments);
+  
+  bool checkForShield(long x) const;
 };
 } 
 

@@ -112,13 +112,13 @@ void CreatureCard::reduceLifePoints(int amount)
 {
   current_life_points_ = current_life_points_ - amount;
 
-  if(current_life_points_ > 9){
+  if(current_life_points_ > 9)
+  {
     current_life_points_ = 9;
   }
+}
 
-  if(current_life_points_ < 0)
-  {
-    current_life_points_ = 0;
-    //TODO playerfunction: move to graveyard
-  }
+int CreatureCard::returnCurrentLifePoints() const
+{
+  return current_life_points_;
 }
