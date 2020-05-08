@@ -83,6 +83,10 @@ namespace Oop
       
       void setReadyToFight(bool rdy);
       
+      void reduceLifePoints(int reduce_lifepoints);
+      
+      int returnCurrentLifePoints() const;
+      
       
   };
 }

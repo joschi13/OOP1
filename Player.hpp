@@ -34,7 +34,7 @@ namespace Oop
 			CreatureCard* game_field_ [7];
 			std::vector<Card*> pick_up_stack_;
 			std::vector<Card*> hand_;
-			std::vector<CreatureCard> graveyard_;
+			std::vector<CreatureCard*> graveyard_;
 
 		public:
 
@@ -153,12 +153,24 @@ namespace Oop
 			//
 			void takeOffCards(int amount);
 			
-			/////////////////////////////////////////////////////////////////////////////////////
+			//------------------------------------------------------------------
+			// The setCardOnGameField function
+			// Moving the cards from the hand to the playfield
+			//
+			// @param amount of taken cards
+			//
 			bool setCardOnGameField(long x, long y);
+			
 			
 			void setAllFieldCardsRdy();
 			
-			bool reduceLifePoints(int life_points);
+			void reduceLifePoints(int life_points);
+			
+			void damageMonsters(int damage, long x);
+			
+			void setAlreadyAttacked(long y);
+			
+			void moveToGraveyard(long(y));
 	};
 	
 }

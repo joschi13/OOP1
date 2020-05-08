@@ -108,11 +108,12 @@ void CreatureCard::setReadyToFight(bool rdy)
   ready_to_fight_ = rdy;
 }
 
-//TODO for attack command
-/*void CreatureCard::reduceLifePoints(int reduce_lifepoints)
+void CreatureCard::reduceLifePoints(int reduce_lifepoints)
 {
-  if(current_life_points - reduce_lifepoints < 1)
-  {
-    current_life_points = 0;
-  }
-}*/
+  current_life_points_ = current_life_points_ - reduce_lifepoints;
+}
+
+int CreatureCard::returnCurrentLifePoints() const
+{
+  return current_life_points_;
+}

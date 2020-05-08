@@ -50,12 +50,18 @@ Player::~Player()
 		delete card;
 	}
 	
-	for (auto card : game_field_)
+	for(auto card : game_field_)
 	{
 		delete card;
 	}
-}
+  
+  for(auto card : graveyard_)
+  {
+    delete card;
+  }
+  
 
+}
 //------------------------------------------------------------------------------
 std::string Player::getName() const
 {
@@ -165,8 +171,7 @@ void Player::takeOffCards(int amount)
 	}
 }
 
-
-
+//------------------------------------------------------------------------------
 bool Player::setCardOnGameField(long x, long y)
 {
   if(mana_points_ < hand_.at(size_t(x))->getManaCost())
@@ -174,13 +179,13 @@ bool Player::setCardOnGameField(long x, long y)
     return false;
   }
 	game_field_[y] = dynamic_cast <CreatureCard *> (hand_.at(size_t(x)));
+   mana_points_= mana_points_ - hand_.at(size_t(x))->getManaCost();
 	hand_.erase(hand_.begin()+x);
-  mana_points_= mana_points_ - hand_.at(size_t(x))->getManaCost();
 	game_field_[y]->setReadyToFight(false);
   return true;
 }
 
-
+//------------------------------------------------------------------------------
 void Player::setAllFieldCardsRdy()
 {
   for(size_t temp = 0; temp < Interface::NUM_OF_GAMEFIELD_CARDS; temp++)
@@ -192,14 +197,34 @@ void Player::setAllFieldCardsRdy()
     }
   }
 }
-  
-bool Player::reduceLifePoints(int life_points)
+
+//------------------------------------------------------------------------------
+void Player::reduceLifePoints(int life_points)
 {
   life_points_ = life_points_ - life_points;
-  if(life_points_ <= 0)
-  {
-    return false;
-  }
-  return true;
 }
 
+
+//------------------------------------------------------------------------------
+void Player::damageMonsters(int damage, long x)
+{
+	game_field_[size_t(x)]->reduceLifePoints(damage);
+	if(game_field_[size_t(x)]->getCurrentLifePoints() <= 0)
+	{
+    graveyard_.push_back(game_field_[x]);
+    game_field_[x] = nullptr;
+	}
+}
+
+
+void Player::setAlreadyAttacked(long y)
+{
+  game_field_[y]->setAlreadyAttacked(true);
+}
+
+
+void Player::moveToGraveyard(long(y))
+{
+  graveyard_.push_back(dynamic_cast<CreatureCard*>(hand_.at(size_t(y))));
+  hand_.erase(hand_.begin()+y);
+}
