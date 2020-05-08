@@ -35,7 +35,7 @@ using namespace rapidjson;
 
 const int ATT_X_MIN = 0;
 const int ATT_X_MAX = 7;
-const int ATT_Y_MIN = 0;
+const int ATT_Y_MIN = 1;
 const int ATT_Y_MAX = 7;
 
 const int SET_X_MIN = 1;
@@ -423,9 +423,15 @@ bool Game::playerCommandInput()
       continue;
     }
 
+
+    if(!strcasecmp(Oop::Interface::COMMAND_SACRIFICE.c_str(), arguments[0].c_str()))
+    {
+      //BIG TODO
+      Game::executeSac(arguments);
+    }
     //TODO
     //cast command
-    //sacrifce command
+    
     
     else
     {
@@ -510,62 +516,67 @@ bool Game::executeAtt(std::vector<std::string> arguments)
 {
   long x = std::strtol(arguments[1].c_str(), nullptr, 10);
   long y = std::strtol(arguments[3].c_str(), nullptr, 10);
-  
-  /*bool is_card_on_field = false;
 
-  for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
+  x=0;       // Weil wegen xmin nd geht später löschen is iz nur zum testn
+  if(x == 0)    //attacking the enemy himself
   {
-    if(players[cur_player ^ 1]->getGameField()[i] != nullptr)
+    --y;
+    
+    if(players[cur_player]->getGameField()[y] == nullptr ||
+      players[cur_player]->getGameField()[y]->getReadyToFight() == false)
     {
-      is_card_on_field = true;
+      io_.out(Oop::Interface::OutputType::INFO,
+        Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+      return false;
     }
-  }
-  
-  if(is_card_on_field != true)
-  {
-    for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
+      
+      
+    if(checkForShield(-1) == false)
     {
-      if(players[cur_player]->getGameField()[i] != nullptr)
+      players[cur_player ^ 1]->reduceLifePoints(players[cur_player]->
+        getGameField()[y]->getDamagePoints());
+      if(players[cur_player]->getGameField()[y]->getManaDrain() == true)
       {
-         bool lol = players[cur_player ^ 1]->reduceLifePoints(players[cur_player]->getGameField()[i]->getDamagePoints());
+        players[cur_player ^ 1]->reduceMana(15);
       }
+    }
+    else
+    {
+      io_.out(Oop::Interface::OutputType::INFO,
+      Oop::Interface::WARNING_SHIELD_MONSTER);
+      return false;
     } 
   }
-
-*/
-
-
-  if(x > 0)
+  
+  
+  if(x > 0)       //attacking enemy cards
   {
     x--;
     y--;
-    if (players[cur_player ^ 1]->getGameField()[x] == nullptr ||
+    if(players[cur_player ^ 1]->getGameField()[x] == nullptr ||
       players[cur_player]->getGameField()[y] == nullptr || 
-      players[cur_player]->getGameField()[y]->getAlreadyAttacked())
+      players[cur_player]->getGameField()[y]->getAlreadyAttacked() == true ||
+      players[cur_player]->getGameField()[y]->getReadyToFight() == false ||
+      players[cur_player ^ 1]->getGameField()[x]->getReadyToFight() == false)
     {
       io_.out(Oop::Interface::OutputType::INFO,
         Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
       return false;
     }
     
-    for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
+    if(checkForShield(x) == true)
     {
-      if (players[cur_player ^ 1]->getGameField()[i] != nullptr &&
-        players[cur_player ^ 1]->getGameField()[i]->getShield())
-      {
-        io_.out(Oop::Interface::OutputType::INFO,
-        Oop::Interface::WARNING_SHIELD_MONSTER);
-        return false;
-      }
+      io_.out(Oop::Interface::OutputType::INFO,
+      Oop::Interface::WARNING_SHIELD_MONSTER);
+      return false;
     }
+  
+    players[cur_player ^ 1]->damageMonsters(players[cur_player]->
+    getGameField()[y]->getDamagePoints(), x); 
+  
   }
   
-  //TODO attack command itself
-  
-  //players[cur_player ^ 1]->getGameField()[x]->reduceLifePoints
-  //(players[cur_player]->getGameField()[y]->getDamagePoints);
-  //players[cur_player]->getGameField()[y]->setAlreadyAttacked();
-  
+  players[cur_player]->setAlreadyAttacked(y);
   return false;
 }
 
@@ -575,9 +586,8 @@ bool Game::executeSet(std::vector<std::string> arguments)
   long y = std::strtol(arguments[3].c_str(), nullptr, 10);
   x--;
   y--;
-  //maybe index problems at hand cards with x
   if (players[cur_player]->getGameField()[y] != nullptr ||  
-  x > (players[cur_player]->getHandSize() - 1) ||
+  x > (players[cur_player]->getHandSize()) ||
    players[cur_player]->getHandCards().at(size_t(x))->getType() !=
      Card::CardType::CREATURE)
   {
@@ -597,7 +607,34 @@ bool Game::executeSet(std::vector<std::string> arguments)
   return false;	
 }
 
-//do we need this function?
+
+bool Game::executeSac(std::vector<std::string> arguments)
+{
+  size_t y = size_t(atoi(arguments[1].c_str())) - 1 ;
+  
+  if(players[cur_player]->getHandCards().at(y) == nullptr)
+  {
+    io_.out(Oop::Interface::OutputType::INFO, 
+      Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+    return false;
+  } 
+  
+  if(players[cur_player]->getHandCards().at(y)->getType() ==
+    Card::CardType::CREATURE)
+  {
+      players[cur_player]->moveToGraveyard(long(y));
+  }
+  if(players[cur_player]->getHandCards().at(y)->getType()
+    ==Card::CardType::SPELL)
+  {
+    
+  }
+  players[cur_player]->addLifePoints(1);
+  
+  return false;
+} 
+
+//do we need this function? i dont think so
 //------------------------------------------------------------------------------
 int Game::getCurPlayer() const
 {
@@ -612,4 +649,23 @@ std::vector<std::string> Game::tokenizeStr(std::string input)
     std::istream_iterator<std::string>{}};
 
   return tokens;
+}
+
+bool Game::checkForShield(long x) const
+{
+  for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
+  {
+    if (players[cur_player ^ 1]->getGameField()[i] != nullptr &&
+      players[cur_player ^ 1]->getGameField()[i]->getShield())
+    {
+      if(x != -1)
+      {
+        if(!players[cur_player ^ 1]->getGameField()[x]->getShield())
+        {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }
