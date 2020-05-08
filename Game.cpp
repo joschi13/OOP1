@@ -79,8 +79,8 @@ bool Game::loadConfig(std::string config_file)
   SizeType index;
 
   std::string name;
-  int stack_size, mana_costs, damage_points, life_points;
-  bool shield, mana_drain;
+  int mana_costs, damage_points, life_points;
+  bool found, shield, mana_drain;
   const char *spell_name;
   SpellType type;
 
@@ -105,132 +105,129 @@ bool Game::loadConfig(std::string config_file)
   doc.Parse(content.c_str());
 
   //check json structure
-  if ((doc.IsObject()) && (doc.MemberCount() == 2) &&
-      (doc.HasMember("Creatures")) && (doc.HasMember("Spells")))
+  if ((!doc.IsObject()) || (doc.MemberCount() != 2) ||
+      (!doc.HasMember("Creatures")) || (!doc.HasMember("Spells")))
   {
-    Value &creatures = doc["Creatures"];
-    Value &spells = doc["Spells"];
-
-    if ((creatures.IsArray()) && (spells.IsArray()) &&
-        (stack_size = creatures.Size() + spells.Size() >= 10))
-
-    { //check creatures
-      for (index = 0; index < creatures.Size(); index++)
-      {
-        Value &temp = creatures[index];
-        if (temp.HasMember("name") && temp.HasMember("mana_cost") &&
-            temp.HasMember("damage_points") && temp.HasMember("life_points") &&
-            temp.HasMember("shield") && temp.HasMember("mana_drain"))
-        {
-
-          if ((temp["mana_cost"].IsInt()) && (temp["damage_points"].IsInt()) &&
-              (temp["life_points"].IsInt()) && temp["shield"].IsBool() &&
-              temp["mana_drain"].IsBool() && temp["name"].IsString() &&
-              (temp.MemberCount() == 6))
-          {
-            name = temp["name"].GetString();
-            mana_costs = temp["mana_cost"].GetInt();
-            damage_points = temp["damage_points"].GetInt();
-            life_points = temp["life_points"].GetInt();
-            shield = temp["shield"].GetBool();
-            mana_drain = temp["mana_drain"].GetBool();
-
-            if (inBetween(mana_costs, 1, 15) && 
-				inBetween(damage_points, 0, 9) &&
-				inBetween(life_points, 1, 9) &&
-				name.length() < 9)
-            {
-              cur_card = new CreatureCard(name, mana_costs, damage_points,
-				life_points, shield, mana_drain, false);
-
-              if (!checkOnCreatureEquality(cur_card))
-              {
-                delete cur_card;
-                break;
-              }
-
-              pick_up_stack.push_back(cur_card);
-            }
-            else
-            {
-              break;
-            }
-          }
-          else
-          {
-            break;
-          }
-        }
-        else
-        {
-          break;
-        }
-      }
-
-      if (index == creatures.Size())
-      { //check spells
-        for (index = 0; index < spells.Size(); index++)
-        {
-          Value &temp = spells[index];
-          if (temp.HasMember("name") && temp["name"].IsString() &&
-              (temp.MemberCount() == 1))
-          {
-            name = temp["name"].GetString();
-            spell_name = name.c_str();
-
-            if (std::strcmp(spell_name,
-			  Interface::STRING_HEALER.c_str()))
-            {
-              if (std::strcmp(spell_name, 
-				Interface::STRING_RELIEF.c_str()))
-              {
-                if (std::strcmp(spell_name,
-				  Interface::STRING_REBIRTH.c_str()))
-                {
-                  if (std::strcmp(spell_name,
-					Interface::STRING_DRACULA.c_str()))
-                  {
-                    break;
-                  }
-                  else
-                  {
-                    type = Oop::DRACULA;
-                  }
-                }
-                else
-                {
-                  type = Oop::REBIRTH;
-                }
-              }
-              else
-              {
-                type = Oop::RELIEF;
-              }
-            }
-            else
-            {
-              type = Oop::HEALER;
-            }
-
-            cur_card = new SpellCard(type);
-            pick_up_stack.push_back(cur_card);
-          }
-          else
-          {
-            break;
-          }
-        }
-
-        if (index == spells.Size())
-        {
-          return true;
-        }
-      }
-    }
+    io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
+    return false;
   }
 
-  io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
-  return false;
+  Value &creatures = doc["Creatures"];
+  Value &spells = doc["Spells"];
+
+  if ((!creatures.IsArray()) || (!spells.IsArray()) ||
+      (creatures.Size() + spells.Size() < 10))
+
+  { 
+    io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
+    return false;
+  }
+
+  //check creatures
+  for (index = 0; index < creatures.Size(); index++)
+  {
+    Value &temp = creatures[index];
+    if (!temp.HasMember("name") || !temp.HasMember("mana_cost") ||
+        !temp.HasMember("damage_points") || !temp.HasMember("life_points") ||
+        !temp.HasMember("shield") || !temp.HasMember("mana_drain"))
+    {
+      io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
+      return false;
+    }
+
+    if ((temp["mana_cost"].IsInt()) && (temp["damage_points"].IsInt()) &&
+        (temp["life_points"].IsInt()) && temp["shield"].IsBool() &&
+        temp["mana_drain"].IsBool() && temp["name"].IsString() &&
+        (temp.MemberCount() == 6))
+    {
+      name = temp["name"].GetString();
+      mana_costs = temp["mana_cost"].GetInt();
+      damage_points = temp["damage_points"].GetInt();
+      life_points = temp["life_points"].GetInt();
+      shield = temp["shield"].GetBool();
+      mana_drain = temp["mana_drain"].GetBool();
+
+      if (!inBetween(mana_costs, 1, 15) || 
+          !inBetween(damage_points, 0, 9) ||
+          !inBetween(life_points, 1, 9) ||
+          !(name.length() < 9))
+      {
+        io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
+        return false;
+      }
+
+      cur_card = new CreatureCard(name, mana_costs, damage_points,
+      life_points, shield, mana_drain, false);
+
+      if (!checkOnCreatureEquality(cur_card))
+      {
+        delete cur_card;
+        break;
+      }
+
+      pick_up_stack.push_back(cur_card);   
+    }
+    else
+    {
+      break;
+    }
+  }
+  if (index != creatures.Size())
+  {
+    io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
+    return false;
+  } 
+
+  //check spells
+  for (index = 0; index < spells.Size(); index++)
+  {
+    found = false;
+    Value &temp = spells[index];
+    if (!temp.HasMember("name") || !temp["name"].IsString() ||
+        (temp.MemberCount() != 1))
+    {
+      io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
+      return false;
+    }
+    name = temp["name"].GetString();
+    spell_name = name.c_str();
+
+    if (!std::strcmp(spell_name, Interface::STRING_HEALER.c_str()))
+    {
+      type = Oop::HEALER;
+      found = true;
+    }
+
+    if (!std::strcmp(spell_name, Interface::STRING_RELIEF.c_str()))
+    {
+      type = Oop::RELIEF;
+      found = true;
+    }
+
+    if (!std::strcmp(spell_name, Interface::STRING_REBIRTH.c_str()))
+    {
+      type = Oop::REBIRTH;
+      found = true;
+    }
+
+    if (!std::strcmp(spell_name, Interface::STRING_DRACULA.c_str()))
+    {
+      type = Oop::DRACULA;
+      found = true;
+    }
+
+    if(found)
+    {
+      cur_card = new SpellCard(type);
+      pick_up_stack.push_back(cur_card);
+    }
+    else
+    {
+      io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
+      return false;
+    }
+  }
+return true;
 }
 
 //------------------------------------------------------------------------------
