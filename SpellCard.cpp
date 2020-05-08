@@ -47,6 +47,9 @@ std::string SpellCard::determineName(SpellType type)
 
     case Oop::DRACULA:
       return Interface::STRING_DRACULA;
+
+    case Oop::TRAITOR:
+      return Interface::STRING_TRAITOR;
   }
 }
 
@@ -65,6 +68,9 @@ int SpellCard::determineManaCosts(SpellType type)
 
     case Oop::DRACULA:
       return 2;
+
+    case Oop::TRAITOR:
+      return 9;
   }
 }
 
@@ -76,20 +82,27 @@ bool SpellCard::action(Player* player, Player* other_player)
     return false;
   }
 
+  player->reduceMana(determineManaCosts(spell_type_));
+
   switch(spell_type_){
     case Oop::HEALER:
       player->healCreatures();
-      player->reduceMana(determineManaCosts(spell_type_));
       return true;
 
     case Oop::RELIEF:
-      return 3;
+      player->takeOffCards(3, 8);
+      return true;
 
     case Oop::REBIRTH:
-      return 5;
+      return true;
 
     case Oop::DRACULA:
-      return 2;
+      other_player->reduceLifePoints(2);
+      player->reduceLifePoints(-2);
+      return true;
+      
+    case Oop::TRAITOR:
+      return true;
   }
   
   return false;

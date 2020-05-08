@@ -149,9 +149,9 @@ namespace Oop
 			// The takeOffCards function
 			// Taking off number of cards and adding to hand cards
 			//
-			// @param amount of taken cards
+			// @param amount of taken cards and maximal hand size
 			//
-			void takeOffCards(int amount);
+			void takeOffCards(int amount, int max_hand_size);
 			
 			/////////////////////////////////////////////////////////////////////////////////////
 			bool setCardOnGameField(long x, long y);
@@ -163,6 +163,8 @@ namespace Oop
 			void healCreatures();
 
 			void eraseHandCard(int index);
+
+			int getPickUpStackSize();
 	};
 	
 }

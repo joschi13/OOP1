@@ -287,8 +287,8 @@ bool Game::setupPlayer()
   players[0]->setName(io_.readPlayerName(0));
   players[1]->setName(io_.readPlayerName(1));
 
-  players[0]->takeOffCards(3);
-  players[1]->takeOffCards(3);
+  players[0]->takeOffCards(3, 7);
+  players[1]->takeOffCards(3, 7);
 
   return true;
 }
@@ -305,13 +305,13 @@ void Game::run()
   {
     cur_player = cur_player ^ 1;
 
-	players[cur_player]->setAllFieldCardsRdy();
+	  players[cur_player]->setAllFieldCardsRdy();
 
     if (cur_player == 0)
     {
       round_counter++;
       io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_ROUND +
-		std::to_string(round_counter));
+		    std::to_string(round_counter));
     }
 
     (round_counter < 3) ? (players[cur_player]->addMana(pow(2, round_counter)))
@@ -320,8 +320,9 @@ void Game::run()
     io_.out(Oop::Interface::OutputType::INFO,
 	  Oop::Interface::INFO_CURRENT_PLAYER + players[cur_player]->getName());
 
-    players[cur_player]->takeOffCards(1);
-
+    players[cur_player]->takeOffCards(1, 7);
+    
+    
     io_.out(players[cur_player], players[cur_player ^ 1]);
 
     if (!playerCommandInput())
@@ -433,8 +434,9 @@ bool Game::playerCommandInput()
         {
           if(card->action(players[cur_player], players[cur_player ^ 1]))
           {
-            //players[cur_player]->eraseHandCard(atoi(arguments[1].c_str()));
-            //delete card;
+            
+            players[cur_player]->eraseHandCard(atoi(arguments[1].c_str()) - 1);
+            delete card;
           }
           continue;
         }

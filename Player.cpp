@@ -160,10 +160,16 @@ void Player::shufflePickUpStack()
 }
 
 //------------------------------------------------------------------------------
-void Player::takeOffCards(int amount)
+void Player::takeOffCards(int amount, int max_hand_size)
 {
-	while((amount > 0) && (pick_up_stack_.size() > 0) && (getHandSize() < 7))
+	while(amount > 0)
 	{
+		if((pick_up_stack_.size() == 0) || (getHandSize() == max_hand_size))
+		{
+			reduceLifePoints(1);
+			amount--;
+			continue;
+		}
 		hand_.push_back(pick_up_stack_.back());
 		pick_up_stack_.pop_back();
 		
@@ -225,3 +231,7 @@ void Player::eraseHandCard(int index)
 	hand_.erase(hand_.begin() + index);
 }
 
+int Player::getPickUpStackSize()
+{
+	return int(pick_up_stack_.size());
+}

@@ -22,7 +22,7 @@ namespace Oop
   class Card;
   class Player;
 
-  enum SpellType {HEALER, RELIEF, REBIRTH, DRACULA};
+  enum SpellType {HEALER, RELIEF, REBIRTH, DRACULA, TRAITOR};
 
   //----------------------------------------------------------------------------
   // SpellCard Class
