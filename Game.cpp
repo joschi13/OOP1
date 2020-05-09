@@ -428,15 +428,14 @@ bool Game::playerCommandInput()
       if (Game::compareCommandInput(arguments, "nullstr", CAST_X_MIN, players[cur_player]->getHandSize(), 0, 0))
       {
         int x = atoi(arguments[1].c_str()) - 1;
-        SpellCard *card = dynamic_cast<SpellCard *>(players[cur_player]->getHandCards().at(size_t(x)));
-        if (players[cur_player]->getGameField()[x] == nullptr || players[cur_player]->getHandCards().at(size_t(x))->getType() !=
+        if (players[cur_player]->getHandCards().at(size_t(x)) == nullptr || players[cur_player]->getHandCards().at(size_t(x))->getType() !=
           Card::CardType::SPELL)
         {
           io_.out(Oop::Interface::OutputType::INFO,
                   Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
           continue;
         }
-
+        SpellCard *card = dynamic_cast<SpellCard *>(players[cur_player]->getHandCards().at(size_t(x)));
         card->action(*this);
         if(players[cur_player ^ 1]->getLifePoints() <= 0)
         {
