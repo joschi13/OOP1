@@ -295,7 +295,6 @@ void Interface::printGamefieldCards(const Oop::Player* player)
 
   // collect all data
   auto game_field = player->getGameField();
-
   for (size_t index = 0; index < NUM_OF_GAMEFIELD_CARDS; index++)
   {
     const Oop::CreatureCard* card = game_field[index];
