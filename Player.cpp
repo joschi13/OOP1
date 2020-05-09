@@ -19,6 +19,9 @@ using Oop::Card;
 using Oop::CreatureCard;
 using Oop::Interface;
 
+//just for testing
+#include <iostream>
+
 Player::Player() : Player("")
 {
 }
@@ -186,9 +189,11 @@ bool Player::setCardOnGameField(long x, long y)
   {
     return false;
   }
+	mana_points_= mana_points_ - hand_.at(size_t(x))->getManaCost();
 	game_field_[y] = dynamic_cast <CreatureCard *> (hand_.at(size_t(x)));
+	
 	hand_.erase(hand_.begin() + x);
-  mana_points_= mana_points_ - hand_.at(size_t(x))->getManaCost();
+	
 	game_field_[y]->setReadyToFight(false);
   return true;
 }

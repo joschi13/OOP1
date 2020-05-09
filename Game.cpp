@@ -46,14 +46,14 @@ const int SET_Y_MAX = 7;
 const int CAST_X_MIN = 1;
 const int CAST_X_MAX = 7;
 
-const int SACRIFICE_X_MIN = 1;
-const int SACRIFICE_X_MAX = 7;
+const int SAC_X_MIN = 1;
+const int SAC_X_MAX = 7;
 
 //------------------------------------------------------------------------------
 Game::Game(Oop::Interface &io) : io_(io)
 {
-	players[0] = NULL;
-	players[1] = NULL;
+  players[0] = NULL;
+  players[1] = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -63,13 +63,12 @@ Game::~Game() noexcept
   {
     delete card;
   }
-  
-  if(players[0] != NULL || players[1] != NULL)
-  {
-	delete players[0];
-	delete players[1];
-  }
 
+  if (players[0] != NULL || players[1] != NULL)
+  {
+    delete players[0];
+    delete players[1];
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -94,7 +93,7 @@ bool Game::loadConfig(std::string config_file)
     io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
     return false;
   }
-  
+
   std::fseek(fptr, 0, SEEK_END);
   size_t len = size_t(std::ftell(fptr));
   std::fseek(fptr, 0, SEEK_SET);
@@ -118,7 +117,7 @@ bool Game::loadConfig(std::string config_file)
   if ((!creatures.IsArray()) || (!spells.IsArray()) ||
       (creatures.Size() + spells.Size() < 10))
 
-  { 
+  {
     io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
     return false;
   }
@@ -147,7 +146,7 @@ bool Game::loadConfig(std::string config_file)
       shield = temp["shield"].GetBool();
       mana_drain = temp["mana_drain"].GetBool();
 
-      if (!inBetween(mana_costs, 1, 15) || 
+      if (!inBetween(mana_costs, 1, 15) ||
           !inBetween(damage_points, 0, 9) ||
           !inBetween(life_points, 1, 9) ||
           !(name.length() < 9))
@@ -157,7 +156,7 @@ bool Game::loadConfig(std::string config_file)
       }
 
       cur_card = new CreatureCard(name, mana_costs, damage_points,
-      life_points, shield, mana_drain, false);
+                                  life_points, shield, mana_drain, false);
 
       if (!checkOnCreatureEquality(cur_card))
       {
@@ -165,7 +164,7 @@ bool Game::loadConfig(std::string config_file)
         break;
       }
 
-      pick_up_stack.push_back(cur_card);   
+      pick_up_stack.push_back(cur_card);
     }
     else
     {
@@ -176,7 +175,7 @@ bool Game::loadConfig(std::string config_file)
   {
     io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
     return false;
-  } 
+  }
 
   //check spells
   for (index = 0; index < spells.Size(); index++)
@@ -222,7 +221,7 @@ bool Game::loadConfig(std::string config_file)
       found = true;
     }
 
-    if(found)
+    if (found)
     {
       cur_card = new SpellCard(type);
       pick_up_stack.push_back(cur_card);
@@ -233,7 +232,7 @@ bool Game::loadConfig(std::string config_file)
       return false;
     }
   }
-return true;
+  return true;
 }
 
 //------------------------------------------------------------------------------
@@ -256,17 +255,17 @@ bool Game::checkOnCreatureEquality(Card *card)
       cur_creature = dynamic_cast<CreatureCard *>(cur);
 
       if (!((cur_creature->getManaCost() ==
-		      new_creature->getManaCost()) &&
+             new_creature->getManaCost()) &&
             (cur_creature->getLifePoints() ==
-              new_creature->getLifePoints()) &&
+             new_creature->getLifePoints()) &&
             (cur_creature->getShield() ==
-              new_creature->getShield()) &&
+             new_creature->getShield()) &&
             (cur_creature->getManaDrain() ==
-              new_creature->getManaDrain()) &&
+             new_creature->getManaDrain()) &&
             (cur_creature->getSpeedy() ==
-              new_creature->getSpeedy()) &&
+             new_creature->getSpeedy()) &&
             (cur_creature->getDamagePoints() ==
-			  new_creature->getDamagePoints())))
+             new_creature->getDamagePoints())))
       {
         return false;
       }
@@ -308,24 +307,23 @@ void Game::run()
   {
     cur_player = cur_player ^ 1;
 
-	  players[cur_player]->setAllFieldCardsRdy();
+    players[cur_player]->setAllFieldCardsRdy();
 
     if (cur_player == 0)
     {
       round_counter++;
       io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_ROUND +
-		    std::to_string(round_counter));
+                                                    std::to_string(round_counter));
     }
 
     (round_counter < 3) ? (players[cur_player]->addMana(pow(2, round_counter)))
-	  : (players[cur_player]->addMana(8));
+                        : (players[cur_player]->addMana(8));
 
     io_.out(Oop::Interface::OutputType::INFO,
-	  Oop::Interface::INFO_CURRENT_PLAYER + players[cur_player]->getName());
+            Oop::Interface::INFO_CURRENT_PLAYER + players[cur_player]->getName());
 
     players[cur_player]->takeOffCards(1, 7);
-    
-    
+
     io_.out(players[cur_player], players[cur_player ^ 1]);
 
     if (!playerCommandInput())
@@ -350,68 +348,56 @@ bool Game::playerCommandInput()
       continue;
     }
 
-    
-
     if (!strcasecmp(Oop::Interface::COMMAND_HELP.c_str(), arguments[0].c_str()))
     {
       helpstr = Oop::Interface::INFO_HELP_MSGS.at(0);
       for (size_t index = 1; index <
-       Oop::Interface::INFO_HELP_MSGS.size(); index++)
+                             Oop::Interface::INFO_HELP_MSGS.size();
+           index++)
       {
         helpstr = helpstr + "\n" + Oop::Interface::INFO_HELP_MSGS.at(index);
       }
       io_.out(Oop::Interface::OutputType::INFO, helpstr);
       continue;
     }
-    
-    
-    
 
     if (!strcasecmp(Oop::Interface::COMMAND_STATE.c_str(),
-      arguments[0].c_str()))
+                    arguments[0].c_str()))
     {
       io_.out(players[cur_player], players[cur_player ^ 1]);
       continue;
     }
-    
-    
 
-    
     //TODO "finish" ends the program and has to return 0
     if (!strcasecmp(Oop::Interface::COMMAND_QUIT.c_str(), arguments[0].c_str()))
     {
-      if(Game::compareCommandInput(arguments, "nullptr", 0, 0, 0, 0))
+      if (Game::compareCommandInput(arguments, "nullptr", 0, 0, 0, 0))
       {
         io_.out(Oop::Interface::OutputType::INFO,
-         Oop::Interface::ENDLINE_PART_ONE +
-		 players[cur_player ^ 1]->getName() +
-		 Oop::Interface::ENDLINE_PART_TWO);
+                Oop::Interface::ENDLINE_PART_ONE +
+                    players[cur_player ^ 1]->getName() +
+                    Oop::Interface::ENDLINE_PART_TWO);
       }
-      
+
       return false;
     }
 
-
-
     //TODO "quit" ends the program and has to return 0
     //TODO overload compareCommandInput for commands that have
-    // less parameters than 
+    // less parameters than
     //"attack" and "set"?
     if (!strcasecmp(Oop::Interface::COMMAND_FINISH.c_str(),
-      arguments[0].c_str()))
+                    arguments[0].c_str()))
     {
-      Game::compareCommandInput(arguments,"nullptr",0,0,0,0);
+      Game::compareCommandInput(arguments, "nullptr", 0, 0, 0, 0);
       return true;
     }
 
-
-
-
-    if (!strcasecmp(Oop::Interface::COMMAND_ATTACK.c_str(), 
-      arguments[0].c_str()))
+    if (!strcasecmp(Oop::Interface::COMMAND_ATTACK.c_str(),
+                    arguments[0].c_str()))
     {
       if (Game::compareCommandInput(arguments, "with",
-        ATT_X_MIN, ATT_X_MAX, ATT_Y_MIN, ATT_Y_MAX))
+                                    ATT_X_MIN, ATT_X_MAX, ATT_Y_MIN, ATT_Y_MAX))
       {
         Game::executeAtt(arguments);
       }
@@ -419,71 +405,70 @@ bool Game::playerCommandInput()
     }
     if (!strcasecmp(Oop::Interface::COMMAND_SET.c_str(), arguments[0].c_str()))
     {
-      if(Game::compareCommandInput(arguments, "to", SET_X_MIN,
-       SET_X_MAX, SET_Y_MIN, SET_Y_MAX))
+      if (Game::compareCommandInput(arguments, "to", SET_X_MIN,
+                                    /*handcardsize*/ players[cur_player]->getHandSize(), SET_Y_MIN, SET_Y_MAX))
       {
         Game::executeSet(arguments);
       }
       continue;
     }
 
-    if(!strcasecmp(Oop::Interface::COMMAND_CAST.c_str(), arguments[0].c_str()))
+    if (!strcasecmp(Oop::Interface::COMMAND_CAST.c_str(), arguments[0].c_str()))
     {
-      if(checkParamCount(arguments[0]) == arguments.size())
-      {
-        SpellCard* card = dynamic_cast<SpellCard*> (players[cur_player]->getHandCards().at(size_t(atoi(arguments[1].c_str())) - 1));
 
-        if(card != nullptr)
+      if (Game::compareCommandInput(arguments, "nullstr", CAST_X_MIN, players[cur_player]->getHandSize(), 0, 0))
+      {
+        int x = atoi(arguments[1].c_str()) - 1;
+        SpellCard *card = dynamic_cast<SpellCard *>(players[cur_player]->getHandCards().at(size_t(x)));
+        if (players[cur_player]->getGameField()[x] == nullptr || players[cur_player]->getHandCards().at(size_t(x))->getType() !=
+                                                                     Card::CardType::SPELL)
         {
-          if(card->action(*this))
-          {
-            
-            players[cur_player]->eraseSpellHandCard(atoi(arguments[1].c_str()) - 1);
-            
-          }
+          io_.out(Oop::Interface::OutputType::INFO,
+                  Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
           continue;
         }
-        return false; //TODO no spell card
+
+        card->action(*this);
+        players[cur_player]->eraseSpellHandCard(x);
       }
-      
+       continue;
     }
 
-
-    if(!strcasecmp(Oop::Interface::COMMAND_SACRIFICE.c_str(), arguments[0].c_str()))
+    if (!strcasecmp(Oop::Interface::COMMAND_SACRIFICE.c_str(), arguments[0].c_str()))
     {
-      //BIG TODO
-      Game::executeSac(arguments);
+      if (Game::compareCommandInput(arguments, "nullstr", SAC_X_MIN, players[cur_player]->getHandSize(), 0, 0))
+      {
+        
+        Game::executeSac(arguments);
+      }
+      continue;
     }
-    //TODO
-    //cast command
-    
-    
+
     else
     {
       io_.out(Oop::Interface::OutputType::INFO,
-       Oop::Interface::WARNING_UNKNOWN_COMMAND);
+              Oop::Interface::WARNING_UNKNOWN_COMMAND);
     }
   }
-
   return false;
 }
 
 //------------------------------------------------------------------------------
 bool Game::compareCommandInput(std::vector<std::string> arguments,
-  std::string prep, int x_min, int x_max, int y_min, int y_max)
+                               std::string prep, int x_min, int x_max, int y_min, int y_max)
 {
 
   if (arguments.size() != checkParamCount(arguments[0]))
   {
     io_.out(Oop::Interface::OutputType::INFO,
-      Oop::Interface::WARNING_WRONG_PARAM_COUNT);
+            Oop::Interface::WARNING_WRONG_PARAM_COUNT);
     return false;
   }
   if (arguments.size() > 1 &&
-     !checkRanges(arguments, prep, x_min, x_max, y_min, y_max))
+      !checkRanges(arguments, prep, x_min, x_max, y_min, y_max))
   {
-    io_.out(Oop::Interface::OutputType::INFO, 
-      Oop::Interface::WARNING_WRONG_PARAMETER);
+    io_.out(Oop::Interface::OutputType::INFO,
+            Oop::Interface::WARNING_WRONG_PARAMETER);
     return false;
   }
   return true;
@@ -495,20 +480,20 @@ bool Game::compareCommandInput(std::vector<std::string> arguments,
 unsigned long Game::checkParamCount(std::string command)
 {
   if (!strcasecmp(command.c_str(),
-    Oop::Interface::COMMAND_ATTACK.c_str()) || 
-    !strcasecmp(command.c_str(), Oop::Interface::COMMAND_SET.c_str()))
+                  Oop::Interface::COMMAND_ATTACK.c_str()) ||
+      !strcasecmp(command.c_str(), Oop::Interface::COMMAND_SET.c_str()))
   {
     return 4;
   }
-  if (!strcasecmp(command.c_str(), 
-    Oop::Interface::COMMAND_CAST.c_str()) || 
-    !strcasecmp(command.c_str(), Oop::Interface::COMMAND_SACRIFICE.c_str()))
+  if (!strcasecmp(command.c_str(),
+                  Oop::Interface::COMMAND_CAST.c_str()) ||
+      !strcasecmp(command.c_str(), Oop::Interface::COMMAND_SACRIFICE.c_str()))
   {
     return 2;
   }
-  if (!strcasecmp(command.c_str(), 
-    Oop::Interface::COMMAND_FINISH.c_str()) || 
-    !strcasecmp(command.c_str(), Oop::Interface::COMMAND_QUIT.c_str()))
+  if (!strcasecmp(command.c_str(),
+                  Oop::Interface::COMMAND_FINISH.c_str()) ||
+      !strcasecmp(command.c_str(), Oop::Interface::COMMAND_QUIT.c_str()))
   {
     return 1;
   }
@@ -517,22 +502,29 @@ unsigned long Game::checkParamCount(std::string command)
 
 //------------------------------------------------------------------------------
 bool Game::checkRanges(std::vector<std::string> arguments,
-  std::string prep, int x_min, int x_max, int y_min, int y_max)
+                       std::string prep, int x_min, int x_max, int y_min, int y_max)
 {
-  long x = 0;
-  long y = 0;
-  if (arguments.size() > 2)
+  size_t x = 0;
+  size_t y = 0;
+  std::istringstream xss(arguments[1]);
+  std::istringstream yss(arguments[3]);
+  xss >> x;
+  yss >> y;
+  
+  if (arguments.size() <= 2)
   {
-    return ((x = std::strtol(arguments[1].c_str(), nullptr, 10)) &&
-     Game::inBetween(x, x_min, x_max) &&
-     !strcasecmp(prep.c_str(), arguments[2].c_str()) &&
-     (y = std::strtol(arguments[3].c_str(), nullptr, 10)) && 
-     Game::inBetween(y, y_min, y_max));
+    return (!xss.fail() &&
+            Game::inBetween(x, x_min, x_max));
   }
+  
+  
   else
   {
-    return ((x = std::strtol(arguments[1].c_str(), nullptr, 10)) && 
-      Game::inBetween(x, x_min, x_max));
+    return (!xss.fail() && 
+            Game::inBetween(x, x_min, x_max) &&
+            !strcasecmp(prep.c_str(), arguments[2].c_str()) &&
+            !yss.fail() && 
+            Game::inBetween(y, y_min, y_max));
   }
   return false;
 }
@@ -543,24 +535,22 @@ bool Game::executeAtt(std::vector<std::string> arguments)
   long y = std::strtol(arguments[3].c_str(), nullptr, 10);
 
   //x=0;       // Weil wegen xmin nd geht später löschen is iz nur zum testn
-  if(x == 0)    //attacking the enemy himself
+  if (x == 0) //attacking the enemy himself
   {
     --y;
-    
-    if(players[cur_player]->getGameField()[y] == nullptr ||
-      players[cur_player]->getGameField()[y]->getReadyToFight() == false)
+
+    if (players[cur_player]->getGameField()[y] == nullptr ||
+        players[cur_player]->getGameField()[y]->getReadyToFight() == false)
     {
       io_.out(Oop::Interface::OutputType::INFO,
-        Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+              Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
       return false;
     }
-      
-      
-    if(checkForShield(-1) == false)
+
+    if (checkForShield(-1) == false)
     {
-      players[cur_player ^ 1]->reduceLifePoints(players[cur_player]->
-        getGameField()[y]->getDamagePoints());
-      if(players[cur_player]->getGameField()[y]->getManaDrain() == true)
+      players[cur_player ^ 1]->reduceLifePoints(players[cur_player]->getGameField()[y]->getDamagePoints());
+      if (players[cur_player]->getGameField()[y]->getManaDrain() == true)
       {
         players[cur_player ^ 1]->reduceMana(15);
       }
@@ -568,39 +558,36 @@ bool Game::executeAtt(std::vector<std::string> arguments)
     else
     {
       io_.out(Oop::Interface::OutputType::INFO,
-      Oop::Interface::WARNING_SHIELD_MONSTER);
+              Oop::Interface::WARNING_SHIELD_MONSTER);
       return false;
-    } 
+    }
   }
-  
-  
-  if(x > 0)       //attacking enemy cards
+
+  if (x > 0) //attacking enemy cards
   {
     x--;
     y--;
-    if(players[cur_player ^ 1]->getGameField()[x] == nullptr ||
-      players[cur_player]->getGameField()[y] == nullptr || 
-      players[cur_player]->getGameField()[y]->getAlreadyAttacked() == true ||
-      players[cur_player]->getGameField()[y]->getReadyToFight() == false ||
-      players[cur_player ^ 1]->getGameField()[x]->getReadyToFight() == false)
+    if (players[cur_player ^ 1]->getGameField()[x] == nullptr ||
+        players[cur_player]->getGameField()[y] == nullptr ||
+        players[cur_player]->getGameField()[y]->getAlreadyAttacked() == true ||
+        players[cur_player]->getGameField()[y]->getReadyToFight() == false ||
+        players[cur_player ^ 1]->getGameField()[x]->getReadyToFight() == false)
     {
       io_.out(Oop::Interface::OutputType::INFO,
-        Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+              Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
       return false;
     }
-    
-    if(checkForShield(x) == true)
+
+    if (checkForShield(x) == true)
     {
       io_.out(Oop::Interface::OutputType::INFO,
-      Oop::Interface::WARNING_SHIELD_MONSTER);
+              Oop::Interface::WARNING_SHIELD_MONSTER);
       return false;
     }
-  
-    players[cur_player ^ 1]->damageMonsters(players[cur_player]->
-    getGameField()[y]->getDamagePoints(), x); 
-  
+
+    players[cur_player ^ 1]->damageMonsters(players[cur_player]->getGameField()[y]->getDamagePoints(), x);
   }
-  
+
   players[cur_player]->setAlreadyAttacked(y);
   return false;
 }
@@ -611,62 +598,55 @@ bool Game::executeSet(std::vector<std::string> arguments)
   long y = std::strtol(arguments[3].c_str(), nullptr, 10);
   x--;
   y--;
-  if (players[cur_player]->getGameField()[y] != nullptr ||  
-  x > (players[cur_player]->getHandSize()) ||
-   players[cur_player]->getHandCards().at(size_t(x))->getType() !=
-     Card::CardType::CREATURE)
+  if (players[cur_player]->getGameField()[y] != nullptr ||
+      x >= (players[cur_player]->getHandSize()) ||
+      players[cur_player]->getHandCards().at(size_t(x))->getType() !=
+          Card::CardType::CREATURE)
   {
-    io_.out(Oop::Interface::OutputType::INFO, 
-      Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+    io_.out(Oop::Interface::OutputType::INFO,
+            Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
     return false;
   }
-  
-  if(players[cur_player]->setCardOnGameField(x, y) == false)
+  if (players[cur_player]->setCardOnGameField(x, y) == false)
   {
-    io_.out(Oop::Interface::OutputType::INFO, 
-      Oop::Interface::WARNING_NOT_ENOUGH_MANA);
+    io_.out(Oop::Interface::OutputType::INFO,
+            Oop::Interface::WARNING_NOT_ENOUGH_MANA);
     return false;
   }
-  
-  //io_.log("works");
-  return false;	
+  return false;
 }
-
 
 bool Game::executeSac(std::vector<std::string> arguments)
 {
-  size_t y = size_t(atoi(arguments[1].c_str())) - 1 ;
-  
-  if(players[cur_player]->getHandCards().at(y) == nullptr)
+  size_t y = size_t(atoi(arguments[1].c_str())) - 1;
+
+  if (players[cur_player]->getHandCards().at(y) == nullptr)
   {
-    io_.out(Oop::Interface::OutputType::INFO, 
-      Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+    io_.out(Oop::Interface::OutputType::INFO,
+            Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
     return false;
-  } 
-  
-  if(players[cur_player]->getHandCards().at(y)->getType() ==
-    Card::CardType::CREATURE)
-  {
-      players[cur_player]->moveToGraveyard(long(y));
   }
-  if(players[cur_player]->getHandCards().at(y)->getType()
-    ==Card::CardType::SPELL)
+
+  if (players[cur_player]->getHandCards().at(y)->getType() ==
+      Card::CardType::CREATURE)
+  {
+    players[cur_player]->moveToGraveyard(long(y));
+  }
+  if (players[cur_player]->getHandCards().at(y)->getType() == Card::CardType::SPELL)
   {
     players[cur_player]->eraseSpellHandCard(y);
-
   }
   players[cur_player]->addLifePoints(1);
-  
-  return false;
-} 
 
+  return false;
+}
 
 //------------------------------------------------------------------------------
 std::vector<std::string> Game::tokenizeStr(std::string input)
 {
   std::istringstream iss(input);
   std::vector<std::string> tokens{std::istream_iterator<std::string>{iss},
-    std::istream_iterator<std::string>{}};
+                                  std::istream_iterator<std::string>{}};
 
   return tokens;
 }
@@ -676,11 +656,11 @@ bool Game::checkForShield(long x) const
   for (size_t i = 0; i < Interface::NUM_OF_GAMEFIELD_CARDS; i++)
   {
     if (players[cur_player ^ 1]->getGameField()[i] != nullptr &&
-      players[cur_player ^ 1]->getGameField()[i]->getShield())
+        players[cur_player ^ 1]->getGameField()[i]->getShield())
     {
-      if(x != -1)
+      if (x != -1)
       {
-        if(!players[cur_player ^ 1]->getGameField()[x]->getShield())
+        if (!players[cur_player ^ 1]->getGameField()[x]->getShield())
         {
           return true;
         }
@@ -689,4 +669,3 @@ bool Game::checkForShield(long x) const
   }
   return false;
 }
-
