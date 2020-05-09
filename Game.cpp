@@ -80,7 +80,7 @@ bool Game::loadConfig(std::string config_file)
 
   std::string name;
   int mana_costs, damage_points, life_points;
-  bool found, shield, mana_drain;
+  bool found, shield, mana_drain, speedy;
   const char *spell_name;
   SpellType type;
 
@@ -129,7 +129,8 @@ bool Game::loadConfig(std::string config_file)
     Value &temp = creatures[index];
     if (!temp.HasMember("name") || !temp.HasMember("mana_cost") ||
         !temp.HasMember("damage_points") || !temp.HasMember("life_points") ||
-        !temp.HasMember("shield") || !temp.HasMember("mana_drain"))
+        !temp.HasMember("shield") || !temp.HasMember("mana_drain") ||
+        !temp.HasMember("speedy"))
     {
       io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
       return false;
@@ -138,7 +139,7 @@ bool Game::loadConfig(std::string config_file)
     if ((temp["mana_cost"].IsInt()) && (temp["damage_points"].IsInt()) &&
         (temp["life_points"].IsInt()) && temp["shield"].IsBool() &&
         temp["mana_drain"].IsBool() && temp["name"].IsString() &&
-        (temp.MemberCount() == 6))
+        temp["speedy"].IsBool() && (temp.MemberCount() == 7))
     {
       name = temp["name"].GetString();
       mana_costs = temp["mana_cost"].GetInt();
@@ -146,6 +147,7 @@ bool Game::loadConfig(std::string config_file)
       life_points = temp["life_points"].GetInt();
       shield = temp["shield"].GetBool();
       mana_drain = temp["mana_drain"].GetBool();
+      speedy = temp["speedy"].GetBool();
 
       if (!inBetween(mana_costs, 1, 15) || 
           !inBetween(damage_points, 0, 9) ||
@@ -157,7 +159,7 @@ bool Game::loadConfig(std::string config_file)
       }
 
       cur_card = new CreatureCard(name, mana_costs, damage_points,
-      life_points, shield, mana_drain, false);
+      life_points, shield, mana_drain, speedy);
 
       if (!checkOnCreatureEquality(cur_card))
       {
