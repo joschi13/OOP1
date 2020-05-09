@@ -21,6 +21,7 @@ namespace Oop
 {
   class Card;
   class Game;
+  class CreatureCard;
 
   enum SpellType {HEALER, RELIEF, REBIRTH, DRACULA, TRAITOR};
 
@@ -74,7 +75,7 @@ namespace Oop
       // 
       // @param refernce of game
       //
-      // @return bool true: performed false: not performed
+      // @return bool true: card needed to be deleted false: not needed
       //
       bool action(Game& game);
       
