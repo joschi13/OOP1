@@ -356,14 +356,10 @@ bool Game::playerCommandInput()
 
     if (!strcasecmp(Oop::Interface::COMMAND_HELP.c_str(), arguments[0].c_str()))
     {
-      helpstr = Oop::Interface::INFO_HELP_MSGS.at(0);
-      for (size_t index = 1; index <
-                             Oop::Interface::INFO_HELP_MSGS.size();
-           index++)
+      for (size_t index = 0; index < Oop::Interface::INFO_HELP_MSGS.size(); index++)
       {
-        helpstr = helpstr + "\n" + Oop::Interface::INFO_HELP_MSGS.at(index);
+       io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::INFO_HELP_MSGS.at(index));
       }
-      io_.out(Oop::Interface::OutputType::INFO, helpstr);
       continue;
     }
 
@@ -639,7 +635,6 @@ bool Game::executeSet(std::vector<std::string> arguments)
 void Game::executeSac(std::vector<std::string> arguments)
 {
   size_t y = size_t(atoi(arguments[1].c_str())) - 1;
-
   if (players[cur_player]->getHandCards().at(y) == nullptr)
   {
     io_.out(Oop::Interface::OutputType::INFO,
@@ -647,7 +642,7 @@ void Game::executeSac(std::vector<std::string> arguments)
   }
 
   if (players[cur_player]->getHandCards().at(y)->getType() ==
-      Card::CardType::CREATURE)
+    Card::CardType::CREATURE)
   {
     players[cur_player]->moveToGraveyard(long(y));
   }
