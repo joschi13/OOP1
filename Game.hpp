@@ -121,7 +121,7 @@ public:
 
   bool executeSet(std::vector<std::string> arguments);
   
-  bool executeSac(std::vector<std::string> arguments);
+  void executeSac(std::vector<std::string> arguments);
   
   bool checkForShield(long x) const;
 

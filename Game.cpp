@@ -323,6 +323,12 @@ void Game::run()
             Oop::Interface::INFO_CURRENT_PLAYER + players[cur_player]->getName());
 
     players[cur_player]->takeOffCards(1, 7);
+    if(players[cur_player]->getLifePoints() <= 0)
+    {
+      io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE +
+      players[cur_player ^ 1]->getName() + Oop::Interface::ENDLINE_PART_TWO);
+        return;
+    }
 
     io_.out(players[cur_player], players[cur_player ^ 1]);
 
@@ -399,7 +405,10 @@ bool Game::playerCommandInput()
       if (Game::compareCommandInput(arguments, "with",
                                     ATT_X_MIN, ATT_X_MAX, ATT_Y_MIN, ATT_Y_MAX))
       {
-        Game::executeAtt(arguments);
+       if(Game::executeAtt(arguments))
+       {
+        return false;
+       }
       }
       continue;
     }
@@ -421,7 +430,7 @@ bool Game::playerCommandInput()
         int x = atoi(arguments[1].c_str()) - 1;
         SpellCard *card = dynamic_cast<SpellCard *>(players[cur_player]->getHandCards().at(size_t(x)));
         if (players[cur_player]->getGameField()[x] == nullptr || players[cur_player]->getHandCards().at(size_t(x))->getType() !=
-                                                                     Card::CardType::SPELL)
+          Card::CardType::SPELL)
         {
           io_.out(Oop::Interface::OutputType::INFO,
                   Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
@@ -429,6 +438,12 @@ bool Game::playerCommandInput()
         }
 
         card->action(*this);
+        if(players[cur_player ^ 1]->getLifePoints() <= 0)
+        {
+          io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE +
+            players[cur_player]->getName() + Oop::Interface::ENDLINE_PART_TWO);
+          return false;
+        }
         players[cur_player]->eraseSpellHandCard(x);
       }
        continue;
@@ -534,7 +549,6 @@ bool Game::executeAtt(std::vector<std::string> arguments)
   long x = std::strtol(arguments[1].c_str(), nullptr, 10);
   long y = std::strtol(arguments[3].c_str(), nullptr, 10);
 
-  //x=0;       // Weil wegen xmin nd geht später löschen is iz nur zum testn
   if (x == 0) //attacking the enemy himself
   {
     --y;
@@ -550,6 +564,13 @@ bool Game::executeAtt(std::vector<std::string> arguments)
     if (checkForShield(-1) == false)
     {
       players[cur_player ^ 1]->reduceLifePoints(players[cur_player]->getGameField()[y]->getDamagePoints());
+
+      if(players[cur_player ^ 1]->getLifePoints() <= 0)
+      {
+        io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE +
+          players[cur_player]->getName() + Oop::Interface::ENDLINE_PART_TWO);
+        return true;
+      }
       if (players[cur_player]->getGameField()[y]->getManaDrain() == true)
       {
         players[cur_player ^ 1]->reduceMana(15);
@@ -616,7 +637,7 @@ bool Game::executeSet(std::vector<std::string> arguments)
   return false;
 }
 
-bool Game::executeSac(std::vector<std::string> arguments)
+void Game::executeSac(std::vector<std::string> arguments)
 {
   size_t y = size_t(atoi(arguments[1].c_str())) - 1;
 
@@ -624,7 +645,6 @@ bool Game::executeSac(std::vector<std::string> arguments)
   {
     io_.out(Oop::Interface::OutputType::INFO,
             Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
-    return false;
   }
 
   if (players[cur_player]->getHandCards().at(y)->getType() ==
@@ -632,13 +652,12 @@ bool Game::executeSac(std::vector<std::string> arguments)
   {
     players[cur_player]->moveToGraveyard(long(y));
   }
-  if (players[cur_player]->getHandCards().at(y)->getType() == Card::CardType::SPELL)
+  else if (players[cur_player]->getHandCards().at(y)->getType() == Card::CardType::SPELL)
   {
     players[cur_player]->eraseSpellHandCard(y);
   }
   players[cur_player]->addLifePoints(1);
 
-  return false;
 }
 
 //------------------------------------------------------------------------------

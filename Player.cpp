@@ -264,7 +264,7 @@ void Player::setAlreadyAttacked(long y)
 }
 
 
-void Player::moveToGraveyard(long(y))
+void Player::moveToGraveyard(long y)
 {
   graveyard_.push_back(dynamic_cast<CreatureCard*>(hand_.at(size_t(y))));
   hand_.erase(hand_.begin()+y);
