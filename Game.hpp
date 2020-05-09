@@ -106,6 +106,8 @@ public:
 
   int getCurPlayer(){return cur_player;}
 
+  Interface* getInterface(){return &io_;}
+
   // TODO coments d3
   bool compareCommandInput(std::vector<std::string> arguments, 
     std::string prep, int x_min, int x_max, int y_min, int y_max);

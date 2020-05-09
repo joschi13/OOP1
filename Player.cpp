@@ -194,7 +194,6 @@ bool Player::setCardOnGameField(long x, long y)
 	
 	hand_.erase(hand_.begin() + x);
 	
-	game_field_[y]->setReadyToFight(false);
   return true;
 }
 
@@ -268,4 +267,48 @@ void Player::moveToGraveyard(long y)
 {
   graveyard_.push_back(dynamic_cast<CreatureCard*>(hand_.at(size_t(y))));
   hand_.erase(hand_.begin()+y);
+}
+
+bool Player::lastCreatureRebirth()
+{
+	size_t index;
+	if(graveyard_.size() > 0)
+	{
+		index = graveyard_.size() - 1;
+		CreatureCard* creature = graveyard_.at(index);
+		graveyard_.erase(graveyard_.begin() + long(index));
+
+		for(index = 0; index < Interface::NUM_OF_GAMEFIELD_CARDS; index++)
+		{
+			if(game_field_[index] == nullptr)
+			{
+				creature->resetAttributes();
+				game_field_[index] = creature;
+				return true;
+			}
+		}
+	}
+
+	return false;	
+}
+
+void Player::removeFromGameField(size_t index)
+{
+	game_field_[index] = nullptr;
+}
+
+CreatureCard* Player::getGamefieldCreature(size_t index)
+{
+	return game_field_[index];
+}
+
+bool Player::setCreatureControl(CreatureCard* creature, size_t index)
+{
+	if(game_field_[index] != nullptr)
+	{
+		return false;
+	}
+
+	game_field_[index] = creature;
+	return true;
 }

@@ -178,7 +178,14 @@ namespace Oop
 			
 			void moveToGraveyard(long y);
 
-			
+			bool lastCreatureRebirth();
+
+			void removeFromGameField(size_t index);
+
+			bool setCreatureControl(CreatureCard* creature, size_t index);
+
+			CreatureCard* getGamefieldCreature(size_t index);
+
 	};
 	
 }

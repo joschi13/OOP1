@@ -9,7 +9,9 @@
 //------------------------------------------------------------------------------
 //
 
+#include <vector>
 #include "SpellCard.hpp"
+#include "CreatureCard.hpp"
 #include "Interface.hpp"
 #include "Player.hpp"
 
@@ -81,9 +83,11 @@ bool SpellCard::action(Game& game)
 {
   Player* player = game.getPlayer()[game.getCurPlayer()];
   Player* other_player = game.getPlayer()[game.getCurPlayer() ^ 1];
+  Interface* io = game.getInterface();
 
   if(player->getManaPoints() < determineManaCosts(spell_type_))
   {
+    io->out(Interface::INFO, Interface::WARNING_NOT_ENOUGH_MANA);
     return false;
   }
 
@@ -99,7 +103,10 @@ bool SpellCard::action(Game& game)
       return true;
 
     case Oop::REBIRTH:
-      
+      if(!player->lastCreatureRebirth())
+      {
+        io->out(Interface::INFO, Interface::WARNING_REBIRTH_UNSUCCESSFUL);
+      }
       return true;
 
     case Oop::DRACULA:
@@ -108,6 +115,16 @@ bool SpellCard::action(Game& game)
       return true;
       
     case Oop::TRAITOR:
+      
+      CreatureCard* creature = other_player->getGamefieldCreature(0);
+      if(!player->setCreatureControl(creature, 0))
+      {
+        player->reduceMana(-determineManaCosts(spell_type_));
+        io->out(Interface::INFO, Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+        return false;
+      }
+      other_player->removeFromGameField(0);
+      
       return true;
   }
   

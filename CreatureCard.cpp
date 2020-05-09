@@ -24,12 +24,10 @@ life_points_(life_points),
 current_life_points_(life_points), 
 shield_(shield), 
 mana_drain_(mana_drain),
-ready_to_fight_(false),
+ready_to_fight_(speedy ? true : false),
 already_attacked_(false),
-speedy_(false)
+speedy_(speedy)
 {
-  //TODO
-  //speedy_ = speedy; for bonus task (Deliverable 3)
 }
 
 //------------------------------------------------------------------------------
@@ -121,4 +119,11 @@ void CreatureCard::reduceLifePoints(int amount)
 int CreatureCard::returnCurrentLifePoints() const
 {
   return current_life_points_;
+}
+
+void CreatureCard::resetAttributes()
+{
+  current_life_points_ = life_points_;
+  ready_to_fight_ = speedy_ ? true : false;
+  already_attacked_ = false;
 }
