@@ -13,14 +13,14 @@
 #define SPELLCARD_HPP
 
 #include <string>
-#include "Player.hpp"
+#include "Game.hpp"
 #include "Card.hpp"
 
 //------------------------------------------------------------------------------
 namespace Oop
 {
   class Card;
-  class Player;
+  class Game;
 
   enum SpellType {HEALER, RELIEF, REBIRTH, DRACULA, TRAITOR};
 
@@ -76,7 +76,7 @@ namespace Oop
       //
       // @return bool true: performed false: not performed
       //
-      bool action(Player* player, Player* other_player);
+      bool action(Game& game);
       
   };
 }

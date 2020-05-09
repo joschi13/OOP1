@@ -83,7 +83,7 @@ const std::string Interface::COMMAND_SET = "set";
 const std::string Interface::COMMAND_CAST = "cast";
 const std::string Interface::COMMAND_SACRIFICE = "sacrifice";
 const std::string Interface::COMMAND_STATE = "state";
-const std::string Interface::COMMAND_FINISH = "finish";
+const std::string Interface::COMMAND_FINISH = "#";
 const std::string Interface::COMMAND_QUIT = "quit";
 
 const std::string Interface::INFO_ROUND = "Round: ";

@@ -99,12 +99,12 @@ public:
   bool inBetween(int x, int low, int high);
 
   //------------------------------------------------------------------------
-  // The getCurPlayer funciton
-  // @return index of current player
+  // The getPlayer funciton
+  // @return array of players
   //
-  int getCurPlayer() const;
+  Player** getPlayer(){return players;}
 
-
+  int getCurPlayer(){return cur_player;}
 
   // TODO coments d3
   bool compareCommandInput(std::vector<std::string> arguments, 
@@ -124,6 +124,7 @@ public:
   bool executeSac(std::vector<std::string> arguments);
   
   bool checkForShield(long x) const;
+
 };
 } 
 

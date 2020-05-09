@@ -11,9 +11,11 @@
 
 #include "SpellCard.hpp"
 #include "Interface.hpp"
+#include "Player.hpp"
 
 using Oop::Card;
 using Oop::SpellCard;
+using Oop::Game;
 
 //------------------------------------------------------------------------------
 SpellCard::SpellCard(SpellType type) : Card(determineName(type),
@@ -75,8 +77,11 @@ int SpellCard::determineManaCosts(SpellType type)
 }
 
 //------------------------------------------------------------------------------
-bool SpellCard::action(Player* player, Player* other_player)
+bool SpellCard::action(Game& game)
 {
+  Player* player = game.getPlayer()[game.getCurPlayer()];
+  Player* other_player = game.getPlayer()[game.getCurPlayer() ^ 1];
+
   if(player->getManaPoints() < determineManaCosts(spell_type_))
   {
     return false;
@@ -94,6 +99,7 @@ bool SpellCard::action(Player* player, Player* other_player)
       return true;
 
     case Oop::REBIRTH:
+      
       return true;
 
     case Oop::DRACULA:

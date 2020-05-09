@@ -216,6 +216,12 @@ bool Game::loadConfig(std::string config_file)
       found = true;
     }
 
+    if (!std::strcmp(spell_name, Interface::STRING_TRAITOR.c_str()))
+    {
+      type = Oop::TRAITOR;
+      found = true;
+    }
+
     if(found)
     {
       cur_card = new SpellCard(type);
@@ -429,7 +435,7 @@ bool Game::playerCommandInput()
 
         if(card != nullptr)
         {
-          if(card->action(players[cur_player], players[cur_player ^ 1]))
+          if(card->action(*this))
           {
             
             players[cur_player]->eraseSpellHandCard(atoi(arguments[1].c_str()) - 1);
@@ -654,12 +660,6 @@ bool Game::executeSac(std::vector<std::string> arguments)
   return false;
 } 
 
-//do we need this function? i dont think so
-//------------------------------------------------------------------------------
-int Game::getCurPlayer() const
-{
-  return cur_player;
-}
 
 //------------------------------------------------------------------------------
 std::vector<std::string> Game::tokenizeStr(std::string input)
@@ -689,3 +689,4 @@ bool Game::checkForShield(long x) const
   }
   return false;
 }
+

@@ -177,6 +177,8 @@ namespace Oop
 			void setAlreadyAttacked(long y);
 			
 			void moveToGraveyard(long(y));
+
+			
 	};
 	
 }

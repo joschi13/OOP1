@@ -106,10 +106,6 @@ void Player::addMana(int mana)
 void Player::reduceMana(int mana)
 {
 	mana_points_ = mana_points_ - mana;
-	if(mana_points_ < 0)
-	{
-	mana_points_ = 0; 
-	}
 }
 
 //------------------------------------------------------------------------------
