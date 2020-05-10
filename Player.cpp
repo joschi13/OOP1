@@ -1,12 +1,15 @@
 //------------------------------------------------------------------------------
-// Player.hpp
+// Player.cpp
+//
+// Group: Group 9, study assistant David Kerschbaumer 
 //
 // Authors: Michael Zweimüller 		11916150
-//			Martin Schachl 			11907003
-// 			Johannes Aigner			11907005
+//					Martin Schachl 				11907003
+// 					Johannes Aigner				11907005
 //
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //
+
 #include "Player.hpp"
 #include "Card.hpp"
 #include "SpellCard.hpp"
@@ -19,14 +22,22 @@ using Oop::Card;
 using Oop::CreatureCard;
 using Oop::Interface;
 
-//just for testing
-#include <iostream>
-
+//-----------------------------------------------------------------------------
+// Standard constructor
 Player::Player() : Player("")
 {
+	name_ = "";
+	life_points_ = 30;
+	mana_points_ = 0;
+
+	for(size_t i = 0; i < (sizeof(game_field_)/ sizeof(game_field_[0])); i++)
+  {
+    game_field_[i] = nullptr;
+  }
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// Set name costructor
 Player::Player(std::string name)
 {
 	name_ = name;
@@ -40,7 +51,8 @@ Player::Player(std::string name)
 
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// Destructor
 Player::~Player()
 {
 	for(auto& card : pick_up_stack_)
@@ -68,34 +80,33 @@ Player::~Player()
   {
     delete card;
   }
-  
-
 }
-//------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 std::string Player::getName() const
 {
 	return Player::name_;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 int Player::getLifePoints() const
 {
 	return life_points_;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void Player::addLifePoints(int points)
 {
 	life_points_ = life_points_ + points;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 int Player::getManaPoints() const
 {
 	return mana_points_;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void Player::addMana(int mana)
 {
 	mana_points_ = mana_points_ + mana;
@@ -105,40 +116,39 @@ void Player::addMana(int mana)
 	}
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void Player::reduceMana(int mana)
 {
 	mana_points_ = mana_points_ - mana;
 	if (mana_points_ < 0)
 	{
 		mana_points_ = 0;
-	}
-	
+	}	
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 const std::vector<Card*> Player::getHandCards() const
 {
 	return hand_;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 int Player::getHandSize() const
 {
 	return hand_.size();
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 const CreatureCard* const* Player::getGameField() const
 {
 	return game_field_;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void Player::copyPickUpStack(std::vector<Card*> &pick_up_stack)
 {
-	SpellCard *s_card = NULL;
-	CreatureCard *c_card = NULL;
+	SpellCard *s_card = nullptr;
+	CreatureCard *c_card = nullptr;
 	
 	for(Card* cur_card : pick_up_stack)
 	{
@@ -156,20 +166,20 @@ void Player::copyPickUpStack(std::vector<Card*> &pick_up_stack)
 	}
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void Player::setName(std::string name) 
 {
 	name_ = name;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void Player::shufflePickUpStack()
 {
 	Random &rand = Random::getInstance();
 	rand.shufflePickupstack(pick_up_stack_);
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void Player::takeOffCards(int amount, int max_hand_size)
 {
 	while(amount > 0)
@@ -187,46 +197,48 @@ void Player::takeOffCards(int amount, int max_hand_size)
 	}
 }
 
-//------------------------------------------------------------------------------
-bool Player::setCardOnGameField(long x, long y)
+//-----------------------------------------------------------------------------
+bool Player::setCardOnGameField(long pos_hand, long pos_gamefield)
 {
-  if(mana_points_ < hand_.at(size_t(x))->getManaCost())
+  if(mana_points_ < hand_.at(static_cast<size_t>(pos_hand))->getManaCost())
   {
     return false;
   }
-	mana_points_= mana_points_ - hand_.at(size_t(x))->getManaCost();
-	game_field_[y] = dynamic_cast <CreatureCard *> (hand_.at(size_t(x)));
+	mana_points_= mana_points_ - hand_.at(static_cast<size_t>(pos_hand))->
+		getManaCost();
+	game_field_[pos_gamefield] = dynamic_cast <CreatureCard *>
+		(hand_.at(static_cast<size_t>(pos_hand)));
 	
-	hand_.erase(hand_.begin() + x);
+	hand_.erase(hand_.begin() + pos_hand);
 	
   return true;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void Player::setAllFieldCardsRdy()
 {
-  for(size_t temp = 0; temp < Interface::NUM_OF_GAMEFIELD_CARDS; temp++)
+  for(size_t count = 0; count < Interface::NUM_OF_GAMEFIELD_CARDS; count++)
   {
-    if(game_field_[temp] != nullptr)
+    if(game_field_[count] != nullptr)
     {
-      game_field_[temp]->setReadyToFight(true);
-      game_field_[temp]->setAlreadyAttacked(false);
+      game_field_[count]->setReadyToFight(true);
+      game_field_[count]->setAlreadyAttacked(false);
     }
   }
 }
-
+//-----------------------------------------------------------------------------
 void Player::setAllFieldShieldCardsRdy()
 {
-  for(size_t temp = 0; temp < Interface::NUM_OF_GAMEFIELD_CARDS; temp++)
+  for(size_t count = 0; count < Interface::NUM_OF_GAMEFIELD_CARDS; count++)
   {
-    if(game_field_[temp] != nullptr && game_field_[temp]->getShield())
+    if(game_field_[count] != nullptr && game_field_[count]->getShield())
     {
-      game_field_[temp]->setReadyToFight(true);
+      game_field_[count]->setReadyToFight(true);
     }
   }
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 bool Player::reduceLifePoints(int life_points)
 {
   life_points_ = life_points_ - life_points;
@@ -238,6 +250,7 @@ bool Player::reduceLifePoints(int life_points)
 	return true;
 }
 
+//-----------------------------------------------------------------------------
 void Player::healCreatures()
 {
 	for(CreatureCard*& creature : game_field_)
@@ -249,42 +262,47 @@ void Player::healCreatures()
 	}
 }
 
+//-----------------------------------------------------------------------------
 void Player::eraseSpellHandCard(int index)
 {
-	delete hand_.at(size_t(index));
+	delete hand_.at(static_cast<size_t>(index));
 	hand_.erase(hand_.begin() + index);
-	
 }
 
+//-----------------------------------------------------------------------------
 int Player::getPickUpStackSize()
 {
 	return int(pick_up_stack_.size());
 }
 
-//------------------------------------------------------------------------------
-void Player::damageMonsters(int damage, long x)
+//-----------------------------------------------------------------------------
+void Player::damageMonsters(int damage, long pos_gamefield)
 {
-	game_field_[size_t(x)]->reduceLifePoints(damage);
-	if(game_field_[size_t(x)]->getCurrentLifePoints() <= 0)
+	game_field_[static_cast<size_t>(pos_gamefield)]->reduceLifePoints(damage);
+
+	if(game_field_[static_cast<size_t>(pos_gamefield)]->
+		getCurrentLifePoints() <= 0)
 	{
-    graveyard_.push_back(game_field_[x]);
-    game_field_[x] = nullptr;
+    graveyard_.push_back(game_field_[pos_gamefield]);
+    game_field_[pos_gamefield] = nullptr;
 	}
 }
 
-
-void Player::setAlreadyAttacked(long y)
+//-----------------------------------------------------------------------------
+void Player::setAlreadyAttacked(long pos_gamefield)
 {
-  game_field_[y]->setAlreadyAttacked(true);
+  game_field_[pos_gamefield]->setAlreadyAttacked(true);
 }
 
-
-void Player::moveToGraveyard(long y)
+//-----------------------------------------------------------------------------
+void Player::moveToGraveyard(long pos_gamefield)
 {
-  graveyard_.push_back(dynamic_cast<CreatureCard*>(hand_.at(size_t(y))));
-  hand_.erase(hand_.begin()+y);
+  graveyard_.push_back(dynamic_cast<CreatureCard*>
+		(hand_.at(static_cast<size_t>(pos_gamefield))));
+  hand_.erase(hand_.begin()+pos_gamefield);
 }
 
+//-----------------------------------------------------------------------------
 bool Player::lastCreatureRebirth()
 {
 	size_t index;
@@ -292,7 +310,7 @@ bool Player::lastCreatureRebirth()
 	{
 		index = graveyard_.size() - 1;
 		CreatureCard* creature = graveyard_.at(index);
-		graveyard_.erase(graveyard_.begin() + long(index));
+		graveyard_.erase(graveyard_.begin() + static_cast<long>(index));
 
 		for(index = 0; index < Interface::NUM_OF_GAMEFIELD_CARDS; index++)
 		{
@@ -304,20 +322,22 @@ bool Player::lastCreatureRebirth()
 			}
 		}
 	}
-
 	return false;	
 }
 
+//-----------------------------------------------------------------------------
 void Player::removeFromGameField(size_t index)
 {
 	game_field_[index] = nullptr;
 }
 
+//-----------------------------------------------------------------------------
 CreatureCard* Player::getGamefieldCreature(size_t index)
 {
 	return game_field_[index];
 }
 
+//-----------------------------------------------------------------------------
 bool Player::setCreatureControl(CreatureCard* creature, size_t index)
 {
 	game_field_[index] = creature;

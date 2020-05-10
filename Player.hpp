@@ -1,9 +1,11 @@
 //------------------------------------------------------------------------------
 // Player.hpp
 //
+// Group: Group 9, study assistant David Kerschbaumer 
+//
 // Authors: Michael Zweimüller 		11916150
-//			Martin Schachl 			11907003
-// 			Johannes Aigner			11907005
+//					Martin Schachl 				11907003
+// 					Johannes Aigner				11907005
 //------------------------------------------------------------------------------
 //
 #ifndef INCLUDE_PLAYER_H
@@ -52,6 +54,17 @@ namespace Oop
 			// Destructor
 			//
 			~Player();
+
+			//------------------------------------------------------------------
+      // Deleted copy constructor
+      //
+      Player(const Player& original) = delete;
+
+      //------------------------------------------------------------------
+      // Deleted assignment operator
+      //
+      Player& operator=(const Player& original) = delete;
+
 			
 			//------------------------------------------------------------------
 			// The getName function
@@ -157,35 +170,108 @@ namespace Oop
 			// The setCardOnGameField function
 			// Moving the cards from the hand to the playfield
 			//
-			// @param amount of taken cards
+			// @param pos_hand position of card in the hand vector
+			// @param pos_gamefield position where the card should go
 			//
-			bool setCardOnGameField(long x, long y);
+			bool setCardOnGameField(long pos_hand, long pos_gamefield);
 			
-			
+			//------------------------------------------------------------------
+			// The setAllFieldCardsRdy function
+			// Setts rdy_to_attack and allready_attackt back so the card
+			// can make a move in the round.
+			//
+			//
 			void setAllFieldCardsRdy();
 
+			//------------------------------------------------------------------
+			// The setAllFieldShieldCardsRdy function
+			// Makes sure shield cars can be attackt at the first round
+			//
+			//
 			void setAllFieldShieldCardsRdy();
 			
+			//------------------------------------------------------------------
+			// The reduceLifePoins function
+			// is reucing the Lifepoints of the player by a given amount
+			//
+			// @param life_points amount how much lifepoins are getting removed
+			//
 			bool reduceLifePoints(int life_points);
 
+			//------------------------------------------------------------------
+			// The healCratures function
+			// is healing the creatures for 1 Lp
+			//
 			void healCreatures();
 
+			//------------------------------------------------------------------
+			// The eraseSpellHandCard function
+			// deletes a casted spellcard from the heap
+			//
+			// @param index postiton of the card that should be deleted
+			//
 			void eraseSpellHandCard(int index);
 
+			//------------------------------------------------------------------
+			// The getPickUpStackSize function
+			// returns the size of the pickup stack
+			//
 			int getPickUpStackSize();
 			
-			void damageMonsters(int damage, long x);
+			//------------------------------------------------------------------
+			// The damageMonster function
+			// attacks monster on the playfield and checks if its dead
+			//
+			// @param damage amount of lp that sould get removed
+			// @param pos_gamefield position of the monster that should get damaged
+			//
+			void damageMonsters(int damage, long pos_gamefield);
 			
-			void setAlreadyAttacked(long y);
-			
-			void moveToGraveyard(long y);
+			//------------------------------------------------------------------
+			// The setAlreadyAttacked function
+			// is set the allready attacked function to true
+			//
+			// @param pos_gamefield position of the monster
+			// 
+			void setAlreadyAttacked(long pos_gamefield);
 
+			//------------------------------------------------------------------
+			// The moveToGraveyard function
+			// moves a dead card to the graveyard
+			//
+			// @param pos_gamefield position of the monster
+			// 			
+			void moveToGraveyard(long pos_gamefield);
+
+			//------------------------------------------------------------------
+			// The lastCreatureRebirth function
+			// is rebirthing a dead card from the graveyard
+			// 			
 			bool lastCreatureRebirth();
 
+			//------------------------------------------------------------------
+			// The removeFromGameField function
+			// removes a card from the gamefield
+			// 		
+			// @param index position of the card that gets removed
+			//
 			void removeFromGameField(size_t index);
 
+			//------------------------------------------------------------------
+			// The setCreatureControl function
+			// set a card to the gamefield
+			// 		
+			// @param index position where the card gets placed
+			// @param creature that gets placed
+			//
 			bool setCreatureControl(CreatureCard* creature, size_t index);
-
+			
+			//------------------------------------------------------------------
+			// The getGamefieldCreature function
+			// returns the card on a certant spot
+			// 		
+			// @param index position of the card that gets returned
+			//
 			CreatureCard* getGamefieldCreature(size_t index);
 
 	};
