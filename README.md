@@ -175,3 +175,7 @@ Details unter Bonus im [Deliverable 3](description/Ass1_D3.md)
 ## Beispielausgabe
 
 Ein spektakulärer Wettkampf unter [Beispielausgabe](description/GameplayExample.md)
+
+## GUI
+
+Infos für die GUI unter [GUI](description/GUI.md)
