@@ -163,6 +163,8 @@ namespace Oop
 			
 			
 			void setAllFieldCardsRdy();
+
+			void setAllFieldShieldCardsRdy();
 			
 			bool reduceLifePoints(int life_points);
 

@@ -109,6 +109,11 @@ void Player::addMana(int mana)
 void Player::reduceMana(int mana)
 {
 	mana_points_ = mana_points_ - mana;
+	if (mana_points_ < 0)
+	{
+		mana_points_ = 0;
+	}
+	
 }
 
 //------------------------------------------------------------------------------
@@ -191,10 +196,6 @@ bool Player::setCardOnGameField(long x, long y)
   }
 	mana_points_= mana_points_ - hand_.at(size_t(x))->getManaCost();
 	game_field_[y] = dynamic_cast <CreatureCard *> (hand_.at(size_t(x)));
-	/*if (game_field_[y]->getShield())
-	{
-		game_field_[y]->setReadyToFight(true);
-	}*/
 	
 	hand_.erase(hand_.begin() + x);
 	
@@ -210,6 +211,17 @@ void Player::setAllFieldCardsRdy()
     {
       game_field_[temp]->setReadyToFight(true);
       game_field_[temp]->setAlreadyAttacked(false);
+    }
+  }
+}
+
+void Player::setAllFieldShieldCardsRdy()
+{
+  for(size_t temp = 0; temp < Interface::NUM_OF_GAMEFIELD_CARDS; temp++)
+  {
+    if(game_field_[temp] != nullptr && game_field_[temp]->getShield())
+    {
+      game_field_[temp]->setReadyToFight(true);
     }
   }
 }

@@ -39,15 +39,15 @@ const int ATT_Y_MIN = 1;
 const int ATT_Y_MAX = 7;
 
 const int SET_X_MIN = 1;
-const int SET_X_MAX = 7;
+//const int SET_X_MAX = 7;
 const int SET_Y_MIN = 1;
 const int SET_Y_MAX = 7;
 
 const int CAST_X_MIN = 1;
-const int CAST_X_MAX = 7;
+//const int CAST_X_MAX = 7;
 
 const int SAC_X_MIN = 1;
-const int SAC_X_MAX = 7;
+//const int SAC_X_MAX = 7;
 
 //------------------------------------------------------------------------------
 Game::Game(Oop::Interface &io) : io_(io)
@@ -338,6 +338,7 @@ void Game::run()
     {
       return;
     }
+    players[cur_player]->setAllFieldShieldCardsRdy();
   }
 }
 
@@ -569,7 +570,7 @@ bool Game::executeAtt(std::vector<std::string> arguments)
       return false;
     }
 
-    if (checkForShield(-1) == false)
+    if (checkForShield(x/*-1*/) == false)
     {
       players[cur_player ^ 1]->reduceLifePoints(players[cur_player]->getGameField()[y]->getDamagePoints());
 
@@ -684,13 +685,21 @@ bool Game::checkForShield(long x) const
     if (players[cur_player ^ 1]->getGameField()[i] != nullptr &&
         players[cur_player ^ 1]->getGameField()[i]->getShield())
     {
-      if (x != -1)
+      //return true; //true when enemy has shield
+      if (x == -1)
       {
-        if (!players[cur_player ^ 1]->getGameField()[x]->getShield())
-        {
-          return true;
-        }
+        return true;
       }
+      
+      else if (x==i/*players[cur_player ^ 1]->getGameField()[x]->getShield()*/)   
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+      
     }
   }
   return false;
