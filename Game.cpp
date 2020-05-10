@@ -476,12 +476,10 @@ bool Game::playerCommandInput()
       }
        continue;
     }
-
     if (!strcasecmp(Oop::Interface::COMMAND_SACRIFICE.c_str(), arguments[0].c_str()))
     {
       if (Game::compareCommandInput(arguments, "nullstr", SAC_X_MIN, players[cur_player]->getHandSize(), 0, 0))
       {
-        
         Game::executeSac(arguments);
       }
       continue;
@@ -507,6 +505,7 @@ bool Game::compareCommandInput(std::vector<std::string> arguments,
             Oop::Interface::WARNING_WRONG_PARAM_COUNT);
     return false;
   }
+
   if (arguments.size() > 1 &&
       !checkRanges(arguments, prep, x_min, x_max, y_min, y_max))
   {
@@ -558,8 +557,6 @@ bool Game::checkRanges(std::vector<std::string> arguments,
     return (!xss.fail() &&
             Game::inBetween(x, x_min, x_max));
   }
-  
-  
   else
   {
     std::istringstream yss(arguments[3]);
@@ -674,8 +671,8 @@ void Game::executeSac(std::vector<std::string> arguments)
   {
     io_.out(Oop::Interface::OutputType::INFO,
             Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+    return;
   }
-
   if (players[cur_player]->getHandCards().at(y)->getType() ==
     Card::CardType::CREATURE)
   {
