@@ -368,7 +368,12 @@ bool Game::playerCommandInput()
     if (!strcasecmp(Oop::Interface::COMMAND_STATE.c_str(),
                     arguments[0].c_str()))
     {
-      io_.out(players[cur_player], players[cur_player ^ 1]);
+      if (Game::compareCommandInput(arguments, "nullptr", 0, 0, 0, 0))
+      {
+        io_.out(players[cur_player], players[cur_player ^ 1]);
+      }
+      
+      
       continue;
     }
 
@@ -393,8 +398,12 @@ bool Game::playerCommandInput()
     if (!strcasecmp(Oop::Interface::COMMAND_FINISH.c_str(),
                     arguments[0].c_str()))
     {
-      Game::compareCommandInput(arguments, "nullptr", 0, 0, 0, 0);
-      return true;
+      if (Game::compareCommandInput(arguments, "nullptr", 0, 0, 0, 0))
+      {
+        return true;
+      }
+      
+      continue;
     }
 
     if (!strcasecmp(Oop::Interface::COMMAND_ATTACK.c_str(),
@@ -505,7 +514,8 @@ unsigned long Game::checkParamCount(std::string command)
   }
   if (!strcasecmp(command.c_str(),
                   Oop::Interface::COMMAND_FINISH.c_str()) ||
-      !strcasecmp(command.c_str(), Oop::Interface::COMMAND_QUIT.c_str()))
+      !strcasecmp(command.c_str(), Oop::Interface::COMMAND_QUIT.c_str())
+      || !strcasecmp(command.c_str(), Oop::Interface::COMMAND_STATE.c_str()))
   {
     return 1;
   }
@@ -551,7 +561,8 @@ bool Game::executeAtt(std::vector<std::string> arguments)
     --y;
 
     if (players[cur_player]->getGameField()[y] == nullptr ||
-        players[cur_player]->getGameField()[y]->getReadyToFight() == false)
+        players[cur_player]->getGameField()[y]->getReadyToFight() == false
+        || players[cur_player]->getGameField()[y]->getAlreadyAttacked() == true)
     {
       io_.out(Oop::Interface::OutputType::INFO,
               Oop::Interface::WARNING_EXECUTION_NOT_POSSIBLE);
