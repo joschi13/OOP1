@@ -115,18 +115,85 @@ bool SpellCard::action(Game& game)
       return true;
       
     case Oop::TRAITOR:
-      
-      CreatureCard* creature = other_player->getGamefieldCreature(0);
-      if(!player->setCreatureControl(creature, 0))
+      int getIndex = checkTraitorInput(other_player, Interface::TARGET_TRAITOR_SPELL, false, game);
+      if(getIndex < 0)
       {
-        player->reduceMana(-determineManaCosts(spell_type_));
-        io->out(Interface::INFO, Interface::WARNING_EXECUTION_NOT_POSSIBLE);
-        return false;
+        break;
+      } 
+      int setIndex = checkTraitorInput(player, Interface::SET_TRAITOR_SPELL, true, game);
+      if(setIndex < 0)
+      {
+        break;
       }
-      other_player->removeFromGameField(0);
+
+      CreatureCard* creature = other_player->getGamefieldCreature(getIndex);
+      if(!player->setCreatureControl(creature, setIndex))
+      {
+        break;
+      }
+      other_player->removeFromGameField(getIndex);
       
       return true;
   }
   
+  player->reduceMana(-determineManaCosts(spell_type_));
+  io->out(Interface::INFO, Interface::WARNING_EXECUTION_NOT_POSSIBLE);
+
   return false;
+}
+
+
+int SpellCard::checkTraitorInput(Player* player, std::string msg, bool emptyField, Game& game)
+{
+  int index = 0;
+  Interface* io = game.getInterface();
+  std::string input = io->askPlayer(msg);
+  std::vector <std::string> input_vec = game.tokenizeStr(input);
+  
+  if(input.size() > 1)
+  {
+    return -1;
+  }
+
+  input = input_vec.at(0);
+
+  try
+  {
+    index = std::stoi(input, nullptr, 10);
+  }
+  catch(const std::exception& e)
+  {
+    return -1;
+  }
+  
+  if(!game.inBetween(index, 1, 7))
+  {
+    return -1;
+  }
+  index--;
+
+  if(emptyField)
+  {
+    if(player->getGameField()[index] == nullptr)
+    {
+      return index;
+    }
+    else
+    {
+      return -1;
+    }
+  }
+  else
+  {
+    if(player->getGameField()[index] != nullptr)
+    {
+      return index;
+    }
+    else
+    {
+      return -1;
+    }
+  }
+        
+  return true;
 }

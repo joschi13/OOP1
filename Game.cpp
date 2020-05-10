@@ -79,7 +79,9 @@ bool Game::loadConfig(std::string config_file)
 
   std::string name;
   int mana_costs, damage_points, life_points;
-  bool found, shield, mana_drain; //speedy;
+  bool found, shield, mana_drain, speedy;
+  bool first_creature = true;
+  bool BONUS = false;
   const char *spell_name;
   SpellType type;
 
@@ -128,25 +130,40 @@ bool Game::loadConfig(std::string config_file)
     Value &temp = creatures[index];
     if (!temp.HasMember("name") || !temp.HasMember("mana_cost") ||
         !temp.HasMember("damage_points") || !temp.HasMember("life_points") ||
-        !temp.HasMember("shield") || !temp.HasMember("mana_drain") /*||
-        !temp.HasMember("speedy")*/)
+        !temp.HasMember("shield") || !temp.HasMember("mana_drain"))
     {
       io_.error(Oop::Interface::ERROR_INVALID_CONFIG);
       return false;
     }
 
+    if(first_creature)
+    {
+      if(temp.HasMember("speedy"))
+      {
+        BONUS = true;
+      }
+      first_creature = false;
+    }
+
     if ((temp["mana_cost"].IsInt()) && (temp["damage_points"].IsInt()) &&
         (temp["life_points"].IsInt()) && temp["shield"].IsBool() &&
         temp["mana_drain"].IsBool() && temp["name"].IsString() &&
-        /*temp["speedy"].IsBool() && */(temp.MemberCount() == 6))
+        (temp.MemberCount() == (BONUS ? 7 : 6)))
     {
+      if(BONUS)
+      {
+        if(!temp["speedy"].IsBool())
+        {
+          break;
+        }
+      }
       name = temp["name"].GetString();
       mana_costs = temp["mana_cost"].GetInt();
       damage_points = temp["damage_points"].GetInt();
       life_points = temp["life_points"].GetInt();
       shield = temp["shield"].GetBool();
       mana_drain = temp["mana_drain"].GetBool();
-      //speedy = temp["speedy"].GetBool();
+      speedy = BONUS ? temp["speedy"].GetBool() : false;
 
       if (!inBetween(mana_costs, 1, 15) ||
           !inBetween(damage_points, 0, 9) ||
@@ -158,7 +175,7 @@ bool Game::loadConfig(std::string config_file)
       }
 
       cur_card = new CreatureCard(name, mana_costs, damage_points,
-      life_points, shield, mana_drain, false);
+      life_points, shield, mana_drain, speedy);
 
       if (!checkOnCreatureEquality(cur_card))
       {
@@ -444,14 +461,17 @@ bool Game::playerCommandInput()
           continue;
         }
         SpellCard *card = dynamic_cast<SpellCard *>(players[cur_player]->getHandCards().at(size_t(x)));
-        card->action(*this);
+        if(card->action(*this))
+        {
+          players[cur_player]->eraseSpellHandCard(x);
+        }
         if(players[cur_player ^ 1]->getLifePoints() <= 0)
         {
           io_.out(Oop::Interface::OutputType::INFO, Oop::Interface::ENDLINE_PART_ONE +
             players[cur_player]->getName() + Oop::Interface::ENDLINE_PART_TWO);
           return false;
         }
-        players[cur_player]->eraseSpellHandCard(x);
+        
       }
        continue;
     }

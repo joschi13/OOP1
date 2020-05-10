@@ -47,6 +47,8 @@ namespace Oop
       
       int determineManaCosts(SpellType type);
 
+      int checkTraitorInput(Player* player, std::string msg, bool emptyField, Game& game);
+
     public:
       
       //------------------------------------------------------------------------

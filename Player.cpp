@@ -320,11 +320,6 @@ CreatureCard* Player::getGamefieldCreature(size_t index)
 
 bool Player::setCreatureControl(CreatureCard* creature, size_t index)
 {
-	if(game_field_[index] != nullptr)
-	{
-		return false;
-	}
-
 	game_field_[index] = creature;
 	return true;
 }

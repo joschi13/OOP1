@@ -87,8 +87,7 @@ namespace Oop
       
       int returnCurrentLifePoints() const;
 
-      void resetAttributes();
-      
+      void resetAttributes();      
       
   };
 }
