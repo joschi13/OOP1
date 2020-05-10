@@ -4,8 +4,8 @@
 // Group: Group 9, study assistant David Kerschbaumer 
 //
 // Authors: Michael Zweimüller 		11916150
-//			Martin Schachl 			11907003
-// 			Johannes Aigner			11907005
+//		    	Martin Schachl  			11907003
+// 		    	Johannes Aigner		  	11907005
 //------------------------------------------------------------------------------
 //
 
@@ -28,9 +28,9 @@ namespace Oop
   {
     private:
 
-      const int damage_points_;   // range 0-9
-      const int life_points_;     // range 1-9      
-      int current_life_points_;   // range 0-9      
+      const int damage_points_;  
+      const int life_points_;          
+      int current_life_points_;     
       const bool shield_;
       bool mana_drain_;
       bool ready_to_fight_;
@@ -60,6 +60,19 @@ namespace Oop
       //
       CreatureCard& operator=(const CreatureCard& original) = delete;
 
+      //------------------------------------------------------------------
+			// The reduceLifePoints function
+			// reducing life points by amount
+			//
+			void reduceLifePoints(int amount);
+      
+      //------------------------------------------------------------------
+			// The resetAttributes function
+			// resetting attributes current lifepoints, already attacked and
+      // ready to fight
+			//
+      void resetAttributes();      
+      
       //------------------------------------------------------------------------
       // Getter Methods
       //
@@ -76,19 +89,15 @@ namespace Oop
       bool getReadyToFight() const;
 
       bool getAlreadyAttacked() const;
-
+      
       bool getSpeedy() const;
 
-      void setAlreadyAttacked(bool rdy);
+      //------------------------------------------------------------------------
+      // Setter Methods
+      //
+      void setAlreadyAttacked(bool ready);
       
-      void setReadyToFight(bool rdy);
-
-      void reduceLifePoints(int amount);
-      
-      int returnCurrentLifePoints() const;
-
-      void resetAttributes();      
-      
+      void setReadyToFight(bool ready);
   };
 }
 

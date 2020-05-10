@@ -31,7 +31,8 @@ using std::string;   //*
 
 using Oop::Game;
 using Oop::Interface;
-using namespace rapidjson;
+using rapidjson::Value;
+
 
 const int ATT_X_MIN = 0;
 const int ATT_X_MAX = 7;
@@ -74,8 +75,8 @@ Game::~Game() noexcept
 //------------------------------------------------------------------------------
 bool Game::loadConfig(std::string config_file)
 {
-  Document doc;
-  SizeType index;
+  rapidjson::Document doc;
+  rapidjson::SizeType index;
 
   std::string name;
   int mana_costs, damage_points, life_points;
@@ -711,7 +712,7 @@ bool Game::checkForShield(long x) const
         return true;
       }
       
-      else if (x==i/*players[cur_player ^ 1]->getGameField()[x]->getShield()*/)   
+      else if (size_t(x)==i/*players[cur_player ^ 1]->getGameField()[x]->getShield()*/)   
       {
         return false;
       }

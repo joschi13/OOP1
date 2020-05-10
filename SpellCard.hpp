@@ -4,8 +4,8 @@
 // Group: Group 9, study assistant David Kerschbaumer 
 //
 // Authors: Michael Zweimüller 		11916150
-//			Martin Schachl 			11907003
-// 			Johannes Aigner			11907005
+//		    	Martin Schachl 		  	11907003
+// 		    	Johannes Aigner		  	11907005
 //------------------------------------------------------------------------------
 //
 
@@ -21,13 +21,15 @@ namespace Oop
 {
   class Card;
   class Game;
-  class CreatureCard;
 
+  //------------------------------------------------------------------------
+  // Enum for all given spellcards
+  //
   enum SpellType {HEALER, RELIEF, REBIRTH, DRACULA, TRAITOR};
 
   //----------------------------------------------------------------------------
   // SpellCard Class
-  // This class defines a creature card and provides setter and getter methodes
+  // This class defines a spell card, it's types and the function to cast it
   // 
   class SpellCard : public Card
   {
@@ -36,7 +38,7 @@ namespace Oop
       SpellType spell_type_;
 
       //------------------------------------------------------------------------
-      // The Card constructor functions
+      // The determine functions
       // determines Name/Mana Cost for a card with fixed values
       // 
       // @param spell type
@@ -47,7 +49,18 @@ namespace Oop
       
       int determineManaCosts(SpellType type);
 
-      int checkTraitorInput(Player* player, std::string msg, bool emptyField, Game& game);
+      //------------------------------------------------------------------------
+      // The checkTraitorInput functions
+      // Traitor spell: asks for playerinput, checks on input
+      // 
+      // @param player to ask, message for output, 
+      //        empty_field: true: check for nullptr false: check for creature,
+      //        reference to game
+      //
+      // @return gamefield index,  -1 if not accepted
+      //
+      int checkTraitorInput(Player* player, std::string msg, 
+        bool empty_field, Game& game);
 
     public:
       
@@ -80,7 +93,6 @@ namespace Oop
       // @return bool true: card needed to be deleted false: not needed
       //
       bool action(Game& game);
-      
   };
 }
 

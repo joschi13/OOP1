@@ -4,8 +4,8 @@
 // Group: Group 9, study assistant David Kerschbaumer 
 //
 // Authors: Michael Zweimüller 		11916150
-//			Martin Schachl 			11907003
-// 			Johannes Aigner			11907005
+//			    Martin Schachl 		  	11907003
+// 		    	Johannes Aigner		  	11907005
 //------------------------------------------------------------------------------
 //
 
@@ -115,35 +115,40 @@ bool SpellCard::action(Game& game)
       return true;
       
     case Oop::TRAITOR:
-      int getIndex = checkTraitorInput(other_player, Interface::TARGET_TRAITOR_SPELL, false, game);
-      if(getIndex < 0)
+      int get_index = checkTraitorInput(other_player, 
+        Interface::TARGET_TRAITOR_SPELL, false, game);
+      if(get_index < 0)
       {
         break;
       } 
-      int setIndex = checkTraitorInput(player, Interface::SET_TRAITOR_SPELL, true, game);
-      if(setIndex < 0)
-      {
-        break;
-      }
 
-      CreatureCard* creature = other_player->getGamefieldCreature(getIndex);
-      if(!player->setCreatureControl(creature, setIndex))
+      int set_index = checkTraitorInput(player, 
+        Interface::SET_TRAITOR_SPELL, true, game);
+      if(set_index < 0)
       {
         break;
       }
-      other_player->removeFromGameField(getIndex);
+      size_t get_idx = static_cast<size_t>(get_index);
+      size_t set_idx = static_cast<size_t>(set_index);
+
+      CreatureCard* creature = other_player->getGamefieldCreature(get_idx);
+      if(!player->setCreatureControl(creature, set_idx))
+      {
+        break;
+      }
+      other_player->removeFromGameField(get_idx);
       
       return true;
   }
   
   player->reduceMana(-determineManaCosts(spell_type_));
   io->out(Interface::INFO, Interface::WARNING_EXECUTION_NOT_POSSIBLE);
-
   return false;
 }
 
-
-int SpellCard::checkTraitorInput(Player* player, std::string msg, bool emptyField, Game& game)
+//------------------------------------------------------------------------------
+int SpellCard::checkTraitorInput(Player* player, std::string msg, 
+  bool empty_field, Game& game)
 {
   int index = 0;
   Interface* io = game.getInterface();
@@ -172,7 +177,7 @@ int SpellCard::checkTraitorInput(Player* player, std::string msg, bool emptyFiel
   }
   index--;
 
-  if(emptyField)
+  if(empty_field)
   {
     if(player->getGameField()[index] == nullptr)
     {

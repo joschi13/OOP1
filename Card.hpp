@@ -4,8 +4,8 @@
 // Group: Group 9, study assistant David Kerschbaumer 
 //
 // Authors: Michael Zweimüller 		11916150
-//			Martin Schachl 			11907003
-// 			Johannes Aigner			11907005
+//			    Martin Schachl 		  	11907003
+// 			    Johannes Aigner		  	11907005
 //------------------------------------------------------------------------------
 //
 
