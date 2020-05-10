@@ -530,10 +530,8 @@ bool Game::checkRanges(std::vector<std::string> arguments,
   size_t x = 0;
   size_t y = 0;
   std::istringstream xss(arguments[1]);
-  std::istringstream yss(arguments[3]);
-  xss >> x;
-  yss >> y;
   
+  xss >> x;
   if (arguments.size() <= 2)
   {
     return (!xss.fail() &&
@@ -543,6 +541,8 @@ bool Game::checkRanges(std::vector<std::string> arguments,
   
   else
   {
+    std::istringstream yss(arguments[3]);
+    yss >> y;
     return (!xss.fail() && 
             Game::inBetween(x, x_min, x_max) &&
             !strcasecmp(prep.c_str(), arguments[2].c_str()) &&
