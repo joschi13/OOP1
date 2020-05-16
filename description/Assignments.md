@@ -71,13 +71,23 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
 
 
 
+## Ausbesserungsbeispiel
+
+ - Voraussetzung: >=20 Punkte auf Assignment 1
+ - Aufgabe: Verbessern von Assignment 1
+ - Abgabe: 7. Juni
+ - Punkte wie bei Assignment 1. Die in Assignment 1 erreichten Punkte werden ersetzt.
+ - Teilnahme an Assignment 2 schließt Teilnahme am Ausbesserungsbeispiel aus.
+
+
+
 ## Assignment 2
 
+- Voraussetzung: >=40 Punkte auf Assignment 1
 - Ausgabe: <del>14.</del> <mark>21.</mark> Mai
 - Abgabe: <del>7.</del> <mark>14.</mark>Juni
 - 34 Punkte
-
-
+- Teilnahme am Ausbesserungsbeispiel schließt Teilnahme an Assignment 2 aus.
 
 
 
