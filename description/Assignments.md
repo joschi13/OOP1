@@ -21,7 +21,7 @@ Insgesamt gibt es 100 Punkte zu erreichen (+ 15 Bonuspunkte)
 
 
 
-Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der Tutoren, um am Ende nicht in Zeitstress zu geraten. Getestet und bewertet werden alle 3 Deliverables am Ende der Abgabefrist von Deliverable 3.
+Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der Tutoren, um am Ende nicht in Zeitstress zu geraten. Getestet und bewertet werden alle 3 Deliverables am Ende der Abgabefrist von Deliverable 3 (3.Mai 2020).
 
 
 
@@ -49,8 +49,8 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
 
 ### [Deliverable 3](Ass1_D3.md)
 
-- Abgabe: <del>3. Mai</del> <mark>10. Mai um 23:59 Uhr (in Österreich gültige Zeit)</mark>
-- Zeit: <del>6</del> <mark>7</mark> Wochen
+- Abgabe: 3. Mai
+- Zeit: 6 Wochen
 - Was ist zu tun:
   - Spiellogik implementieren
     - attack-Command
@@ -71,29 +71,19 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
 
 
 
-## Ausbesserungsbeispiel
-
- - Voraussetzung: >=20 Punkte auf Assignment 1
- - Aufgabe: Verbessern von Assignment 1
- - Abgabe: 7. Juni
- - Punkte wie bei Assignment 1. Die in Assignment 1 erreichten Punkte werden ersetzt.
- - Teilnahme an Assignment 2 schließt Teilnahme am Ausbesserungsbeispiel aus.
-
-
-
 ## Assignment 2
 
-- Voraussetzung: >=40 Punkte auf Assignment 1
-- Ausgabe: <del>14.</del> <mark>21.</mark> Mai
-- Abgabe: <del>7.</del> <mark>14.</mark>Juni
+- Ausgabe und Abgabe: siehe [Beschreibung von Assignment 2](description/Ass2.md)
 - 34 Punkte
-- Teilnahme am Ausbesserungsbeispiel schließt Teilnahme an Assignment 2 aus.
+  - Die Hälfte der Punkte ergibt sich aus der Funktionalität. Diese wird daran gemessen, wie gut Ihre KI gegenüber den KIs des LV-Teams abschneidet.
+  - Die zweite Hälfte der Punkte ergibt sich zu gleichen Teilen aus den anderen vier [Beurteilungskategorien](https://tc.tugraz.at/main/mod/page/view.php?id=82566).
 
 
 
-## Abschlusspräsentation
 
-Am 18. Juni
+## Abgabegespräche / Abschlusspräsentation
+
+Nach Assignment 2 bzw. dem Ausbesserungsbeispiel folgen Abgabegespräche. Es ist geplant, dass die Top10 Teams bei Assignment 2 am 25.6. eine kurze Abschlusspräsentation halten, in der sie erklären, wie ihre KI "denkt".
 
 
 
