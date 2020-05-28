@@ -71,6 +71,12 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
 
 
 
+## Ausbesserungsbeispiel
+
+- Punkte, Inhalt, Ausgabe und Abgabe: siehe [Beschreibung vom Ausbesserungsbeispiel](description/Ass2.md)
+
+
+
 ## Assignment 2
 
 - Ausgabe und Abgabe: siehe [Beschreibung von Assignment 2](description/Ass2.md)
