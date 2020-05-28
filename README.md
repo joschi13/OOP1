@@ -8,9 +8,9 @@ Assignment 1:
 - [Deliverable 2](description/Ass1_D2.md)
 - [Deliverable 3](description/Ass1_D3.md)
 
-Assignment 2:
+Nach Assignment 1:
 
-- in progress ...
+- [Ausbesserung oder Assignment 2](description/Ass2.md)
 
 
 # Allgemeine Spielbeschreibung
@@ -142,15 +142,15 @@ Ein Spieler kann maximal 15 Mana besitzen; mehr erhaltenes Mana wird verworfen. 
 | Runde | Mana erhalten | Manavorrat Zugbeginn | verbraucht in diesem Zug | Manavorrat Zugende |
 | ----- | ------------- | -------------------- | ------------------------ | ------------------ |
 | Start |               |                      |                          | 0                  |
-| 0.    | 1             | 1                    | 0                        | 1                  |
-| 1.    | 2             | 3                    | 0                        | 3                  |
-| 2.    | 4             | 7                    | 3                        | 4                  |
-| 3.    | 8             | 12                   | 5                        | 7                  |
-| 4.    | 8             | 15                   | 3                        | 12                 |
-| 5.    | 8             | 15 (wegen Maximum)   | 2                        | 13                 |
-| 6.    | 8             | 15 (wegen Maximum)   | 13                       | 2                  |
+| 1.    | 1             | 1                    | 0                        | 1                  |
+| 2.    | 2             | 3                    | 0                        | 3                  |
+| 3.    | 4             | 7                    | 3                        | 4                  |
+| 4.    | 8             | 12                   | 5                        | 7                  |
+| 5.    | 8             | 15                   | 3                        | 12                 |
+| 6.    | 8             | 15 (wegen Maximum)   | 2                        | 13                 |
+| 7.    | 8             | 15 (wegen Maximum)   | 13                       | 2                  |
 
-Zauber- und Kreatur-Karten haben Manakosten im Bereich 0-15. <mark>Der Rundenzähler beginnt bei 0</mark>
+Zauber- und Kreatur-Karten haben Manakosten im Bereich 0-15.
 
 ### Abheben
 
@@ -171,11 +171,3 @@ Details zu den [Fehlermeldungen](description/ErrorDescription.md)
 ## Bonuspunkte
 
 Details unter Bonus im [Deliverable 3](description/Ass1_D3.md)
-
-## Beispielausgabe
-
-Ein spektakulärer Wettkampf unter [Beispielausgabe](description/GameplayExample.md)
-
-## GUI
-
-Infos für die GUI unter [GUI](description/GUI.md)
