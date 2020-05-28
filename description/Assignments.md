@@ -73,7 +73,9 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
 
 ## Ausbesserungsbeispiel
 
-- Punkte, Inhalt, Ausgabe und Abgabe: siehe [Beschreibung vom Ausbesserungsbeispiel](description/Ass2.md)
+- Inhalt, Ausgabe und Abgabe: siehe [Beschreibung vom Ausbesserungsbeispiel](description/Ass2.md)
+- Erreichbare Punkte: wie bei Assignment 1
+- Die beim Ausbesserungsbeispiel erreichten Punkte werden **nicht** zu den bei Assignment 1 erreichten Punkten dazugezählt, sondern **ersetzen** die bei Assignment 1 erreichten Punkte.
 
 
 
