@@ -87,7 +87,8 @@ Jeder erfolgreich ausgeführte Befehl im Zuge des `play`-Befehls muss in folgend
 
 Es werden **zuerst** alle Befehle (ohne irgendwelche Zwischenausgaben) aufgelistet und erst danach werden sie ausgeführt.
 
-**ACHTUNG**, es ist der KI **nicht** erlaubt, die Handkarten oder den Abhebestapel des Gegners abzufragen! (Das heißt, die KI darf nicht schummeln!)
+**ACHTUNG**, es ist der KI **nicht** erlaubt, die Karten des eigenen und gegnerischen Abhebestapels auszelesen! Gleiches gilt für die gegnerischen Handkarten! (Das heißt, die KI darf nicht schummeln!)
+Die KI darf allerdings die Größe von Abhebestapeln abfragen. Außerdem gibt es eine Sonderregelung für den Zauber `Relief` (siehe unten).
 
 Der `play` Befehl darf nicht mehr als 3 Sekunden Berechnungszeit benötigen.
 
@@ -139,6 +140,22 @@ D   |      |   |      |   |      |   |      |   |      |   |      |   |      |  
 ==================================================================================
 player2 >
 ```
+
+###### Behandlung des Relief-Befehls
+Beim Zauber `Relief` erhält der ziehende Spieler zusätzliche Karten.
+Einem menschlichen Spieler ist es möglich, nach dem Erhalt zusätzlicher Karten seine Strategie für den restlichen Teil des Zuges zu überdenken.
+Nach den obigen Regeln (alle Befehle eines Zuges müssen von vornherein bestimmt werden und Betrachten der Karten am Abhebestapel ist verboten),
+könnte die KI die Information über die neuen Karten nicht nutzen.
+Damit eine KI die gleichen Voraussetzungen hat wie ein menschlicher Spieler, gibt es für den Zauber `Relief` die folgende Ausnahmeregel.
+Wenn `Relief` ausgespielt wird, werden die Befehle, die die KI bestimmt, in zwei Blöcken ausgeben.
+Im ersten Block werden die ersten Befehle des Zuges ausgegeben, wobei der letzte Befehl der `Relief`-Zauber ist.
+Dann werden diese Befehle ausgeführt.
+Anschließend wird ein zweiter Block an Befehlen - mit der Information über die gezogenen Karten - berechnet und ausgegeben.
+Dieser Befehlsblock beschreibt die Fortsetzung des Zuges.
+Der zweite Befehlsblock wird ebenfalls zur Gänze ausgegeben und erst dann ausgeführt.
+Wird der `Relief`-Befehl in einem Zug nicht ausgespielt, so kommt die eben beschriebene Ausnahmeregelung nicht zum Tragen
+(das heißt, in diesem Fall gibt es nur einen Befehlsblock).
+
 
 ##### whoami
 
