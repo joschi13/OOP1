@@ -86,6 +86,7 @@ Jeder erfolgreich ausgeführte Befehl im Zuge des `play`-Befehls muss in folgend
 ```
 
 Es werden **zuerst** alle Befehle (ohne irgendwelche Zwischenausgaben) aufgelistet und erst danach werden sie ausgeführt.
+<mark>Edit: Es ist nun auch erlaubt, *einzelne* Befehle abwechselnd auszugeben und auszuführen. Beispiel: Ausgabe von Befehl 1, Ausführung von Befehl 1, Ausgabe von Befehl 2, Ausführung von Befehl 2, und so weiter... Das macht auch die Ausnahmeregelung für den `Relief`-Zauber (siehe unten) überflüssig.</mark>
 
 **ACHTUNG**, es ist der KI **nicht** erlaubt, die Karten des eigenen und gegnerischen Abhebestapels auszelesen! Gleiches gilt für die gegnerischen Handkarten! (Das heißt, die KI darf nicht schummeln!)
 Die KI darf allerdings die Größe von Abhebestapeln abfragen. Außerdem gibt es eine Sonderregelung für den Zauber `Relief` (siehe unten).
