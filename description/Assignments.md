@@ -74,7 +74,7 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
 ## Ausbesserungsbeispiel
 
 - Inhalt, Ausgabe und Abgabe: siehe [Beschreibung vom Ausbesserungsbeispiel](description/Ass2.md)
-- Erreichbare Punkte: wie bei Assignment 1
+- Erreichbare Punkte: wie bei Assignment 1 (auch die Bonuspunkte von Assignment 1 sind erreichbar)
 - Die beim Ausbesserungsbeispiel erreichten Punkte werden **nicht** zu den bei Assignment 1 erreichten Punkten dazugezählt, sondern **ersetzen** die bei Assignment 1 erreichten Punkte.
 
 
@@ -86,7 +86,15 @@ Die Abgabezeitpunkte für Deliverable 1 und Deliverable 2 sind Empfehlungen der 
   - Die Hälfte der Punkte ergibt sich aus der Funktionalität. Diese wird daran gemessen, wie gut Ihre KI gegenüber den KIs des LV-Teams abschneidet.
   - Die zweite Hälfte der Punkte ergibt sich zu gleichen Teilen aus den anderen vier [Beurteilungskategorien](https://tc.tugraz.at/main/mod/page/view.php?id=82566).
 
-
+### Bonuspunkte bei Assignment 2
+- Ursprüngliche Angabe
+  - Wer die KI nach der ursprünglichen Angabe (zuerst werden alle Befehle ausgegeben und erst dann werden diese Befehle umgesetzt) implementiert, bekommt Bonuspunkte.
+  - Voraussetzung: Eine Datei namens `bonus_old_task_description` (kann leer sein) in der Abgabe.
+  - Punkte: 3
+- KI mit Bonus-Task-Karten
+  - Wir lassen die stärksten KIs zusätzlich mit Karten aus dem Bonus-Task von Assignment 1 gegeneinander antreten. Die stärksten Teams im Wettkampf mit Bonus-Task-Karten bekommen Bonuspunkte.
+  - Punkte: 3, 2 bzw. 1 für die ersten drei Plätze
+  - Wer nicht um diese Bonuspunkte spielen will, kann davon ausgehen, dass die Config-Files keine Bonuskarten enthalten.
 
 
 ## Abgabegespräche / Abschlusspräsentation
