@@ -8,9 +8,9 @@ Assignment 1:
 - [Deliverable 2](description/Ass1_D2.md)
 - [Deliverable 3](description/Ass1_D3.md)
 
-Assignment 2:
+Nach Assignment 1:
 
-- in progress ...
+- [Ausbesserung oder Assignment 2](description/Ass2.md)
 
 
 # Allgemeine Spielbeschreibung
@@ -175,3 +175,7 @@ Details unter Bonus im [Deliverable 3](description/Ass1_D3.md)
 ## Beispielausgabe
 
 Ein spektakulärer Wettkampf unter [Beispielausgabe](description/GameplayExample.md)
+
+## GUI
+
+Infos für die GUI unter [GUI](description/GUI.md)
